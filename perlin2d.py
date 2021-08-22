@@ -4,9 +4,12 @@ import random
 import numpy as np
 from PIL import Image
 
+DEBUG = False
 
 # Helper class
 class Vector2d:
+    """ A 2d vector objects holding an X and Y value.
+    """
     def __init__(self, Coordinates):
         self.x = Coordinates[0]
         self.y = Coordinates[1]
@@ -15,6 +18,20 @@ class Vector2d:
 
 # Returns the dotprocut of two vectors.
 def getdotproduct(vector1, vector2):
+    """Takes two vectors as inteable objects and returns the caluclated.
+    Dot product of the two. The vectors must be of equal dimension or an
+    Exception is raised.
+
+    Args:
+        vector1 (iterable list): Vector 1
+        vector2 (iterable list): Vector 2
+
+    Raises:
+        Exception: If vectors are not of equal dimension an error is raised.
+
+    Returns:
+        float: Returns the dot product of the two vectors
+    """
     if len(vector1) != len(vector2):
         raise Exception('Vectors are not of equal dimension')
     
@@ -26,11 +43,34 @@ def getdotproduct(vector1, vector2):
 
 # Smooth a value with 6t⁵-15t⁴+10t³
 def fade(t: float) -> float:
+    """fade(t) = 6t⁵-15t⁴+10t³
+    Smoothing function for the interpolation fractions. This is to prevent
+    a repeated "box" pattern in the perlin noise.
+
+    Args:
+        t (float): The fractional X or Y value to be faded/smoothed
+
+    Returns:
+        float: The smoothed value
+    """
     return (t*t*t*(t*(t*6-15)+10))
 
 
 # Interpolate (Lerp)
 def mylerp(d1:float, d2:float, d3:float, d4:float, fracx: float, fracy: float) -> float:
+    """Takes four dot products and applies linear interpolation between them.
+
+    Args:
+        d1 (float): Dot product one
+        d2 (float): Dot product two
+        d3 (float): Dot product three
+        d4 (float): Dot product four
+        fracx (float): [Weight of which X value to take the majority from]
+        fracy (float): [Weight if which Y value to take the majority from]
+
+    Returns:
+        float: [The interpolation of the four dot products]
+    """
     d13 = d1+fracx*(d3-d1)
     d24 = d2+fracx*(d4-d2)
     d = d13+fracy*(d24-d13)
@@ -39,7 +79,6 @@ def mylerp(d1:float, d2:float, d3:float, d4:float, fracx: float, fracy: float) -
 
 # Create a gradient vector permutation grid
 sqrt_2 = math.sqrt(2)
-
 perm_table = [(-1/sqrt_2,-1/sqrt_2), (-1,0), (-1/sqrt_2,1/sqrt_2), (0,-1), (0,1), (1/sqrt_2,-1/sqrt_2),(1,0),(1/sqrt_2,1/sqrt_2)]
 
 #fill a vector table
@@ -47,23 +86,33 @@ vect_table = []
 for perm in perm_table:
     vect_table.append(Vector2d(perm))
 
-# Create a 2D gradient grid with random vectors from the permutation table
-grid_width = 1000
-grid_height = 1000
-
-gradient_vector_grid = []
-
-for x in range(grid_width):
-    temp = []
-
-    for y in range(grid_height):
-        temp.append(random.choice(vect_table))
-    gradient_vector_grid.append(temp)
-
 
 def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
+    """Creates an array of perlin noise with set dimensions and detail.
+
+    Args:
+        width (int): Width of the returned array
+        height (int): Height of the returned array
+        detail (int, optional): Higher means higher frequency. Defaults to 1.
+        octaves (int, optional): Gives a fractal look. Defaults to 1.
+
+    Returns:
+        [Array]: [Array of perlin noise values between 0-1]
+    """
     det = detail*0.001
     noisearray = np.zeros((width, height))
+
+    # Create a 2D gradient grid with random vectors from the permutation table
+    grid_width = width * det * (2**octaves)
+    grid_height = height * det * (2**octaves)
+    gradient_vector_grid = []
+
+    for x in range(grid_width):
+        temp = []
+
+        for y in range(grid_height):
+            temp.append(random.choice(vect_table))
+        gradient_vector_grid.append(temp)
 
     for oct in range(1,octaves+1):
         effect = 1/2**oct
@@ -107,18 +156,18 @@ def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
 
     return noisearray
 
+if DEBUG:
+    # Generation settings
+    width = 1000
+    height = 1000
+    detail = 1
+    octave = 4
 
-# Generation settings
-width = 1000
-height = 1000
-detail = 1
-octave = 4
+    perlin2d_array = perlin2d(width, height, detail, octave)
 
-perlin2d_array = perlin2d(width, height, detail, octave)
+    # Scale every point up by 255 (0-255 for white levels in an image array)
+    formatted = (perlin2d_array * 255).astype('uint8')
 
-# Scale every point up by 255 (0-255 for white levels in an image array)
-formatted = (perlin2d_array * 255).astype('uint8')
-
-# Use Pillow to create an image
-img = Image.fromarray(formatted)
-img.show()
+    # Use Pillow to create an image
+    img = Image.fromarray(formatted)
+    img.show()
