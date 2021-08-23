@@ -103,8 +103,8 @@ def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
     noisearray = np.zeros((width, height))
 
     # Create a 2D gradient grid with random vectors from the permutation table
-    grid_width = width * det * (2**octaves)
-    grid_height = height * det * (2**octaves)
+    grid_width = math.ceil(width * det * (2**octaves))
+    grid_height = math.ceil(height * det * (2**octaves))
     gradient_vector_grid = []
 
     for x in range(grid_width):
