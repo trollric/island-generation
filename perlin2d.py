@@ -4,7 +4,6 @@ import random
 import numpy as np
 from PIL import Image
 
-DEBUG = False
 
 # Helper class
 class Vector2d:
@@ -97,26 +96,26 @@ def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
         octaves (int, optional): Gives a fractal look. Defaults to 1.
 
     Returns:
-        [Array]: [Array of perlin noise values between 0-1]
+        [Array]: [Numpy array of perlin noise values between 0-1]
     """
-    det = detail*0.001
+    detail = detail*0.001
     noisearray = np.zeros((width, height))
 
     # Create a 2D gradient grid with random vectors from the permutation table
-    grid_width = math.ceil(width * det * (2**octaves))
-    grid_height = math.ceil(height * det * (2**octaves))
+    grid_width = math.ceil(width * detail * (2**octaves))
+    grid_height = math.ceil(height * detail * (2**octaves))
     gradient_vector_grid = []
 
-    for x in range(grid_width):
+    for x in range(grid_width+1):
         temp = []
 
-        for y in range(grid_height):
+        for y in range(grid_height+1):
             temp.append(random.choice(vect_table))
         gradient_vector_grid.append(temp)
 
     for oct in range(1,octaves+1):
         effect = 1/2**oct
-        step = det * 2**oct
+        step = detail * 2**oct
         for x in range(width):
             for y in range(height):
                 # Get the four surrounding vectors      - OBS needs to be e.g. x*step floored
@@ -156,7 +155,7 @@ def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
 
     return noisearray
 
-if DEBUG:
+if __name__ == "__main__":
     # Generation settings
     width = 1000
     height = 1000
