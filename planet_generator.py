@@ -182,17 +182,15 @@ def world_image_creation(world_array, upp_serial=None):
     # TODO: Add stations etc flying around the planet (Station at first but in later versions
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
+    # TODO: return the planet image.
 
+def main():
+    # Create a perlin array
+    width = 500
+    height = 500
+    detail = 3
+    octave = 8
 
-
-# Create a perlin array
-width = 500
-height = 500
-detail = 3
-octave = 8
-
-
-if __name__ == "__main__":
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)
 
     # Scale every point up by 255 (0-255 for white levels in an image array)
@@ -201,3 +199,7 @@ if __name__ == "__main__":
     # Use Pillow to create an image
     img = Image.fromarray(formatted)
     img.show()
+
+
+if __name__ == "__main__":
+    main()
