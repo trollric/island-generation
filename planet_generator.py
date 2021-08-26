@@ -30,7 +30,7 @@ def color_array(height_array, color_palette):
 
     # Check that data type is correct
     if not isinstance(height_array, np.ndarray):
-        raise ValueError('The provided array is not a numpy array.')
+        raise TypeError('The provided array is not a numpy array.')
 
     # Create an empty copy of array
     array_colored = np.zeros(height_array.shape + (3,))
@@ -47,6 +47,35 @@ def color_array(height_array, color_palette):
 
 
 def create_color_palette(upp_dict):
+    # Ensure the upp_dict is a dictionary
+    if not isinstance(upp_dict, dict):
+        raise TypeError('The provided variable is not a dictionary.')
+    palette = {}
+    # Different levels in every palette
+    # Water, Sand, Land, Mountain, mountain top, atmosphere
+    # 1. Determine sea type and level
+    #   1.a Could be canyons with depth instead
+    #   1.b Or lava if dry and hot
+
+    # 2. Determine sandlevel
+    # 3. Determine Landtype and level
+    # 4. Determine mountain color and level
+    # 5. Determine mountain tops if any
+    # 6. Determine color of atmosphere
+    #       blue is breathable, (different alpha levels for thin, standard, dense)
+
+    # Examples
+    # Earthlike
+    #   level 6 standard atmosphere
+    #   level 7 66-75% hydrographic level Earth-like
+    #   level 5-9 temperature (temperate)
+    #   size 8
+
+    # mars like
+    #   size 5
+    #   level 1 trace atmosphere
+    #   level 0 0-5% hydrograhpic level - dessert world
+    #   level 0 temperature frigid world
     pass
 
 
@@ -79,7 +108,7 @@ def upp_to_dict(upp_string):
     """
 
     if not isinstance(upp_string, str):
-        raise ValueError('An UPP string must be of type string.')
+        raise TypeError('An UPP string must be of type string.')
     
     # remove the hyphen between law and tech level
     upp_string.replace('-', '')
@@ -140,6 +169,19 @@ def world_image_creation(world_array, upp_serial=None):
     # Clean the data and sort into a dictionary 
     universal_planet_profile = upp_to_dict(upp_serial)
 
+    # TODO: Depending on geology use different sets of colors
+    geology_palette = create_color_palette(universal_planet_profile)
+
+    # TODO: Paint a colored image
+    # TODO: Depending on planet size change the radius
+    # TODO: Depending on atmosphear add an outer radious representing type and density
+    # blue for standard (thin, medium, dense gets different alpha gradients)
+    # corrosive - green
+    # tainted - brown
+    # insidious - purple)
+    # TODO: Add stations etc flying around the planet (Station at first but in later versions
+    # add for extras such as scout, military, TAS etc
+    # TODO: Implement some kind of clouds hovering above the planet
 
 
 
@@ -152,14 +194,6 @@ octave = 8
 
 if __name__ == "__main__":
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)
-
-
-
-    # TODO: Depending on geology use different sets of colors
-    # TODO: Depending on planet size change the radius
-    # TODO: Depending on atmosphear add an outer radious representing the "Size"
-    # TODO: Depending on population 
-
 
     # Scale every point up by 255 (0-255 for white levels in an image array)
     formatted = (perlin2d_array * 255).astype('uint8')
