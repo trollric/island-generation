@@ -6,11 +6,6 @@ import random
 from PIL import Image
 
 
-# Constants
-colors = {  'water':        [0, 128, 255],
-            'forest':       [0, 204, 0],
-            'sand':         [255, 227, 112],
-            'mountain':     [128, 128, 128]}
 
 # Helper functions
 def color_array(height_array, color_palette):
