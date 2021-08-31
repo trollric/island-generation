@@ -3,6 +3,7 @@
 import perlin2d as perlin
 import numpy as np
 import random
+import colors
 from PIL import Image
 
 
@@ -45,18 +46,122 @@ def create_color_palette(upp_dict):
     # Ensure the upp_dict is a dictionary
     if not isinstance(upp_dict, dict):
         raise TypeError('The provided variable is not a dictionary.')
-    palette = {}
-    # Different levels in every palette
-    # Water, Sand, Land, Mountain, mountain top, atmosphere
-    # 1. Determine sea type and level
-    #   1.a Could be canyons with depth instead
-    #   1.b Or lava if dry and hot
+    
+    # Palette is a list containing touples with color, height_level, legend name information.
+    # Ex. ('dark_magenta', 0.4, 'canyon')
+    palette = []
 
-    # 2. Determine sandlevel
-    # 3. Determine Landtype and level
-    # 4. Determine mountain color and level
-    # 5. Determine mountain tops if any
-    # 6. Determine color of atmosphere
+    # Different colors for different land types. 
+    land_types = {  'lava':['red'],
+                    'ice':['aqua','aqua_marine'],
+                    'water':['navy','dark_blue'],
+                    'canyon':['purple', 'dark_magenta','dark_slate_gray','maroon'],
+                    'sand': ['crimson', 'salmon', 'tomato','sandy_brown', 'peach_puff','violet', 'orchid','plum'],
+                    'snow':['snow', 'ivory', 'ghost_white'],
+                    'mountain':['scienna','dark_grey','grey','dim_grey','hot_pink','medium_violet_red', 'magenta'],
+                    'land':['forest_green', 'dark_green', 'olive_drab','spring_green','medium_orchid'],
+                    'barren_land':['scienna', 'saddle_brown', 'dark_golden_rod'],
+                    'volcano': ['red']}
+
+    # Create different land compositions for different world types.                   
+    # if frozen, cold, temperate
+    desert_world = ['canyon', 'sand', 'mountain']
+
+    # if boiling
+    desert_lava_world = ['lava', 'sand', 'mountain', 'volcano']
+
+    # normal
+    dry_world = ['water', 'sand', 'land', 'mountain']
+
+    # If boiling
+    dry_lava_world = ['lava', 'sand', 'land', 'mountain', 'volcano']
+
+    # if freezing
+    dry_ice_world = ['ice', 'sand', 'land', 'mountain','snow']
+
+    # if not supporting life special atmosphere etc.
+    barren_world = ['water', 'sand', 'barren_land', 'mountain', 'snow']
+
+    # if freezing
+    barren_ice_world = ['ice', 'sand', 'barren_land', 'mountain', 'snow']
+
+    # if boiling
+    barren_lava_world = ['canyon', 'barren_land', 'mountain','volcano']
+
+    # life supporting worlds. peaks are ice.
+    garden = ['water', 'sand', 'land', 'mountain', 'snow']
+    garden_ice = ['ice', 'snow','mountain','snow']
+    garden_hot = ['water', 'sand', 'land', 'mountain']
+    garden_lava = ['water', 'sand', 'land', 'mountain','volcano']
+
+    # garden worlds when freezing. Water is ice. no sand, land is snow. mountains are rock. Peaks are ice
+    ice_world = ['ice', 'snow']
+    water_world = ['water']
+    water_lava_world = ['water', 'sand', 'mountain', 'volcano']
+
+
+    # The array to be creted from
+    world = []
+
+    if upp_dict.get('hydrographic_percentage') == 0:
+        if upp_dict.get('temperature') == 'boiling':
+            world = desert_lava_world
+
+        else:
+            world = desert_world
+
+    elif upp_dict.get('hydrographic_percentage') >= 1 and upp_dict.get('hydrographic_percentage') < 4:
+        if upp_dict.get('temperature') == 'frozen':
+            world = dry_ice_world
+
+        elif upp_dict.get('temperature') == 'cold':
+            world = dry_ice_world
+
+        elif upp_dict.get('temperature') == 'temperate':
+            world = dry_world
+
+        elif upp_dict.get('temperature') == 'hot':
+            world = dry_world
+
+        elif upp_dict.get('temperature') == 'boiling':
+            world = dry_lava_world
+
+    elif upp_dict.get('hydrographic_percentage') >= 4 and upp_dict.get('hydrographic_percentage') < 10:
+        if upp_dict.get('temperature') == 'frozen':
+            world = garden_ice
+
+        elif upp_dict.get('temperature') == 'cold':
+            world = garden
+
+        elif upp_dict.get('temperature') == 'temperate':
+            world = garden
+
+        elif upp_dict.get('temperature') == 'hot':
+            world = garden_hot
+
+        elif upp_dict.get('temperature') == 'boiling':
+            world = garden_lava
+
+    elif upp_dict.get('hydrographic_percentage') == 10:
+        if upp_dict.get('temperature') == 'frozen':
+            world = ice_world
+        elif upp_dict.get('temperature') == 'cold':
+            world = ice_world
+        elif upp_dict.get('temperature') == 'temperate':
+            world = water_world
+        elif upp_dict.get('temperature') == 'hot':
+            world = water_world
+        elif upp_dict.get('temperature') == 'boiling':
+            world = water_lava_world
+
+    
+    # 2. Calculate heights.
+    # percentages would work best. Hydrographic 3 would be 0.35 (35%).
+    # The rest of the values should be a distribution of these values.
+    # Example dry world may be 40% sand. If hydrograhic percentage is 3 => 0.35 the height of sand
+    # Should be (1-0.35)*0.4 + previous height level. 1-0.35 = 0.65. 0.65*0.4 = 0.26. 0.35+0.26 = 0.61
+
+    # 3. Determine color of atmosphere
     #       blue is breathable, (different alpha levels for thin, standard, dense)
 
     # Examples
@@ -71,7 +176,6 @@ def create_color_palette(upp_dict):
     #   level 1 trace atmosphere
     #   level 0 0-5% hydrograhpic level - dessert world
     #   level 0 temperature frigid world
-    pass
 
 
 def upp_to_dict(upp_string):
@@ -86,7 +190,7 @@ def upp_to_dict(upp_string):
     Goverment type 0-F
     Law level 0-F
     Tech level 0-F
-    Temperature 0-4
+    Temperature frozen, cold, temperate, hot, boiling
     Observe that temperature is no included in the upp-string but calculated randomly 
     in conjuntion with atmosphere
     Example. Earth = A867949-D
@@ -105,8 +209,8 @@ def upp_to_dict(upp_string):
     if not isinstance(upp_string, str):
         raise TypeError('An UPP string must be of type string.')
     
-    # remove the hyphen between law and tech level
-    upp_string.replace('-', '')
+    # Since Tech level is not hexadecimal. Split the array and handle tech level separately.
+    upp_string, tech_level = upp_string.split('-')
 
     # Create a ditionary with name and int value pairs.
     upp_variables = [   'starport_quality',
@@ -115,12 +219,14 @@ def upp_to_dict(upp_string):
                         'hydrographic_percentage',
                         'population',
                         'government_type',
-                        'law_level',
-                        'tech_level']
+                        'law_level']
     
     upp_dict = {}
     for variable_name, upp_value in zip(upp_variables, upp_string):
         upp_dict.update({variable_name : int(upp_value, 16)})
+
+    # Handle tech level seperately
+    upp_dict.update({'tech_level': int(tech_level)})
     
     # Moongose traveler 2e Core rulebook P.219 generate temperature by rolling two six sided die
     # and adding a modifier provided by planetary atmosphere (corresponding tothe dictionary below) 
@@ -146,7 +252,16 @@ def upp_to_dict(upp_string):
     dice += random.randint(1,6)
     temperature_score = dice + temperature_modifier.get(upp_dict.get('atmosphere_type'))
     
-    upp_dict.update({'temperature' : temperature_score})
+    if temperature_score <=2:
+        upp_dict.update({'temperature':'frozen'})
+    elif temperature_score <=4:
+        upp_dict.update({'temperature':'cold'})
+    elif temperature_score <=9:
+        upp_dict.update({'temperature':'temperate'})
+    elif temperature_score <=11:
+        upp_dict.update({'temperature':'hot'})
+    elif temperature_score >=12:
+        upp_dict.update({'temperature':'boiling'})
 
     return upp_dict
 
