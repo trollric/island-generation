@@ -32,17 +32,33 @@ def color_array(height_array, color_palette):
     array_colored = np.zeros(height_array.shape + (3,))
     height_lower_limit = 0
 
-    for color, height_upper_limit in color_palette:
+    for color, height_upper_limit, _ in color_palette:
         for x, y in height_array.shape:
             if height_array[x][y] <= height_upper_limit and height_array[x][y] > height_lower_limit:
                 array_colored[x][y] = color
 
-        height_lower_limit += height_upper_limit
+        height_lower_limit = height_upper_limit
     
     return array_colored
 
 
 def create_color_palette(upp_dict):
+    """Takes a Universal Planetary Profile dictionary and determins which
+    color, height level and land type has the corresponding color. The result is returned as a list
+    of touples.
+    E.g. ([0,0,255], 0.4, 'Water')
+
+    Args:
+        upp_dict (dictionary): Has all the UPP information stored inside.
+
+    Raises:
+        TypeError: If the provided type is not a dictionary raise an exception
+
+    Returns:
+        list of touples: Returns a list with touples with the format
+        (RGB_Data, float: height level,String: landtype)
+        E.g. ([0,0,255], 0.4, 'Water')
+    """
     # Ensure the upp_dict is a dictionary
     if not isinstance(upp_dict, dict):
         raise TypeError('The provided variable is not a dictionary.')
@@ -65,43 +81,41 @@ def create_color_palette(upp_dict):
 
     # Create different land compositions for different world types.                   
     # if frozen, cold, temperate
-    desert_world = ['canyon', 'sand', 'mountain']
+    desert_world = [['canyon', 'sand', 'mountain'],[0.15, 0.8, 0.2]]
 
     # if boiling
-    desert_lava_world = ['lava', 'sand', 'mountain', 'volcano']
+    desert_lava_world = [['lava', 'sand', 'mountain', 'volcano'],[0.15, 0.8, 0.15, 0.05]]
 
     # normal
-    dry_world = ['water', 'sand', 'land', 'mountain']
+    dry_world = [['water', 'sand', 'land', 'mountain'],[None, 0.4, 0.4, 0.2]]
 
     # If boiling
-    dry_lava_world = ['lava', 'sand', 'land', 'mountain', 'volcano']
+    dry_lava_world = [['lava', 'sand', 'land', 'mountain', 'volcano'],[None, 0.4, 0.4, 0.15, 0.05]]
 
     # if freezing
-    dry_ice_world = ['ice', 'sand', 'land', 'mountain','snow']
+    dry_ice_world = [['ice', 'sand', 'land', 'mountain','snow'],[None, 0.4, 0.4, 0.15, 0.05]]
 
     # if not supporting life special atmosphere etc.
-    barren_world = ['water', 'sand', 'barren_land', 'mountain', 'snow']
-
-    # if freezing
-    barren_ice_world = ['ice', 'sand', 'barren_land', 'mountain', 'snow']
-
-    # if boiling
-    barren_lava_world = ['canyon', 'barren_land', 'mountain','volcano']
+    barren_world = [['water', 'sand', 'barren_land', 'mountain', 'snow'],[None, 0.10, 0.60, 0.20, 0.10]]
+    barren_ice_world = [['ice', 'sand', 'barren_land', 'mountain', 'snow'],[None, 0.10, 0.60, 0.20, 0.10]]
+    barren_hot_world = [['water', 'sand', 'barren_land', 'mountain'],[None, 0.10, 0.60, 0.30]]
+    barren_lava_world = [['lava', 'barren_land', 'mountain','volcano'],[None, 0.6, 0.35, 0.05]]
 
     # life supporting worlds. peaks are ice.
-    garden = ['water', 'sand', 'land', 'mountain', 'snow']
-    garden_ice = ['ice', 'snow','mountain','snow']
-    garden_hot = ['water', 'sand', 'land', 'mountain']
-    garden_lava = ['water', 'sand', 'land', 'mountain','volcano']
+    garden = [['water', 'sand', 'land', 'mountain', 'snow'],[None, 0.05, 0.60, 0.30, 0.05]]
+    garden_ice = [['ice', 'snow','mountain','snow'],[None, 0.65, 0.30, 0.05]]
+    garden_hot = [['water', 'sand', 'land', 'mountain'],[None, 0.10, 0.55, 0.35]]
+    garden_lava = [['water', 'sand', 'land', 'mountain','volcano'],[None, 0.20, 0.45, 0.30, 0.05]]
 
     # garden worlds when freezing. Water is ice. no sand, land is snow. mountains are rock. Peaks are ice
-    ice_world = ['ice', 'snow']
-    water_world = ['water']
-    water_lava_world = ['water', 'sand', 'mountain', 'volcano']
+    ice_world = [['ice', 'snow'],[0.95, 0.05]]
+    water_world = [['water'],[1.00]]
+    water_lava_world = [['water', 'sand', 'mountain', 'volcano'],[0.95, 0.45, 0.50, 0.05]]
 
 
-    # The array to be creted from
-    world = []
+    # World array [[land_type],[percentage]] if percentage none the height will be determined from
+    # hydrographic percentage
+    world = [[],[]]
 
     if upp_dict.get('hydrographic_percentage') == 0:
         if upp_dict.get('temperature') == 'boiling':
@@ -128,19 +142,34 @@ def create_color_palette(upp_dict):
 
     elif upp_dict.get('hydrographic_percentage') >= 4 and upp_dict.get('hydrographic_percentage') < 10:
         if upp_dict.get('temperature') == 'frozen':
-            world = garden_ice
+            if upp_dict.get('atmosphere_type') >= 10 and upp_dict.get('atmosphere_type') <= 12:
+                world = barren_ice_world
+            else:
+                world = garden_ice
 
         elif upp_dict.get('temperature') == 'cold':
-            world = garden
+            if upp_dict.get('atmosphere_type') >= 10 and upp_dict.get('atmosphere_type') <= 12:
+                world = barren_world
+            else:
+                world = garden
 
         elif upp_dict.get('temperature') == 'temperate':
-            world = garden
+            if upp_dict.get('atmosphere_type') >= 10 and upp_dict.get('atmosphere_type') <= 12:
+                world = barren_world
+            else:
+                world = garden
 
         elif upp_dict.get('temperature') == 'hot':
-            world = garden_hot
+            if upp_dict.get('atmosphere_type') >= 10 and upp_dict.get('atmosphere_type') <= 12:
+                world = barren_hot_world
+            else:
+                world = garden_hot
 
         elif upp_dict.get('temperature') == 'boiling':
-            world = garden_lava
+            if upp_dict.get('atmosphere_type') >= 10 and upp_dict.get('atmosphere_type') <= 12:
+                world = barren_lava_world
+            else:
+                world = garden_lava
 
     elif upp_dict.get('hydrographic_percentage') == 10:
         if upp_dict.get('temperature') == 'frozen':
@@ -154,28 +183,33 @@ def create_color_palette(upp_dict):
         elif upp_dict.get('temperature') == 'boiling':
             world = water_lava_world
 
-    
+    # Set waterlevel
+    if world[1][0] == None:
+        world[1][0] = upp_dict.get('hydrographic_percentage')  
+
     # 2. Calculate heights.
-    # percentages would work best. Hydrographic 3 would be 0.35 (35%).
+    # 2.a First remove the water level. Since the rest is calculated using percentage of the remaineder after
+    # the lowest level.
+    palette.append( colors.get_rgb_color(random.choice(land_types.get(world[0][0]))),
+                    world[1].pop(0),
+                    world[0].pop(0))
+
+    # Now add the restof the elements calculated
+    water_level = palette[0][1]
+    height = water_level
+
+    for land, percent in world:
+        height += (1-water_level)*percent
+        palette.append( colors.get_rgb_color(random.choice(land_types.get(land))),
+                        height,
+                        land)
+
+    # percentages would work best. Hydrographic 3 would be 0.30 (30%).
     # The rest of the values should be a distribution of these values.
     # Example dry world may be 40% sand. If hydrograhic percentage is 3 => 0.35 the height of sand
     # Should be (1-0.35)*0.4 + previous height level. 1-0.35 = 0.65. 0.65*0.4 = 0.26. 0.35+0.26 = 0.61
 
-    # 3. Determine color of atmosphere
-    #       blue is breathable, (different alpha levels for thin, standard, dense)
-
-    # Examples
-    # Earthlike
-    #   level 6 standard atmosphere
-    #   level 7 66-75% hydrographic level Earth-like
-    #   level 5-9 temperature (temperate)
-    #   size 8
-
-    # mars like
-    #   size 5
-    #   level 1 trace atmosphere
-    #   level 0 0-5% hydrograhpic level - dessert world
-    #   level 0 temperature frigid world
+    return palette
 
 
 def upp_to_dict(upp_string):
@@ -279,16 +313,32 @@ def world_image_creation(world_array, upp_serial=None):
     # Clean the data and sort into a dictionary 
     universal_planet_profile = upp_to_dict(upp_serial)
 
-    # TODO: Depending on geology use different sets of colors
+    # Depending on geology use different sets of colors
     geology_palette = create_color_palette(universal_planet_profile)
 
     # TODO: Paint a colored image
+
     # TODO: Depending on planet size change the radius
     # TODO: Depending on atmosphear add an outer radious representing type and density
     # blue for standard (thin, medium, dense gets different alpha gradients)
     # corrosive - green
     # tainted - brown
     # insidious - purple)
+        # 3. Determine color of atmosphere
+    #       blue is breathable, (different alpha levels for thin, standard, dense)
+
+    # Examples
+    # Earthlike
+    #   level 6 standard atmosphere
+    #   level 7 66-75% hydrographic level Earth-like
+    #   level 5-9 temperature (temperate)
+    #   size 8
+
+    # mars like
+    #   size 5
+    #   level 1 trace atmosphere
+    #   level 0 0-5% hydrograhpic level - dessert world
+    #   level 0 temperature frigid world
     # TODO: Add stations etc flying around the planet (Station at first but in later versions
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
