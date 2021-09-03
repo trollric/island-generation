@@ -86,6 +86,23 @@ for perm in perm_table:
     vect_table.append(Vector2d(perm))
 
 
+def rescale_range(range_min, range_max, desired_min, desired_max, value):
+    """Takes a range and a value in that range and remaps it to a desired range
+    Example: value = 0.5, rrange_min = 0 and range_max = 1. desired_min = 0 and desired max = 100
+    will return 50
+
+    Args:
+        range_min (float): Lower limit of the actual range
+        range_max (float): Upper limit of the actual range
+        desired_min (float): The desired minimum
+        desired_max (float): The desired maximum
+        value (float): The value in the current range.
+
+    Returns:
+        float: Returns the float value in the desired range.
+    """
+    return ((value-range_min)/(range_max-range_min))*(desired_max-desired_min)+desired_min
+
 def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
     """Creates an array of perlin noise with set dimensions and detail.
 
@@ -153,6 +170,13 @@ def perlin2d(width:int, height:int, detail:int = 1, octaves:int =1):
             noisearray[x][y] += 1
             noisearray[x][y] /= 2
 
+    # Scale the min-max value between 0-1
+    min, max = np.min(noisearray), np.max(noisearray)
+    
+    for x in range(width):
+        for y in range(height):
+            noisearray[x][y] = rescale_range(min, max, 0.0, 1.0, noisearray[x][y])
+    
     return noisearray
 
 if __name__ == "__main__":

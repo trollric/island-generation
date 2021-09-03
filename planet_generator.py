@@ -29,13 +29,15 @@ def color_array(height_array, color_palette):
         raise TypeError('The provided array is not a numpy array.')
 
     # Create an empty copy of array
-    array_colored = np.zeros(height_array.shape + (3,))
+    array_colored = np.zeros(height_array.shape + (3,), dtype=np.uint8)
     height_lower_limit = 0
 
+    width, height = height_array.shape
     for color, height_upper_limit, _ in color_palette:
-        for x, y in height_array.shape:
-            if height_array[x][y] <= height_upper_limit and height_array[x][y] > height_lower_limit:
-                array_colored[x][y] = colors.get_rgb_color(color)
+        for x in range(width):
+            for y in range(height):
+                if height_array[x][y] <= height_upper_limit and height_array[x][y] > height_lower_limit:
+                    array_colored[x][y] = colors.get_rgb_color(color)
 
         height_lower_limit = height_upper_limit
     
@@ -185,7 +187,7 @@ def create_color_palette(upp_dict):
 
     # Set waterlevel
     if world[1][0] == None:
-        world[1][0] = upp_dict.get('hydrographic_percentage')  
+        world[1][0] = upp_dict.get('hydrographic_percentage')*0.1  
 
     # 2. Calculate heights.
     # 2.a First remove the water level. Since the rest is calculated using percentage of the remaineder after
@@ -198,7 +200,7 @@ def create_color_palette(upp_dict):
     water_level = palette[0][1]
     height = water_level
 
-    for land, percent in world:
+    for land, percent in zip(world[0],world[1]):
         height += (1-water_level)*percent
         palette.append( (random.choice(land_types.get(land)),
                         height,
@@ -360,8 +362,8 @@ def main():
     formatted = (perlin2d_array * 255).astype('uint8')
 
     # Use Pillow to create an image
-    img = Image.fromarray(formatted)
-    img.show()
+    #img = Image.fromarray(formatted)
+    #img.show()
 
     perlin2d_array_colored = world_image_creation(perlin2d_array)
     img2 = Image.fromarray(perlin2d_array_colored, 'RGB')
