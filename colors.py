@@ -1,5 +1,5 @@
-    """A dictionary containing a number of rgb and hex coded color values
-    """
+"""A dictionary containing a number of rgb and hex coded color values
+"""
 from typing import Type
 
 

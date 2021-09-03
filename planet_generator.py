@@ -35,7 +35,7 @@ def color_array(height_array, color_palette):
     for color, height_upper_limit, _ in color_palette:
         for x, y in height_array.shape:
             if height_array[x][y] <= height_upper_limit and height_array[x][y] > height_lower_limit:
-                array_colored[x][y] = color
+                array_colored[x][y] = colors.get_rgb_color(color)
 
         height_lower_limit = height_upper_limit
     
@@ -190,9 +190,9 @@ def create_color_palette(upp_dict):
     # 2. Calculate heights.
     # 2.a First remove the water level. Since the rest is calculated using percentage of the remaineder after
     # the lowest level.
-    palette.append( colors.get_rgb_color(random.choice(land_types.get(world[0][0]))),
+    palette.append( (random.choice(land_types.get(world[0][0])),
                     world[1].pop(0),
-                    world[0].pop(0))
+                    world[0].pop(0)))
 
     # Now add the restof the elements calculated
     water_level = palette[0][1]
@@ -200,9 +200,9 @@ def create_color_palette(upp_dict):
 
     for land, percent in world:
         height += (1-water_level)*percent
-        palette.append( colors.get_rgb_color(random.choice(land_types.get(land))),
+        palette.append( (random.choice(land_types.get(land)),
                         height,
-                        land)
+                        land))
 
     # percentages would work best. Hydrographic 3 would be 0.30 (30%).
     # The rest of the values should be a distribution of these values.
@@ -308,7 +308,7 @@ def world_image_creation(world_array, upp_serial=None):
 
     # If an upp serial number was not provided use a standard one for "earth"
     if upp_serial == None:
-        upp_serial = 'A867949-D'
+        upp_serial = 'A867949-13'
 
     # Clean the data and sort into a dictionary 
     universal_planet_profile = upp_to_dict(upp_serial)
@@ -316,7 +316,9 @@ def world_image_creation(world_array, upp_serial=None):
     # Depending on geology use different sets of colors
     geology_palette = create_color_palette(universal_planet_profile)
 
-    # TODO: Paint a colored image
+    # Paint a colored image
+    colored_world = color_array(world_array, geology_palette)
+
 
     # TODO: Depending on planet size change the radius
     # TODO: Depending on atmosphear add an outer radious representing type and density
@@ -343,13 +345,14 @@ def world_image_creation(world_array, upp_serial=None):
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
     # TODO: return the planet image.
+    return colored_world
 
 def main():
     # Create a perlin array
     width = 500
     height = 500
     detail = 3
-    octave = 8
+    octave = 4
 
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)
 
@@ -359,6 +362,10 @@ def main():
     # Use Pillow to create an image
     img = Image.fromarray(formatted)
     img.show()
+
+    perlin2d_array_colored = world_image_creation(perlin2d_array)
+    img2 = Image.fromarray(perlin2d_array_colored, 'RGB')
+    img2.show()
 
 
 if __name__ == "__main__":
