@@ -390,9 +390,9 @@ def world_image_creation(world_array, upp_serial=None):
 
 def main():
     # Create a perlin array
-    width = 1000
-    height = 1000
-    detail = 1
+    width = 300
+    height = 300
+    detail = 2
     octave = 8
 
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)

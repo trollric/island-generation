@@ -294,17 +294,22 @@ hex_dictionary = { 'maroon':	'#800000',
         'white':'#FFFFFF'}
 
 
-def get_rgb_color(color):
-    """Takes a color name separated by underscore.
-    Examples 
-    "white_smoke", "blue", "snow"
+def get_rgb_color(color, alpha = None):
+    """Takes color name and returns a list containing the RGB value for that color
+    if alpha value between 0-255 is given it also appends the alpha value
+    Examples:
+    black = [0, 0, 0]
+    black, 200 = [0,0,0,200]
 
     Args:
-        color (string): The name of desired color. The function is not Case sensitive
+        color (string): Name of the color you would like to fetch
+        alpha (int), optional): A 0-255 value. If this is provided the function returns the
+        color plus the alpha value.. Defaults to None.
 
     Raises:
-        TypeError: If color is not a string the function will raise an exception
-        KeyError: If the ket does not exist in the dictionary the function raises an exception
+        TypeError: Color needs to be of type string.
+        KeyError: If the color does not excist in the dictionary an error is raised.
+        TypeError: The alpha value needs to be of type integer.
     """
     # Check that variable type
     if not isinstance(color, str):
@@ -319,7 +324,19 @@ def get_rgb_color(color):
     if not color.islower():
         color = color.lower()
 
-    return(rgb_dictionary.get(color))
+    # Add alpha value if parameter is given.
+    if alpha == None:
+        alpha = []
+    else:
+        if not isinstance(alpha, int):
+            raise TypeError('Alpha needs to be of type integer')
+        elif alpha < 0:
+            alpha = 0
+        elif alpha > 255:
+            alpha = 255
+        alpha = [alpha]
+
+    return(rgb_dictionary.get(color)+alpha)
 
 def get_hex_color(color, alpha_percent = None):
     """Takes a color name and optionally an alpha value in percentage 0-100.
