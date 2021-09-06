@@ -1,5 +1,8 @@
 # Generates a planet using perlin noise and a
 # serial string from the Traveler 2nd edition
+from math import sqrt
+
+from numpy.lib.arraysetops import isin
 import perlin2d as perlin
 import numpy as np
 import random
@@ -29,7 +32,7 @@ def color_array(height_array, color_palette):
         raise TypeError('The provided array is not a numpy array.')
 
     # Create an empty copy of array
-    array_colored = np.zeros(height_array.shape + (3,), dtype=np.uint8)
+    array_colored = np.zeros(height_array.shape + (4,), dtype=np.uint8)
     height_lower_limit = 0
 
     width, height = height_array.shape
@@ -37,7 +40,7 @@ def color_array(height_array, color_palette):
         for x in range(width):
             for y in range(height):
                 if height_array[x][y] <= height_upper_limit and height_array[x][y] > height_lower_limit:
-                    array_colored[x][y] = colors.get_rgb_color(color)
+                    array_colored[x][y] = colors.get_rgb_color(color, 255)
 
         height_lower_limit = height_upper_limit
     
@@ -48,7 +51,7 @@ def create_color_palette(upp_dict):
     """Takes a Universal Planetary Profile dictionary and determins which
     color, height level and land type has the corresponding color. The result is returned as a list
     of touples.
-    E.g. ([0,0,255], 0.4, 'Water')
+    E.g. ('blue', 0.4, 'Water')
 
     Args:
         upp_dict (dictionary): Has all the UPP information stored inside.
@@ -59,7 +62,7 @@ def create_color_palette(upp_dict):
     Returns:
         list of touples: Returns a list with touples with the format
         (RGB_Data, float: height level,String: landtype)
-        E.g. ([0,0,255], 0.4, 'Water')
+        E.g. ('blue, 0.4, 'Water')
     """
     # Ensure the upp_dict is a dictionary
     if not isinstance(upp_dict, dict):
@@ -301,6 +304,7 @@ def upp_to_dict(upp_string):
 
     return upp_dict
 
+
 def to_planet_shape(world_array, upp_dict):
     """Takes a colored world array and cuts out everything outside of the desired radius. Creating a round
     planetoid shape. The radius is derived from the Universal Planetary Profile
@@ -309,9 +313,19 @@ def to_planet_shape(world_array, upp_dict):
         world_array (np.ndarray): A numpy array with RGB color lists.
         upp_dict (dict): Dictionary containing the planet Universal Planetary Profile
 
+    Raises:
+        TypeError: If the array is not an numpy array the alrogitm fails.
+        TypeError: If the the universal planetary profile is not converted to a dictionary
+        size can not be gathered.
+
     Returns:
         np.nddarray: The masked array creating the planetoid shape.
     """
+    if not isinstance(world_array, np.ndarray):
+        raise TypeError('World array needs to be a numpty ndarray for the algoritm to work')
+    
+    if not isinstance(upp_dict, dict):
+        raise TypeError('upp_dict needs to be cleaned from string to dictionary format')
     # Get width and height of the world array.
     width, height, _ = world_array.shape
     # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
@@ -327,7 +341,7 @@ def to_planet_shape(world_array, upp_dict):
     # at indices
     mask = x**2+y**2 <= r**2
 
-    black = colors.get_rgb_color('black')
+    black = colors.get_rgb_color('black', 0)
     planet_world = np.zeros_like(world_array)
 
     for i in range(width):
@@ -339,15 +353,146 @@ def to_planet_shape(world_array, upp_dict):
     
     return planet_world
 
-def world_image_creation(world_array, upp_serial=None):
 
+def add_atmosphere(planet_world, upp_dict):
+    """Paints an atmosphere around the planetary array depecting what type and density of the
+    planetary atmosphere
+
+    Args:
+        planet_world (np.ndarray): A colored RGB array converted to a planetary shape
+        upp_dict (dict): Dictionary containing the planets universal planetary profile
+
+    Raises:
+        TypeError: If the array is not an numpy array the alrogitm fails.
+        TypeError: If the the universal planetary profile is not converted to a dictionary
+        size can not be gathered.
+
+    Returns:
+        np.ndarray: Numpy array containing the colored planet with an added atmoshperic layer.
+    """
+
+    if not isinstance(planet_world, np.ndarray):
+        raise TypeError('The planetary array needs to be an numpy array')
+
+    if not isinstance(upp_dict, dict):
+        raise TypeError('The Universla planetary profile needs to be converted to a dictionary')
+    # Fetch the atmosphere color
+    density = 255
+    fall_off = 1
+
+    if upp_dict.get('atmosphere_type') == 0:
+        # No atmosphere
+        color = 'black'
+        density *= 0
+    elif upp_dict.get('atmosphere_type') == 1:
+        # Trace
+        color = 'sky_blue'
+        density *= 0.25
+    elif upp_dict.get('atmosphere_type') == 2:
+        # Very thin and tainted
+        color = 'chocolate'
+        density *= 0.5
+    elif upp_dict.get('atmosphere_type') == 3:
+        # Very thin
+        color = 'sky_blue'
+        density *= 0.5
+    elif upp_dict.get('atmosphere_type') == 4:
+        # Thin and tainted
+        color = 'chocolate'
+        density *= 0.75
+    elif upp_dict.get('atmosphere_type') == 5:
+        # Thin
+        color = 'sky_blue'
+        density *= 0.75
+    elif upp_dict.get('atmosphere_type') == 6:
+        # Standard
+        color = 'sky_blue'
+    elif upp_dict.get('atmosphere_type') == 7:
+        # Standard tainted
+        color = 'chocolate'
+    elif upp_dict.get('atmosphere_type') == 8:
+        # Dense
+        color = 'sky_blue'
+        fall_off = 1.5
+    elif upp_dict.get('atmosphere_type') == 9:
+        # Dense tainted
+        color = 'chocolate'
+        fall_off = 1.5
+    elif upp_dict.get('atmosphere_type') == 10:
+        # Exotic
+        color = 'dark_violet'
+    elif upp_dict.get('atmosphere_type') == 11:
+        # Corrosive
+        color = 'lawn_green'
+    elif upp_dict.get('atmosphere_type') == 12:
+        # Insidious
+        color = 'yellow'
+    elif upp_dict.get('atmosphere_type') == 13:
+        # Very dense
+        color = 'sky_blue'
+        fall_off = 2
+    elif upp_dict.get('atmosphere_type') == 14:
+        # low
+        color = 'sky_blue'
+        density *= 0.6
+    elif upp_dict.get('atmosphere_type') == 15:
+        # Unusual
+        color = 'pale_green'
+
+
+    # Get width and height of the world array.
+    width, height, _ = planet_world.shape
+
+    # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
+    if width <= height:
+        smallest_axis = width
+    else:
+        smallest_axis = height
+
+    r = (smallest_axis/2) * (0.08*(1+upp_dict.get('size')))
+    atmosphere_range = (smallest_axis/2) * 0.12
+    centre_x, centre_y = width/2, height/2
+    # add colors here
+    for x in range(width):
+        for y in range(height):
+            delta_x = x-centre_x
+            delta_y = y-centre_y
+            dist = sqrt(delta_x**2+delta_y**2)
+
+            if dist-r >= 0 and dist-r < atmosphere_range:
+                alpha = int(density*(1-((dist-r)/atmosphere_range)/fall_off))
+                planet_world[x][y] = colors.get_rgb_color(color, alpha)
+    
+    return planet_world
+
+
+def world_image_creation(world_array, upp_serial=None):
+    """Takes a 2d perlin noise array cleaned to values ranging 0-1
+
+    Args:
+        world_array (np.ndarray): numpy array containing the perlin noise data.
+        upp_serial (string, optional): The universal planetar profile string.. Defaults to None.
+
+    Raises:
+        TypeError: The perlin noise array needs to be an numpy array to work properly.
+        TypeError: Uiversal planetary profile needs to follow the convention fron the Traveler 2e rulebook
+
+    Returns:
+        [type]: [description]
+    """
     # Ensure the world array is a numpy array
     if not isinstance(world_array, np.ndarray):
-        raise ValueError('The provided array is not a numpy array.')
+        raise TypeError('The provided array is not a numpy array.')
 
     # If an upp serial number was not provided use a standard one for "earth"
     if upp_serial == None:
         upp_serial = 'A867949-13'
+
+    if not upp_serial == None:
+        if not isinstance(upp_serial, str):
+            raise TypeError('''Planetary profile needs to be a string of hexadecimal numbers ending on a
+            hyphen followed by a double digit decimal number. Ex. A867949-12''')
+
 
     # Clean the data and sort into a dictionary 
     universal_planet_profile = upp_to_dict(upp_serial)
@@ -358,11 +503,11 @@ def world_image_creation(world_array, upp_serial=None):
     # Paint a colored image
     colored_world = color_array(world_array, geology_palette)
 
-
-    # TODO: Depending on planet size change the radius
+    # Depending on planet size change the radius
     planet_world = to_planet_shape(colored_world, universal_planet_profile)
 
     # TODO: Depending on atmosphear add an outer radious representing type and density
+    planet_world_with_atmosphere = add_atmosphere(planet_world, universal_planet_profile)
     # blue for standard (thin, medium, dense gets different alpha gradients)
     # corrosive - green
     # tainted - brown
@@ -386,19 +531,20 @@ def world_image_creation(world_array, upp_serial=None):
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
     # TODO: return the planet image.
-    return planet_world 
+    return planet_world_with_atmosphere 
+
 
 def main():
     # Create a perlin array
     width = 300
     height = 300
-    detail = 2
+    detail = 1
     octave = 8
 
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)
     planet_array = world_image_creation(perlin2d_array)
 
-    img = Image.fromarray(planet_array, 'RGB')
+    img = Image.fromarray(planet_array, 'RGBA')
     img.show()
 
 
