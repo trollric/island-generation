@@ -508,25 +508,7 @@ def world_image_creation(world_array, upp_serial=None):
 
     # TODO: Depending on atmosphear add an outer radious representing type and density
     planet_world_with_atmosphere = add_atmosphere(planet_world, universal_planet_profile)
-    # blue for standard (thin, medium, dense gets different alpha gradients)
-    # corrosive - green
-    # tainted - brown
-    # insidious - purple)
-        # 3. Determine color of atmosphere
-    #       blue is breathable, (different alpha levels for thin, standard, dense)
 
-    # Examples
-    # Earthlike
-    #   level 6 standard atmosphere
-    #   level 7 66-75% hydrographic level Earth-like
-    #   level 5-9 temperature (temperate)
-    #   size 8
-
-    # mars like
-    #   size 5
-    #   level 1 trace atmosphere
-    #   level 0 0-5% hydrograhpic level - dessert world
-    #   level 0 temperature frigid world
     # TODO: Add stations etc flying around the planet (Station at first but in later versions
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
