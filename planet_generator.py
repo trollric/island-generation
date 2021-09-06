@@ -76,9 +76,9 @@ def create_color_palette(upp_dict):
                     'canyon':['purple', 'dark_magenta','dark_slate_gray','maroon'],
                     'sand': ['crimson', 'salmon', 'tomato','sandy_brown', 'peach_puff','violet', 'orchid','plum'],
                     'snow':['snow', 'ivory', 'ghost_white'],
-                    'mountain':['scienna','dark_grey','grey','dim_grey','hot_pink','medium_violet_red', 'magenta'],
+                    'mountain':['sienna','dark_grey','grey','dim_grey','hot_pink','medium_violet_red', 'magenta'],
                     'land':['forest_green', 'dark_green', 'olive_drab','spring_green','medium_orchid'],
-                    'barren_land':['scienna', 'saddle_brown', 'dark_golden_rod'],
+                    'barren_land':['sienna', 'saddle_brown', 'dark_golden_rod'],
                     'volcano': ['red']}
 
     # Create different land compositions for different world types.                   
@@ -301,6 +301,43 @@ def upp_to_dict(upp_string):
 
     return upp_dict
 
+def to_planet_shape(world_array, upp_dict):
+    """Takes a colored world array and cuts out everything outside of the desired radius. Creating a round
+    planetoid shape. The radius is derived from the Universal Planetary Profile
+
+    Args:
+        world_array (np.ndarray): A numpy array with RGB color lists.
+        upp_dict (dict): Dictionary containing the planet Universal Planetary Profile
+
+    Returns:
+        np.nddarray: The masked array creating the planetoid shape.
+    """
+    # Get width and height of the world array.
+    width, height, _ = world_array.shape
+    # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
+    if width <= height:
+        smallest_axis = width
+    else:
+        smallest_axis = height
+
+    r = (smallest_axis/2) * (0.08*(1+upp_dict.get('size')))
+    y,x = np.ogrid[-height/2:height/2, -width/2:width/2]
+
+    # creates a mask with True False values
+    # at indices
+    mask = x**2+y**2 <= r**2
+
+    black = colors.get_rgb_color('black')
+    planet_world = np.zeros_like(world_array)
+
+    for i in range(width):
+        for j in range(height):
+            if mask[i][j]:
+                planet_world[i][j] = world_array[i][j]
+            else:
+                planet_world[i][j] = black
+    
+    return planet_world
 
 def world_image_creation(world_array, upp_serial=None):
 
@@ -323,6 +360,8 @@ def world_image_creation(world_array, upp_serial=None):
 
 
     # TODO: Depending on planet size change the radius
+    planet_world = to_planet_shape(colored_world, universal_planet_profile)
+
     # TODO: Depending on atmosphear add an outer radious representing type and density
     # blue for standard (thin, medium, dense gets different alpha gradients)
     # corrosive - green
@@ -347,27 +386,20 @@ def world_image_creation(world_array, upp_serial=None):
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
     # TODO: return the planet image.
-    return colored_world
+    return planet_world 
 
 def main():
     # Create a perlin array
-    width = 500
-    height = 500
-    detail = 3
-    octave = 4
+    width = 1000
+    height = 1000
+    detail = 1
+    octave = 8
 
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)
+    planet_array = world_image_creation(perlin2d_array)
 
-    # Scale every point up by 255 (0-255 for white levels in an image array)
-    formatted = (perlin2d_array * 255).astype('uint8')
-
-    # Use Pillow to create an image
-    #img = Image.fromarray(formatted)
-    #img.show()
-
-    perlin2d_array_colored = world_image_creation(perlin2d_array)
-    img2 = Image.fromarray(perlin2d_array_colored, 'RGB')
-    img2.show()
+    img = Image.fromarray(planet_array, 'RGB')
+    img.show()
 
 
 if __name__ == "__main__":

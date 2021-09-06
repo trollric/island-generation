@@ -312,7 +312,8 @@ def get_rgb_color(color):
 
     # Check that the key excist
     if not color in rgb_dictionary:
-        raise KeyError('Color does not excist. Please consult the rgb spreadsheet.')
+        raise KeyError(f'''Tried to fetch the color: {color}. The color
+         does not excist. Please consult the rgb spreadsheet.''')
     
     # Ensure color is lowercase
     if not color.islower():
