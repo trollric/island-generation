@@ -518,11 +518,32 @@ def world_image_creation(world_array, upp_serial=None):
 
 
 def validate_universal_planetary_profile(upp_string):
+    """Takes an user provided universal planetary profile and validates it.
+
+    Args:
+        upp_string (string): String containing universal planetary profile
+
+    Raises:
+        ValueError: The UPP string needs to be of length 9 or 10
+        ValueError: The UPP string needs to separate tech level with an hyphen
+
+    Returns:
+        bool: Returns true if the UPP_String passes all the validation tests.
+    """
     # Check that string length is 9 or 10 long
     if not (len(upp_string) >= 9 and len(upp_string) <= 10):
-        raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided is {len(upp_string)} long.") 
+        raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided is {len(upp_string)} long.")
+    # Check that the UPP-string contains the necessary hyphen. 
     elif not (upp_string[-2] == '-' or upp_string[-3] == '-'):
         raise ValueError(f'Tech level needs to be an integer between 0-99 separated by a "-" hyphen')
+
+    # Check that every number up until the hyphen is a hexadecimal.
+    # Check that technology level is entered as integer
+    check_hexadecimal, check_integer = upp_string.split('-')
+    int(check_hexadecimal, 16)
+    int(check_integer)
+
+    return True
 
 
 def print_help():
