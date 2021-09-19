@@ -1,8 +1,6 @@
 # Generates a planet using perlin noise and a
 # serial string from the Traveler 2nd edition
 from math import sqrt
-
-from numpy.lib.arraysetops import isin
 import perlin2d as perlin
 import numpy as np
 import random
