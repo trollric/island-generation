@@ -8,6 +8,7 @@ import numpy as np
 import random
 import colors
 from PIL import Image
+import os
 
 
 
@@ -375,7 +376,7 @@ def add_atmosphere(planet_world, upp_dict):
         raise TypeError('The planetary array needs to be an numpy array')
 
     if not isinstance(upp_dict, dict):
-        raise TypeError('The Universla planetary profile needs to be converted to a dictionary')
+        raise TypeError('The Universal planetary profile needs to be converted to a dictionary')
     # Fetch the atmosphere color
     density = 255
     fall_off = 1
@@ -516,6 +517,21 @@ def world_image_creation(world_array, upp_serial=None):
     return planet_world_with_atmosphere 
 
 
+def validate_universal_planetary_profile(upp_string):
+    # Check that string length is 9 or 10 long
+    if not (len(upp_string) >= 9 and len(upp_string) <= 10):
+        raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided is {len(upp_string)} long.") 
+    elif not (upp_string[-2] == '-' or upp_string[-3] == '-'):
+        raise ValueError(f'Tech level needs to be an integer between 0-99 separated by a "-" hyphen')
+
+
+def print_help():
+    """Prints the help message"""
+    print("""An UPP string is describes with 7 hexadecimal number followed by a hyphen and tech level as an integer. E.g. A867949-13\n
+a q, quit or exit command can be given to terminate the program.\n
+h or help can be entered to get this information provided again.""")
+
+
 def main():
     # Create a perlin array
     width = 300
@@ -523,13 +539,59 @@ def main():
     detail = 1
     octave = 8
 
-    # TODO: Take user unput with *args **kwargs.
+    #perlin2d_array = perlin.perlin2d(width, height, detail, octave)
+    #planet_array = world_image_creation(perlin2d_array)
 
-    perlin2d_array = perlin.perlin2d(width, height, detail, octave)
-    planet_array = world_image_creation(perlin2d_array)
+    #img = Image.fromarray(planet_array, 'RGBA')
+    #img.show()
+    # While loop
 
-    img = Image.fromarray(planet_array, 'RGBA')
-    img.show()
+    print("""Please provide a universal planetary profile.
+h, for help.
+q, for quit""")
+
+    while True:
+        # Take user input
+        user_command = input("Command: ")
+        # Ensure input is lowercase
+        user_command.lower()
+
+        # Follow the user provided command or generate using universal planetary profile
+        if user_command == "h" or user_command == "help":
+            # print the help text.
+            print_help()
+        if user_command == "q" or user_command == "quit" or user_command == "exit":
+            # Exit the loop which terminates the program.
+            break
+        else:
+            try:
+                validate_universal_planetary_profile(user_command)
+                # Generate a perlin noise array and use it create a planet
+                perlin_planet = perlin.perlin2d(width, height, detail, octave)
+                planet_array = world_image_creation(perlin_planet)
+                
+                # Generate an image from the colored array and preview it to the user.
+                planet_image = Image.fromarray(planet_array, 'RGBA')
+                planet_image.show()
+
+                # Ask if user wants to keep the image.
+                save_image = input("Would you like to keep this planet? Y/n: ")
+                save_image.lower()
+                # Keep asking until the user provides correct input.
+                while save_image not in ['y', 'n', '', 'yes', 'no']:
+                    save_image = input("You must enter [Y]es or [n]o")
+                    save_image.lower()
+                
+                if save_image in ['yes', 'y', '']:
+                    # Save the image at a file location and exit the program.
+                    planet_name = input("What is the planet called?\n")
+                    path = os.getcwd()+"\\Saved\\"
+                    planet_image.save(path+planet_name, 'PNG')
+                    break
+            except ValueError as err:
+                print('An error occured.')
+                print_help()
+                
 
     # TODO: Create a Legend for the planet.
 
