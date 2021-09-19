@@ -524,20 +524,29 @@ def validate_universal_planetary_profile(upp_string):
     Raises:
         ValueError: The UPP string needs to be of length 9 or 10
         ValueError: The UPP string needs to separate tech level with an hyphen
+        ValueError: The UPP string needs to be seven hexadecimal numbers followed by an hyphen
+        ValueError: The Upp string needs to have an integer between 0-99 after the hyphen.
 
     Returns:
         bool: Returns true if the UPP_String passes all the validation tests.
     """
     # Check that string length is 9 or 10 long
     if not (len(upp_string) >= 9 and len(upp_string) <= 10):
-        raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided is {len(upp_string)} long.")
-    # Check that the UPP-string contains the necessary hyphen. 
+        raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided was {len(upp_string)} long.") 
     elif not (upp_string[-2] == '-' or upp_string[-3] == '-'):
-        raise ValueError(f'Tech level needs to be an integer between 0-99 separated by a "-" hyphen')
+        # Check that the UPP-string contains the necessary hyphen.
+        raise ValueError(f'Tech level needs to be an integer between 0-99 separated by a "-" hyphen.')
 
+    check_hexadecimal, check_integer = upp_string.split('-')
+    if not len(check_hexadecimal) == 7:
+        raise ValueError('The UPP needs to be seven hexadecimal numbers followed by a hyphen.')
+    
+    if not len(check_integer) < 0 and len(check_integer) <= 2:
+        raise ValueError('The UPP string must contain an integer of 0-99 at the end after the hyphen.')
+    
     # Check that every number up until the hyphen is a hexadecimal.
     # Check that technology level is entered as integer
-    check_hexadecimal, check_integer = upp_string.split('-')
+    
     int(check_hexadecimal, 16)
     int(check_integer)
 
@@ -606,9 +615,9 @@ q, for quit""")
                     planet_name = input("What is the planet called?\n")
                     path = os.getcwd()+"\\Saved\\"
                     planet_image.save(path+planet_name, 'PNG')
-                    break
             except ValueError as err:
                 print('An error occured.')
+                print('err')
                 print_help()
                 
 
