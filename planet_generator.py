@@ -541,7 +541,7 @@ def validate_universal_planetary_profile(upp_string):
     if not len(check_hexadecimal) == 7:
         raise ValueError('The UPP needs to be seven hexadecimal numbers followed by a hyphen.')
     
-    if not len(check_integer) < 0 and len(check_integer) <= 2:
+    if not len(check_integer) > 0 and len(check_integer) <= 2:
         raise ValueError('The UPP string must contain an integer of 0-99 at the end after the hyphen.')
     
     # Check that every number up until the hyphen is a hexadecimal.
@@ -555,8 +555,8 @@ def validate_universal_planetary_profile(upp_string):
 
 def print_help():
     """Prints the help message"""
-    print("""An UPP string is describes with 7 hexadecimal number followed by a hyphen and tech level as an integer. E.g. A867949-13\n
-a q, quit or exit command can be given to terminate the program.\n
+    print("""An UPP string is described with 7 hexadecimal numbers followed by a hyphen and tech level as an integer. E.g. A867949-13\n
+q, quit or exit command can be given to terminate the program.\n
 h or help can be entered to get this information provided again.""")
 
 
@@ -574,9 +574,7 @@ def main():
     #img.show()
     # While loop
 
-    print("""Please provide a universal planetary profile.
-h, for help.
-q, for quit""")
+    print("""Please provide a universal planetary profile.""")
 
     while True:
         # Take user input
@@ -617,7 +615,7 @@ q, for quit""")
                     planet_image.save(path+planet_name, 'PNG')
             except ValueError as err:
                 print('An error occured.')
-                print('err')
+                print(err)
                 print_help()
                 
 
