@@ -506,13 +506,13 @@ def world_image_creation(world_array, upp_serial=None):
     # Depending on planet size change the radius
     planet_world = to_planet_shape(colored_world, universal_planet_profile)
 
-    # TODO: Depending on atmosphear add an outer radious representing type and density
+    # Depending on atmosphear add an outer radious representing type and density
     planet_world_with_atmosphere = add_atmosphere(planet_world, universal_planet_profile)
 
     # TODO: Add stations etc flying around the planet (Station at first but in later versions
     # add for extras such as scout, military, TAS etc
     # TODO: Implement some kind of clouds hovering above the planet
-    # TODO: return the planet image.
+    # Return the planet image.
     return planet_world_with_atmosphere 
 
 
@@ -523,11 +523,15 @@ def main():
     detail = 1
     octave = 8
 
+    # TODO: Take user unput with *args **kwargs.
+
     perlin2d_array = perlin.perlin2d(width, height, detail, octave)
     planet_array = world_image_creation(perlin2d_array)
 
     img = Image.fromarray(planet_array, 'RGBA')
     img.show()
+
+    # TODO: Create a Legend for the planet.
 
 
 if __name__ == "__main__":
