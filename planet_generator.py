@@ -562,8 +562,8 @@ h or help can be entered to get this information provided again.""")
 
 def main():
     # Create a perlin array
-    width = 300
-    height = 300
+    width = 500
+    height = 500
     detail = 1
     octave = 8
 
