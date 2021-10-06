@@ -609,10 +609,17 @@ def main():
                     save_image.lower()
                 
                 if save_image in ['yes', 'y', '']:
-                    # Save the image at a file location and exit the program.
+                    # Collect planet name from user for saving purposes.
                     planet_name = input("What is the planet called?\n")
-                    path = os.getcwd()+"\\Saved\\"
-                    planet_image.save(path+planet_name, 'PNG')
+                    path = os.path.join(os.getcwd(), 'Saved')
+
+                    # Make sure the save directory exist. Otherwise create it.
+                    if not os.path.exists(path):
+                        os.makedirs(path)
+
+                    # Save the file at the saved directory with user provided name as PNG.
+                    path = os.path.join(path, planet_name)
+                    planet_image.save(path, 'PNG')
             except ValueError as err:
                 print('An error occured.')
                 print(err)
