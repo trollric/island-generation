@@ -1,0 +1,133 @@
+{
+    "agricultural" : {
+        "code" :        "Ag",
+        "planet size" : null,
+        "atmosphere" :  [4, 9],
+        "hydro" :       [4, 8],
+        "population" :  [5, 7],
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "asteroid" : {
+        "code" :        "As",
+        "planet size" : 0,
+        "atmosphere" :  0,
+        "hydro" :       0,
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "barren" : {
+        "code" :        "Ba",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       null,
+        "population" :  0,
+        "government" :  0,
+        "law level" :   0,
+        "tech level" :  null
+    },
+
+    "desert" : {
+        "code" :        "De",
+        "planet size" : null,
+        "atmosphere" :  [2, 15],
+        "hydro" :       0,
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "fluid oceans" : {
+        "code" :        "Fl",
+        "planet size" : null,
+        "atmosphere" :  [10, 15],
+        "hydro" :       [1, 15],
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "garden" : {
+        "code" :        "Ga",
+        "planet size" : [6, 8],
+        "atmosphere" :  [5, 6, 8],
+        "hydro" :       [5, 7],
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "high population" : {
+        "code" :        "Hi",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       null,
+        "population" :  [9, 15],
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "high technology" : {
+        "code" :        "Ht",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       null,
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  [12, 99]
+    },
+
+    "ice capped" : {
+        "code" :        "Ic",
+        "planet size" : null,
+        "atmosphere" :  [0, 1],
+        "hydro" :       [1, 15],
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "industrial" : {
+        "code" :        "In",
+        "planet size" : null,
+        "atmosphere" :  [["range", 0, 2],["specific", [4, 7, 9]]],
+        "hydro" :       null,
+        "population" :  ["range", 9, 15],
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "low population" : {
+        "code" :        "Lo",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       null,
+        "population" :  [0, 3],
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "low tech" : {
+        "code" :        "Lt",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       null,
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  ["range", 0, 5]
+    }
+}
