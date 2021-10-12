@@ -2,9 +2,9 @@
     "agricultural" : {
         "code" :        "Ag",
         "planet size" : null,
-        "atmosphere" :  [4, 9],
-        "hydro" :       [4, 8],
-        "population" :  [5, 7],
+        "atmosphere" :  ["range", 4, 9],
+        "hydro" :       ["range", 4, 8],
+        "population" :  ["range", 5, 7],
         "government" :  null,
         "law level" :   null,
         "tech level" :  null
@@ -12,9 +12,9 @@
 
     "asteroid" : {
         "code" :        "As",
-        "planet size" : 0,
-        "atmosphere" :  0,
-        "hydro" :       0,
+        "planet size" : ["specific", [0]],
+        "atmosphere" :  ["specific", [0]],
+        "hydro" :       ["specific", [0]],
         "population" :  null,
         "government" :  null,
         "law level" :   null,
@@ -26,17 +26,17 @@
         "planet size" : null,
         "atmosphere" :  null,
         "hydro" :       null,
-        "population" :  0,
-        "government" :  0,
-        "law level" :   0,
+        "population" :  ["specific", [0]],
+        "government" :  ["specific", [0]],
+        "law level" :   ["specific", [0]],
         "tech level" :  null
     },
 
     "desert" : {
         "code" :        "De",
         "planet size" : null,
-        "atmosphere" :  [2, 15],
-        "hydro" :       0,
+        "atmosphere" :  ["range", 2, 15],
+        "hydro" :       ["specific", [0]],
         "population" :  null,
         "government" :  null,
         "law level" :   null,
@@ -46,8 +46,8 @@
     "fluid oceans" : {
         "code" :        "Fl",
         "planet size" : null,
-        "atmosphere" :  [10, 15],
-        "hydro" :       [1, 15],
+        "atmosphere" :  ["range", 10, 15],
+        "hydro" :       ["range", 1, 15],
         "population" :  null,
         "government" :  null,
         "law level" :   null,
@@ -56,9 +56,9 @@
 
     "garden" : {
         "code" :        "Ga",
-        "planet size" : [6, 8],
-        "atmosphere" :  [5, 6, 8],
-        "hydro" :       [5, 7],
+        "planet size" : ["range", 6, 8],
+        "atmosphere" :  ["specific", [5, 6, 8]],
+        "hydro" :       ["range", 5, 7],
         "population" :  null,
         "government" :  null,
         "law level" :   null,
@@ -70,7 +70,7 @@
         "planet size" : null,
         "atmosphere" :  null,
         "hydro" :       null,
-        "population" :  [9, 15],
+        "population" :  ["range", 9, 15],
         "government" :  null,
         "law level" :   null,
         "tech level" :  null
@@ -84,14 +84,14 @@
         "population" :  null,
         "government" :  null,
         "law level" :   null,
-        "tech level" :  [12, 99]
+        "tech level" :  ["range", 12, 99]
     },
 
     "ice capped" : {
         "code" :        "Ic",
         "planet size" : null,
-        "atmosphere" :  [0, 1],
-        "hydro" :       [1, 15],
+        "atmosphere" :  ["range", 0, 1],
+        "hydro" :       ["range", 1, 15],
         "population" :  null,
         "government" :  null,
         "law level" :   null,
@@ -101,7 +101,7 @@
     "industrial" : {
         "code" :        "In",
         "planet size" : null,
-        "atmosphere" :  [["range", 0, 2],["specific", [4, 7, 9]]],
+        "atmosphere" :  ["specific", [0, 1, 2, 4, 7, 9]],
         "hydro" :       null,
         "population" :  ["range", 9, 15],
         "government" :  null,
@@ -114,7 +114,7 @@
         "planet size" : null,
         "atmosphere" :  null,
         "hydro" :       null,
-        "population" :  [0, 3],
+        "population" :  ["range", 0, 3],
         "government" :  null,
         "law level" :   null,
         "tech level" :  null
@@ -129,5 +129,71 @@
         "government" :  null,
         "law level" :   null,
         "tech level" :  ["range", 0, 5]
+    },
+
+    "non-agricultural" : {
+        "code" :        "Na",
+        "planet size" : null,
+        "atmosphere" :  ["range", 0, 3],
+        "hydro" :       ["range", 0, 3],
+        "population" :  ["range", 6, 15],
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "non-industrial" : {
+        "code" :        "Ni",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       null,
+        "population" :  ["range", 0, 6],
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "poor" : {
+        "code" :        "Po",
+        "planet size" : null,
+        "atmosphere" :  ["range", 2, 5],
+        "hydro" :       ["range", 0, 3],
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "rich" : {
+        "code" :        "Ri",
+        "planet size" : null,
+        "atmosphere" :  ["specific", [6, 8]],
+        "hydro" :       null,
+        "population" :  ["range", 6, 8],
+        "government" :  ["range", 4, 9],
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "vacuum" : {
+        "code" :        "Va",
+        "planet size" : null,
+        "atmosphere" :  ["specific", [0]],
+        "hydro" :       null,
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
+    },
+
+    "water world" : {
+        "code" :        "Wa",
+        "planet size" : null,
+        "atmosphere" :  null,
+        "hydro" :       ["range", 10, 15],
+        "population" :  null,
+        "government" :  null,
+        "law level" :   null,
+        "tech level" :  null
     }
 }
