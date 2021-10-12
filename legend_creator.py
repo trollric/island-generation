@@ -3,6 +3,7 @@
 # Atmosphearic demands, Startport quality and trade codes.
 import json
 import os
+import colors
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
 
@@ -72,12 +73,13 @@ def make_legend(upp_dict, color_palette, path, planet_name):
     # Make sure the path directory exist. Otherwise create it.
     if not os.path.exists(path):
         os.makedirs(path)
-    
-    #TODO: Create the legend
 
     # Determine trade codes
     trade_codes = determine_trade_codes(upp_dict)
-    print(trade_codes)
+    #print(trade_codes)
+
+    #TODO: Create the legend
+    
     #TODO: Save to path with <name>_legend.
     planet_name += '_legend'
     path = os.path.join(path, planet_name)
