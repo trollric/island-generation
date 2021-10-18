@@ -33,14 +33,18 @@ def value_in_range(value, min, max):
 
 
 def determine_trade_codes(upp_dict):
-    """Takes a Universal planetary profile dictionary and returns a list of which trade codes
-    they qualify for
+    """Takes a universal planetary profile dictionary and checks wich trade codes apply to the
+    planet.
 
     Args:
-        upp_dict (Dict): Dictionary containing upp data.
+        upp_dict (Dict): A dictionary containing all the universal planetary profile information
+
+    Raises:
+        ValueError: Raises a ValueError if the number of tests passed is greater than the number
+        of passable tests.
 
     Returns:
-        [List]: Returns a list of all trade codes the planet qualify for.
+        List: Returns a list of tradecodes.
     """
     # Load the trade code determinants from JSON.
     with open("trade_code_classification.json",) as trade_requirement_data:
@@ -49,19 +53,35 @@ def determine_trade_codes(upp_dict):
     categorization = []
     # Start checking wich codes apply going through each element in the json data.
     for _, type_requirements in trade_requirements.items():
+        
+        # Set requirement met to False
+        trade_code_requirement_met = False
 
-        trade_code_requirement_met = True
+        # Set test variables
+        number_of_tests = 0
+        number_of_passed_tests = 0
+
+        # Count number of tests to pass
+        for key, requirement in type_requirements.items():
+            # Code is not a test but the tradecode appended if all tests pass
+            if not key == 'code' and not requirement == None:
+                number_of_tests += 1
+
+        # Perform the tests
         for key, requirement in type_requirements.items():
             if not key == 'code' and not requirement == None:
                 if requirement[0] == 'range':
                     min, max = requirement[1], requirement[2]
-                    if not value_in_range(upp_dict.get(key), min, max):
-                        trade_code_requirement_met = False
-                        break
+                    if value_in_range(upp_dict.get(key), min, max):
+                        number_of_passed_tests += 1
                 elif requirement[0] == 'specific':
-                    if upp_dict.get(key) not in requirement[1]:
-                        trade_code_requirement_met = False
-                        break
+                    if upp_dict.get(key) in requirement[1]:
+                        number_of_passed_tests += 1
+
+        if number_of_passed_tests == number_of_tests:
+            trade_code_requirement_met = True
+        elif number_of_passed_tests > number_of_tests:
+            raise ValueError('Number of passed test can not exceed the total number of tests.')
         # Append the viable trade codes to a list if all requirements are met.
         if trade_code_requirement_met:
             categorization.append(type_requirements.get('code'))
@@ -76,10 +96,10 @@ def make_legend(upp_dict, color_palette, path, planet_name):
 
     # Determine trade codes
     trade_codes = determine_trade_codes(upp_dict)
-    #print(trade_codes)
+    print(trade_codes)
 
     #TODO: Create the legend
-    
+
     #TODO: Save to path with <name>_legend.
     planet_name += '_legend'
     path = os.path.join(path, planet_name)
