@@ -270,7 +270,7 @@ def upp_to_dict(upp_string):
     # Check if any UPP value is outside of bounds.
 
     # Starport quality [0 (for X-none) or A-E]
-    if (upp_dict['starport_quality'] > 0 and upp_dict['starport_quality'] < 10) or upp_dict['starport_quality'] < 14:
+    if (upp_dict['starport_quality'] > 0 and upp_dict['starport_quality'] < 10) or upp_dict['starport_quality'] > 14:
         starport_value = upp_dict['starport_quality']
         raise ValueError(f'Starport quality must be of values 0(sybol for X) or between A-E \n Starport value provided: {starport_value}')
 
@@ -572,6 +572,7 @@ def validate_universal_planetary_profile(upp_string):
         bool: Returns true if the UPP_String passes all the validation tests.
     """
     # Check that string length is 9 or 10 long
+
     if not (len(upp_string) >= 9 and len(upp_string) <= 10):
         raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided was {len(upp_string)} long.") 
     elif not (upp_string[-2] == '-' or upp_string[-3] == '-'):
@@ -597,6 +598,7 @@ def validate_universal_planetary_profile(upp_string):
 def print_help():
     """Prints the help message"""
     print("""An UPP string is described with 7 hexadecimal numbers followed by a hyphen and tech level as an integer. E.g. A867949-13\n
+    UPP Value order (Starport quality, Size, Atmosphere type, Hydrographic percentage, Population, Goverment type, Law level, Tech level)\n
 q, quit or exit command can be given to terminate the program.\n
 h or help can be entered to get this information provided again.""")
 
