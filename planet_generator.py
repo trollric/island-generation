@@ -237,7 +237,8 @@ def upp_to_dict(upp_string):
         upp_string (string): UPP string containing hexadecimal values
 
     Raises:
-        ValueError: If the provided upp_string is not of type string.
+        TypeError: If the provided upp_string is not of type string.
+        ValueError: If any individual UPP value is outside of bounds.
 
     Returns:
         dictionary: A dictionary that has paired the different names with the values in the docstring. See
@@ -265,6 +266,37 @@ def upp_to_dict(upp_string):
     upp_dict = {}
     for variable_name, upp_value in zip(upp_variables, upp_string):
         upp_dict.update({variable_name : int(upp_value, 16)})
+
+    # Check if any UPP value is outside of bounds.
+
+    # Starport quality [0 (for X-none) or A-E]
+    if (upp_dict['starport_quality'] > 0 and upp_dict['starport_quality'] < 10) or upp_dict['starport_quality'] < 14:
+        starport_value = upp_dict['starport_quality']
+        raise ValueError(f'Starport quality must be of values 0(sybol for X) or between A-E \n Starport value provided: {starport_value}')
+
+    # Size [1-A]
+    if upp_dict['size'] < 1 or upp_dict['size'] > 10:
+        size_value = upp_dict['size']
+        raise ValueError(f'Planet size needs to be between 1-A in size. \n Size value provided: {size_value}')
+
+    # Atmosphere type [0-F]
+    if upp_dict['atmosphere_type'] < 0 or upp_dict['atmosphere_type'] > 15:
+        atmo_value = upp_dict['atmosphere_type']
+        raise ValueError(f'Atmosphere types can only range between 0-F \n Atmosphere value entered: {atmo_value}')
+
+    # Hydrographic percentage [0-A]
+    if upp_dict['hydrographic_percentage'] < 0 or upp_dict['hydrographic_percentage'] < 15:
+        hydro_value = upp_dict['hydrographic_percentage']
+        raise ValueError(f'Hydrographic percentage must range beetween 0-A. \n Hydrographic value provided: {hydro_value}')
+
+    # Population [0-C]
+    if upp_dict['population'] < 0 or upp_dict['population'] < 12:
+        pop_value = upp_dict['population']
+        raise ValueError(f'Population must range beetween 0-A. \n Population value provided: {hydro_value}')
+        
+    # TODO: Goverment type [0-F]
+
+    # TODO: Law level [0-F]
 
     # Handle tech level seperately
     upp_dict.update({'tech_level': int(tech_level)})
