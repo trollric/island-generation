@@ -292,11 +292,17 @@ def upp_to_dict(upp_string):
     # Population [0-C]
     if upp_dict['population'] < 0 or upp_dict['population'] < 12:
         pop_value = upp_dict['population']
-        raise ValueError(f'Population must range beetween 0-A. \n Population value provided: {hydro_value}')
-        
-    # TODO: Goverment type [0-F]
+        raise ValueError(f'Population must range beetween 0-C. \n Population value provided: {pop_value}')
+
+    # Goverment type [0-F]
+    if upp_dict['government_type'] < 0 or upp_dict['government_type'] < 15:
+        gov_value = upp_dict['government_type']
+        raise ValueError(f'Goverment type must range beetween 0-A. \n Goverment type value provided: {gov_value}')
 
     # TODO: Law level [0-F]
+    if upp_dict['law_level'] < 0 or upp_dict['law_level'] < 15:
+        law_value = upp_dict['law_level']
+        raise ValueError(f'Law level must range beetween 0-A. \n Law level value provided: {law_value}')
 
     # Handle tech level seperately
     upp_dict.update({'tech_level': int(tech_level)})
