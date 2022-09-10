@@ -285,22 +285,22 @@ def upp_to_dict(upp_string):
         raise ValueError(f'Atmosphere types can only range between 0-F \n Atmosphere value entered: {atmo_value}')
 
     # Hydrographic percentage [0-A]
-    if upp_dict['hydrographic_percentage'] < 0 or upp_dict['hydrographic_percentage'] < 15:
+    if upp_dict['hydrographic_percentage'] < 0 or upp_dict['hydrographic_percentage'] > 15:
         hydro_value = upp_dict['hydrographic_percentage']
         raise ValueError(f'Hydrographic percentage must range beetween 0-A. \n Hydrographic value provided: {hydro_value}')
 
     # Population [0-C]
-    if upp_dict['population'] < 0 or upp_dict['population'] < 12:
+    if upp_dict['population'] < 0 or upp_dict['population'] > 12:
         pop_value = upp_dict['population']
         raise ValueError(f'Population must range beetween 0-C. \n Population value provided: {pop_value}')
 
     # Goverment type [0-F]
-    if upp_dict['government_type'] < 0 or upp_dict['government_type'] < 15:
+    if upp_dict['government_type'] < 0 or upp_dict['government_type'] > 15:
         gov_value = upp_dict['government_type']
         raise ValueError(f'Goverment type must range beetween 0-A. \n Goverment type value provided: {gov_value}')
 
     # TODO: Law level [0-F]
-    if upp_dict['law_level'] < 0 or upp_dict['law_level'] < 15:
+    if upp_dict['law_level'] < 0 or upp_dict['law_level'] > 15:
         law_value = upp_dict['law_level']
         raise ValueError(f'Law level must range beetween 0-A. \n Law level value provided: {law_value}')
 
