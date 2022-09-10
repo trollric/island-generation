@@ -259,6 +259,9 @@ def upp_to_dict(upp_string):
                         'government_type',
                         'law_level']
     
+    # If spaceport quality = X (Set it to 0)
+    upp_string.replace('x', '0')
+
     upp_dict = {}
     for variable_name, upp_value in zip(upp_variables, upp_string):
         upp_dict.update({variable_name : int(upp_value, 16)})
