@@ -299,7 +299,7 @@ def upp_to_dict(upp_string):
         gov_value = upp_dict['government_type']
         raise ValueError(f'Goverment type must range beetween 0-A. \n Goverment type value provided: {gov_value}')
 
-    # TODO: Law level [0-F]
+    # Law level [0-F]
     if upp_dict['law_level'] < 0 or upp_dict['law_level'] > 15:
         law_value = upp_dict['law_level']
         raise ValueError(f'Law level must range beetween 0-A. \n Law level value provided: {law_value}')
