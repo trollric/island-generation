@@ -594,7 +594,7 @@ def main():
                 validate_universal_planetary_profile(user_command)
                 # Generate a perlin noise array and use it create a planet
                 perlin_planet = perlin.perlin2d(width, height, detail, octave)
-                planet_array = world_image_creation(perlin_planet)
+                planet_array = world_image_creation(perlin_planet, user_command)
                 
                 # Generate an image from the colored array and preview it to the user.
                 planet_image = Image.fromarray(planet_array, 'RGBA')
