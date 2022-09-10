@@ -629,7 +629,7 @@ def main():
         if user_command == "h" or user_command == "help":
             # print the help text.
             print_help()
-        if user_command == "q" or user_command == "quit" or user_command == "exit":
+        elif user_command == "q" or user_command == "quit" or user_command == "exit":
             # Exit the loop which terminates the program.
             break
         else:
