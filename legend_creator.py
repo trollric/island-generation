@@ -107,7 +107,7 @@ def make_legend(upp_dict, color_palette, path, planet_name):
 
 
 def main():
-    upp_dict = upp_to_dict('3344556-10')
+    upp_dict = upp_to_dict('A344556-10')
     color_palette = create_color_palette(upp_dict)
     path = os.path.join(os.getcwd(), 'Saved')
     planet_name = 'Debug'
