@@ -8,10 +8,15 @@ from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
 
 
-    """Takes an upp_dict, color_palette, path and planet name to create a planetary legend giving
-    a better overview of a planets traditions, stats, trade etc.
-    """
 def generate_legend(upp_dict, color_palette, path, planet_name):
+    """Generates a planetary legend to give better overview for players.
+
+    Args:
+        upp_dict (dict): an UPP dictionary containing all generated planetary aspects.
+        color_palette (dict): A dictionary containing the colors and color names used in painting the world (E.g. grass : "turtle_green")
+        path (str): string providing the folder where the planetary image has been saved.
+        planet_name (str): name of the planet. Used to ensure the legends name will be <planet name>_legend
+    """
     # Make sure the path directory exist. Otherwise create it.
     if not os.path.exists(path):
         os.makedirs(path)
