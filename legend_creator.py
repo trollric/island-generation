@@ -7,9 +7,27 @@ import colors
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
 
-def generate(upp_dict, color_palette):
-    #TODO: Gather necessary information
-    #TODO: Create 
+
+    """Takes an upp_dict, color_palette, path and planet name to create a planetary legend giving
+    a better overview of a planets traditions, stats, trade etc.
+    """
+def generate_legend(upp_dict, color_palette, path, planet_name):
+    # Make sure the path directory exist. Otherwise create it.
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    # Determine trade codes
+    trade_codes = determine_trade_codes(upp_dict)
+    print(trade_codes)
+
+    #TODO: Create the legend
+
+    # Save to path with <name>_legend.
+    # Create path
+    planet_name += '_legend'
+    path = os.path.join(path, planet_name)
+
+    # TODO: Save the image.
     pass
 
 
@@ -89,30 +107,13 @@ def determine_trade_codes(upp_dict):
     return categorization
 
 
-def make_legend(upp_dict, color_palette, path, planet_name):
-    # Make sure the path directory exist. Otherwise create it.
-    if not os.path.exists(path):
-        os.makedirs(path)
-
-    # Determine trade codes
-    trade_codes = determine_trade_codes(upp_dict)
-    print(trade_codes)
-
-    #TODO: Create the legend
-
-    #TODO: Save to path with <name>_legend.
-    planet_name += '_legend'
-    path = os.path.join(path, planet_name)
-
-
-
 def main():
     upp_dict = upp_to_dict('A344556-10')
     color_palette = create_color_palette(upp_dict)
     path = os.path.join(os.getcwd(), 'Saved')
     planet_name = 'Debug'
 
-    make_legend(upp_dict, color_palette, path, planet_name)
+    generate_legend(upp_dict, color_palette, path, planet_name)
 
 
 if __name__ == '__main__':
