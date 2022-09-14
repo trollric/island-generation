@@ -15,7 +15,7 @@ def font_size_to_pixel(font_size):
     """
     if not isinstance(font_size, (int, float)):
         raise TypeError('font size needs to be of type int or float')
-    return int(font_size*96)/72
+    return int((font_size*96)/72)
 
 def pixel_to_font_size(px_value):
     """Converts a pixel value to a font size as a floored int.
@@ -31,4 +31,4 @@ def pixel_to_font_size(px_value):
     """
     if not isinstance(px_value, (int, float)):
         raise TypeError('Pixel value needs to be of type int or float')
-    return int(px_value*72)/96
+    return int((px_value*72)/96)
