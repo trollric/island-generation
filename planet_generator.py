@@ -543,24 +543,19 @@ def add_station(planet_world, upp_dict):
             letter = "D"
         elif upp_dict['starport_quality'] == 14:
             letter = "E"
+
+        # Get font size and position the letter in the center.
         x, y = font.getsize(letter)
         x = int((station_width-x)/2)
         y = int((station_height-y)/2)
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
         station_image.show()
+
         # convert to a np_array.
         # replace the values of the array in the top left corner
         # between border and atmo
         # return the added space station planet world.
-
-        # img = Image.open("sample_in.jpg")
-        # draw = ImageDraw.Draw(img)
-        # # font = ImageFont.truetype(<font-file>, <font-size>)
-        # font = ImageFont.truetype("sans-serif.ttf", 16)
-        # # draw.text((x, y),"Sample Text",(r,g,b))
-        # draw.text((0, 0),"Sample Text",(255,255,255),font=font)
-        # img.save('sample-out.jpg')
 
         # from PIL import Image
         # import numpy as np
