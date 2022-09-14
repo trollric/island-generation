@@ -1,11 +1,12 @@
 # Generates a planet using perlin noise and a
 # serial string from the Traveler 2nd edition
+import imp
 from math import sqrt
-from turtle import width
 import perlin2d as perlin
 import numpy as np
 import random
 import colors
+from converter import px_font_converter as pfc
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
@@ -518,8 +519,14 @@ def add_station(planet_world, upp_dict):
         planet_width, planet_height, _ = planet_world.shape
         station_width = 0.05 * planet_width
         station_height = 0.05 * planet_height
+        station_image.resize(station_width, station_height)
 
         # add a letter to the station.
+        letter_color = colors.get_rgb_color('red')
+        font = ImageFont.truetype("sans-serif.ttf", pfc.pixel_to_font_size(station_height))
+        draw_on_station = ImageDraw.Draw(station_image)
+        draw_on_station.text((0, 0),'A', letter_color, font=font)
+        station_image.show()
         # convert to a np_array.
         # replace the values of the array in the top left corner
         # between border and atmo
@@ -653,6 +660,9 @@ def main(DEBUG_MODE = False):
     # While loop
     if not DEBUG_MODE:
         print("""Please provide a universal planetary profile.""")
+    else:
+        # Add debug calls and codes here.
+        add_station(None, upp_to_dict('AA86AAA-10'))
 
     while True and not DEBUG_MODE:
         # Take user input
