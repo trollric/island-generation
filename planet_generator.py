@@ -530,11 +530,24 @@ def add_station(planet_world, upp_dict):
         font_size = int(station_height/2)
         font = ImageFont.truetype("Fonts/FreeSans.ttf", font_size)
         draw_on_station = ImageDraw.Draw(station_image)
-        x, y = font.getsize("A")
+
+        # Decice what letter to stamp the station with.
+        letter = ""
+        if upp_dict['starport_quality'] == 10:
+            letter = "A"
+        elif upp_dict['starport_quality'] == 11:
+            letter = "B"
+        elif upp_dict['starport_quality'] == 12:
+            letter = "C"
+        elif upp_dict['starport_quality'] == 13:
+            letter = "D"
+        elif upp_dict['starport_quality'] == 14:
+            letter = "E"
+        x, y = font.getsize(letter)
         x = int((station_width-x)/2)
         y = int((station_height-y)/2)
         
-        draw_on_station.text((x, y),"A", tuple(letter_color), font=font)
+        draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
         station_image.show()
         # convert to a np_array.
         # replace the values of the array in the top left corner
