@@ -265,7 +265,7 @@ def upp_to_dict(upp_string):
                         'law_level']
     
     # If spaceport quality = X (Set it to 0)
-    upp_string.replace('x', '0')
+    upp_string.replace('X', '0')
 
     upp_dict = {}
     for variable_name, upp_value in zip(upp_variables, upp_string):
@@ -679,7 +679,7 @@ def main(DEBUG_MODE = False):
         print("""Please provide a universal planetary profile.""")
     else:
         # Add debug calls and codes here.
-        add_station(None, upp_to_dict('AA86AAA-10'))
+        add_station(None, upp_to_dict('XA86AAA-10'))
 
     while True and not DEBUG_MODE:
         # Take user input
