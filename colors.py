@@ -318,7 +318,7 @@ def get_rgb_color(color, alpha = None):
     # Check that the key excist
     if not color in rgb_dictionary:
         raise KeyError(f'''Tried to fetch the color: {color}. The color
-         does not excist. Please consult the rgb spreadsheet.''')
+         does not exist. Please consult the rgb spreadsheet.''')
     
     # Ensure color is lowercase
     if not color.islower():
@@ -361,7 +361,8 @@ def get_hex_color(color, alpha_percent = None):
         raise TypeError('The color needs to be a string')
 
     if not color in hex_dictionary:
-        raise KeyError('The color given is not in the hex dictionary')
+        raise KeyError(f'''Tried to fetch the color: {color}. The color
+         does not exist. Please consult the hex dictionary.''')
 
     hex_alpha_string = ''
     if not alpha_percent == None:
