@@ -1,7 +1,7 @@
 # Helper functions for converting between different metrics.
 
 # px/96 = pt/72
-def font_size_to_pixel(self, font_size):
+def font_size_to_pixel(font_size):
     """Converts font size to a pixel value as a floored int.
 
     Args:
@@ -17,7 +17,7 @@ def font_size_to_pixel(self, font_size):
         raise TypeError('font size needs to be of type int or float')
     return int(font_size*96)/72
 
-def pixel_to_font_size(self, px_value):
+def pixel_to_font_size(px_value):
     """Converts a pixel value to a font size as a floored int.
 
     Args:
