@@ -265,7 +265,7 @@ def upp_to_dict(upp_string):
                         'law_level']
     
     # If spaceport quality = X (Set it to 0)
-    upp_string.replace('X', '0')
+    upp_string = upp_string.replace('X', '0')
 
     upp_dict = {}
     for variable_name, upp_value in zip(upp_variables, upp_string):
