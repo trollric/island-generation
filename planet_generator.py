@@ -1,11 +1,14 @@
 # Generates a planet using perlin noise and a
 # serial string from the Traveler 2nd edition
 from math import sqrt
+from turtle import width
 import perlin2d as perlin
 import numpy as np
 import random
 import colors
 from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw
 import os
 
 
@@ -505,6 +508,36 @@ def add_atmosphere(planet_world, upp_dict):
     
     return planet_world
 
+def add_station(planet_world, upp_dict):
+    # if station quality is not none or 0.
+    if not upp_dict['starport_quality'] == 0 or not upp_dict['starport_quality'] == None:
+        # read in space station stock file.
+        station_image = Image.open('Images/space-station.png')
+
+        # Resize to 5% of the width and height values of planet_world.
+        planet_width, planet_height, _ = planet_world.shape
+        station_width = 0.05 * planet_width
+        station_height = 0.05 * planet_height
+
+        # add a letter to the station.
+        # convert to a np_array.
+        # replace the values of the array in the top left corner
+        # between border and atmo
+        # return the added space station planet world.
+
+        # img = Image.open("sample_in.jpg")
+        # draw = ImageDraw.Draw(img)
+        # # font = ImageFont.truetype(<font-file>, <font-size>)
+        # font = ImageFont.truetype("sans-serif.ttf", 16)
+        # # draw.text((x, y),"Sample Text",(r,g,b))
+        # draw.text((0, 0),"Sample Text",(255,255,255),font=font)
+        # img.save('sample-out.jpg')
+
+        # from PIL import Image
+        # import numpy as np
+        # im = Image.open("hopper.jpg")
+        # a = np.asarray(im)
+    return planet_world
 
 def world_image_creation(world_array, upp_serial=None):
     """Takes a 2d perlin noise array cleaned to values ranging 0-1
@@ -551,6 +584,8 @@ def world_image_creation(world_array, upp_serial=None):
 
     # TODO: Add stations etc flying around the planet (Station at first but in later versions
     # add for extras such as scout, military, TAS etc
+    planet_world_with_station = add_station(planet_world_with_atmosphere, universal_planet_profile)
+
     # TODO: Implement some kind of clouds hovering above the planet
     # Return the planet image.
     return planet_world_with_atmosphere 
@@ -603,7 +638,7 @@ q, quit or exit command can be given to terminate the program.\n
 h or help can be entered to get this information provided again.""")
 
 
-def main():
+def main(DEBUG_MODE = False):
     # Create a perlin array
     width = 500
     height = 500
@@ -616,10 +651,10 @@ def main():
     #img = Image.fromarray(planet_array, 'RGBA')
     #img.show()
     # While loop
+    if not DEBUG_MODE:
+        print("""Please provide a universal planetary profile.""")
 
-    print("""Please provide a universal planetary profile.""")
-
-    while True:
+    while True and not DEBUG_MODE:
         # Take user input
         user_command = input("Command: ")
         # Ensure input is lowercase
@@ -673,4 +708,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    debug = True
+    main(debug)
