@@ -6,7 +6,7 @@ import perlin2d as perlin
 import numpy as np
 import random
 import colors
-from converter import px_font_converter as pfc
+import converter
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
@@ -516,16 +516,25 @@ def add_station(planet_world, upp_dict):
         station_image = Image.open('Images/space-station.png')
 
         # Resize to 5% of the width and height values of planet_world.
-        planet_width, planet_height, _ = planet_world.shape
-        station_width = 0.05 * planet_width
-        station_height = 0.05 * planet_height
-        station_image.resize(station_width, station_height)
+        if planet_world == None:
+            planet_width, planet_height = 500,500
+        else:
+            planet_width, planet_height, _ = planet_world.shape
+        station_width = int(0.1 * planet_width)
+        station_height = int(0.1 * planet_height)
+        station_image = station_image.resize((station_width, station_height))
 
         # add a letter to the station.
         letter_color = colors.get_rgb_color('red')
-        font = ImageFont.truetype("sans-serif.ttf", pfc.pixel_to_font_size(station_height))
+        # Font size in pixels
+        font_size = int(station_height/2)
+        font = ImageFont.truetype("Fonts/FreeSans.ttf", font_size)
         draw_on_station = ImageDraw.Draw(station_image)
-        draw_on_station.text((0, 0),'A', letter_color, font=font)
+        x, y = font.getsize("A")
+        x = int((station_width-x)/2)
+        y = int((station_height-y)/2)
+        
+        draw_on_station.text((x, y),"A", tuple(letter_color), font=font)
         station_image.show()
         # convert to a np_array.
         # replace the values of the array in the top left corner
