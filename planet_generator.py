@@ -644,14 +644,14 @@ def main():
                 planet_image.show()
 
                 # Ask if user wants to keep the image.
-                save_image = input("Would you like to keep this planet? Y/n: ")
-                save_image.lower()
+                user_input = input("Would you like to keep this planet? Y/n: ")
+                user_input.lower()
                 # Keep asking until the user provides correct input.
-                while save_image not in ['y', 'n', '', 'yes', 'no']:
-                    save_image = input("You must enter [Y]es or [n]o")
-                    save_image.lower()
+                while user_input not in ['y', 'n', '', 'yes', 'no']:
+                    user_input = input("You must enter [Y]es or [n]o")
+                    user_input.lower()
                 
-                if save_image in ['yes', 'y', '']:
+                if user_input in ['yes', 'y', '']:
                     # Collect planet name from user for saving purposes.
                     planet_name = input("What is the planet called?\n")
                     path = os.path.join(os.getcwd(), 'Saved')
