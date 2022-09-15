@@ -515,11 +515,14 @@ def add_station(planet_world, upp_dict):
         # read in space station stock file.
         station_image = Image.open('Images/space-station.png')
 
-        # Resize to 5% of the width and height values of planet_world.
+        # If no planet world is provided. Create a blank numpy array.
         if planet_world == None:
             planet_width, planet_height = 500,500
+            planet_world = np.empty((planet_width, planet_height, 4))
         else:
             planet_width, planet_height, _ = planet_world.shape
+
+        # Resize to 5% of the width and height values of planet_world.
         station_width = int(0.1 * planet_width)
         station_height = int(0.1 * planet_height)
         station_image = station_image.resize((station_width, station_height))
@@ -553,6 +556,8 @@ def add_station(planet_world, upp_dict):
         station_image.show()
 
         # convert to a np_array.
+        im_as_array = np.asarray(station_image)
+        
         # replace the values of the array in the top left corner
         # between border and atmo
         # return the added space station planet world.
