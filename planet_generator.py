@@ -528,7 +528,7 @@ def add_station(planet_world, upp_dict):
         letter_color = colors.get_rgb_color('red')
         # Font size in pixels
         font_size = int(station_height/2)
-        font = ImageFont.truetype("Fonts/FreeSans.ttf", font_size)
+        font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
         draw_on_station = ImageDraw.Draw(station_image)
 
         # Decice what letter to stamp the station with.
@@ -546,8 +546,8 @@ def add_station(planet_world, upp_dict):
 
         # Get font size and position the letter in the center.
         x, y = font.getsize(letter)
-        x = int((station_width-x)/2)
-        y = int((station_height-y)/2)
+        x = int((station_width-x)/2)-1
+        y = int((station_height-y)/2)-1
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
         station_image.show()
