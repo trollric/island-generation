@@ -2,6 +2,7 @@
 # serial string from the Traveler 2nd edition
 import imp
 from math import sqrt
+from turtle import width
 import perlin2d as perlin
 import numpy as np
 import random
@@ -557,11 +558,15 @@ def add_station(planet_world, upp_dict):
 
         # convert to a np_array.
         im_as_array = np.asarray(station_image)
-        
-        # replace the values of the array in the top left corner
-        # between border and atmo
-        # return the added space station planet world.
 
+        # replace the values of the array in the top left corner
+        im_width, im_height, _ = im_as_array.shape
+        for x in range(im_width):
+            for y in range(im_height):
+                planet_world[x][y] = im_as_array[x][y]
+
+        #debug_image = Image.fromarray(planet_world, 'RGBA')
+        #debug_image.show()
         # from PIL import Image
         # import numpy as np
         # im = Image.open("hopper.jpg")
