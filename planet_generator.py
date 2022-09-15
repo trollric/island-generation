@@ -511,7 +511,7 @@ def add_atmosphere(planet_world, upp_dict):
 
 def add_station(planet_world, upp_dict):
     # if station quality is not none or 0.
-    if not upp_dict['starport_quality'] == 0 or not upp_dict['starport_quality'] == None:
+    if not upp_dict['starport_quality'] == 0 and not upp_dict['starport_quality'] == None:
         # read in space station stock file.
         station_image = Image.open('Images/space-station.png')
 
@@ -679,7 +679,7 @@ def main(DEBUG_MODE = False):
         print("""Please provide a universal planetary profile.""")
     else:
         # Add debug calls and codes here.
-        add_station(None, upp_to_dict('XA86AAA-10'))
+        add_station(None, upp_to_dict('AA86AAA-10'))
 
     while True and not DEBUG_MODE:
         # Take user input
