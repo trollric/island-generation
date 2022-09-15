@@ -726,7 +726,8 @@ def main(DEBUG_MODE = False):
                     # Make sure the save directory exist. Otherwise create it.
                     if not os.path.exists(path):
                         os.makedirs(path)
-
+                    # Append filetype
+                    planet_name += '.png'
                     # Save the file at the saved directory with user provided name as PNG.
                     path = os.path.join(path, planet_name)
                     planet_image.save(path, 'PNG')
