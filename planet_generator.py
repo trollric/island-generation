@@ -517,7 +517,7 @@ def add_station(planet_world, upp_dict):
         station_image = Image.open('Images/space-station.png')
 
         # If no planet world is provided. Create a blank numpy array.
-        if planet_world == None:
+        if not isinstance(planet_world, np.ndarray):
             planet_width, planet_height = 500,500
             planet_world = np.empty((planet_width, planet_height, 4))
         else:
@@ -554,7 +554,6 @@ def add_station(planet_world, upp_dict):
         y = int((station_height-y)/2)-1
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
-        station_image.show()
 
         # convert to a np_array.
         im_as_array = np.asarray(station_image)
@@ -565,12 +564,6 @@ def add_station(planet_world, upp_dict):
             for y in range(im_height):
                 planet_world[x][y] = im_as_array[x][y]
 
-        #debug_image = Image.fromarray(planet_world, 'RGBA')
-        #debug_image.show()
-        # from PIL import Image
-        # import numpy as np
-        # im = Image.open("hopper.jpg")
-        # a = np.asarray(im)
     return planet_world
 
 def world_image_creation(world_array, upp_serial=None):
@@ -616,13 +609,15 @@ def world_image_creation(world_array, upp_serial=None):
     # Depending on atmosphear add an outer radious representing type and density
     planet_world_with_atmosphere = add_atmosphere(planet_world, universal_planet_profile)
 
-    # TODO: Add stations etc flying around the planet (Station at first but in later versions
-    # add for extras such as scout, military, TAS etc
+    # Add stations etc flying around the planet (Updates could include TAS, Scout Etc)
     planet_world_with_station = add_station(planet_world_with_atmosphere, universal_planet_profile)
 
     # TODO: Implement some kind of clouds hovering above the planet
     # Return the planet image.
-    return planet_world_with_atmosphere 
+
+    # TODO: Implement cities etc based on population.
+
+    return planet_world_with_station 
 
 
 def validate_universal_planetary_profile(upp_string):
@@ -745,5 +740,5 @@ def main(DEBUG_MODE = False):
 
 
 if __name__ == "__main__":
-    debug = True
+    debug = False
     main(debug)
