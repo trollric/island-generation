@@ -1,8 +1,6 @@
 # Generates a planet using perlin noise and a
 # serial string from the Traveler 2nd edition
-import imp
 from math import sqrt
-from turtle import width
 import perlin2d as perlin
 import numpy as np
 import random
@@ -522,7 +520,7 @@ def add_station(planet_world, upp_dict):
         else:
             planet_width, planet_height, _ = planet_world.shape
 
-        # Resize to 5% of the width and height values of planet_world.
+        # Resize to 10% of the width and height values of planet_world.
         station_width = int(0.1 * planet_width)
         station_height = int(0.1 * planet_height)
         station_image = station_image.resize((station_width, station_height))
@@ -559,7 +557,7 @@ def add_station(planet_world, upp_dict):
 
         # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
         if planet_width <= planet_height:
-            smallest_axis = width
+            smallest_axis = planet_width
         else:
             smallest_axis = planet_height
 
