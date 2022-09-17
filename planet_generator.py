@@ -566,9 +566,11 @@ def add_station(planet_world, upp_dict):
         r = (smallest_axis/2) * (0.08*(1+upp_dict.get('size')))
 
         # find startpoint for the station placement based on planet size.
-        # for the largest planet where (x, y) = (0, 0) the formula gives 11x/25 - r
-        # where x is smallest_axis
-        start_point_x = int(11*smallest_axis/25 - r)
+        # A formula to determin a startpoint Pstart to draw the station based on size. Where x = smallest_axis
+        # Ps(size) = sqrt(2)*(11x - x(1 + size))/50 which can be simplyfied further to:
+        # Ps(size) = sqrt(2)*(x(10 -  size))) / 50
+
+        start_point_x = int(sqrt(2)*(smallest_axis*(10 - upp_dict.get('size')))/50)
         start_point_y = start_point_x
 
         # replace the values of the array in the top left corner
