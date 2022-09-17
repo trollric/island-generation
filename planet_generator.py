@@ -554,7 +554,7 @@ def add_station(planet_world, upp_dict):
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
 
-        # convert to a np_array.
+        # convert the image to a np_array.
         im_as_array = np.asarray(station_image)
 
         # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
