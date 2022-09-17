@@ -223,7 +223,7 @@ def upp_to_dict(upp_string):
     it into a dictionary. The values are taken from the UPP and the keys are the following: 
     UPP (Universal Planetary Profile)
     Starport quality A,B,C,D,E and X
-    Size 1-A
+    Size 0-A
     Atmosphere type 0-F
     Hydrographic percentage 0-A
     Population 0-C
@@ -277,9 +277,9 @@ def upp_to_dict(upp_string):
         raise ValueError(f'Starport quality must be of values 0(sybol for X) or between A-E \n Starport value provided: {starport_value}')
 
     # Size [1-A]
-    if upp_dict['size'] < 1 or upp_dict['size'] > 10:
+    if upp_dict['size'] < 0 or upp_dict['size'] > 10:
         size_value = upp_dict['size']
-        raise ValueError(f'Planet size needs to be between 1-A in size. \n Size value provided: {size_value}')
+        raise ValueError(f'Planet size needs to be between 0-A in size. \n Size value provided: {size_value}')
 
     # Atmosphere type [0-F]
     if upp_dict['atmosphere_type'] < 0 or upp_dict['atmosphere_type'] > 15:
@@ -562,6 +562,9 @@ def add_station(planet_world, upp_dict):
             smallest_axis = planet_height
 
         r = (smallest_axis/2) * (0.08*(1+upp_dict.get('size')))
+
+        # find startpoint for the station placement based on planet size.
+
 
         # replace the values of the array in the top left corner
         im_width, im_height, _ = im_as_array.shape
