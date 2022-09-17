@@ -529,10 +529,11 @@ def add_station(planet_world, upp_dict):
 
         # add a letter to the station.
         letter_color = colors.get_rgb_color('red')
+        stroke_color = colors.get_rgb_color('yellow')
+        
         # Font size in pixels
-        font_size = int(station_height/2)
+        font_size = int(station_height/2.5)
         font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
-        draw_on_station = ImageDraw.Draw(station_image)
 
         # Decice what letter to stamp the station with.
         letter = ""
@@ -549,13 +550,19 @@ def add_station(planet_world, upp_dict):
 
         # Get font size and position the letter in the center.
         x, y = font.getsize(letter)
+
+        # expand station image text height + 1px
+        exp_image = Image.new('RGBA', (station_width, station_height + y))
+        exp_image.paste(station_image, (0, 0))
+        draw_on_station = ImageDraw.Draw(exp_image)
+
         x = int((station_width-x)/2)-1
-        y = int((station_height-y)/2)-1
+        y = int(station_height)
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
 
         # convert the image to a np_array.
-        im_as_array = np.asarray(station_image)
+        im_as_array = np.asarray(exp_image)
 
         # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
         if planet_width <= planet_height:
