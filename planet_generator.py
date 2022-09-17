@@ -566,7 +566,7 @@ def add_station(planet_world, upp_dict):
         # for the largest planet where (x, y) = (0, 0) the formula gives 11x/25 - r
         # where x is smallest_axis/2.
         start_point_x = 11*smallest_axis/50 - r
-        start_point_y = start_point_y
+        start_point_y = start_point_x
 
         # replace the values of the array in the top left corner
         im_width, im_height, _ = im_as_array.shape
