@@ -557,6 +557,14 @@ def add_station(planet_world, upp_dict):
         # convert to a np_array.
         im_as_array = np.asarray(station_image)
 
+        # calculate the radius of the planet to 8-88% of the smallest axis leaving 12% for atmosphere
+        if planet_width <= planet_height:
+            smallest_axis = width
+        else:
+            smallest_axis = planet_height
+
+        r = (smallest_axis/2) * (0.08*(1+upp_dict.get('size')))
+
         # replace the values of the array in the top left corner
         im_width, im_height, _ = im_as_array.shape
         for x in range(im_width):
