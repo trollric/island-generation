@@ -529,10 +529,9 @@ def add_station(planet_world, upp_dict):
 
         # add a letter to the station.
         letter_color = colors.get_rgb_color('red')
-        stroke_color = colors.get_rgb_color('yellow')
-        
+
         # Font size in pixels
-        font_size = int(station_height/2.5)
+        font_size = int(station_height/2)
         font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
 
         # Decice what letter to stamp the station with.
@@ -548,16 +547,18 @@ def add_station(planet_world, upp_dict):
         elif upp_dict['starport_quality'] == 14:
             letter = "E"
 
-        # Get font size and position the letter in the center.
+        # Get width and heigth of the letter.
         x, y = font.getsize(letter)
 
-        # expand station image text height + 1px
+        # expand station image text height
         exp_image = Image.new('RGBA', (station_width, station_height + y))
         exp_image.paste(station_image, (0, 0))
+
+        # draw the letter below the station.
         draw_on_station = ImageDraw.Draw(exp_image)
 
         x = int((station_width-x)/2)-1
-        y = int(station_height)
+        y = int(station_height-2)
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
 
