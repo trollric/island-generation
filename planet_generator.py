@@ -7,7 +7,6 @@ import perlin2d as perlin
 import numpy as np
 import random
 import colors
-import converter
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
