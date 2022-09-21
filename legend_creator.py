@@ -84,6 +84,8 @@ def determine_trade_codes(upp_dict):
 
     return categorization
 
+def generate_legend_document():
+    pass
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
@@ -98,11 +100,28 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     if not os.path.exists(path):
         os.makedirs(path)
 
-    # Determine trade codes
+    # TODO: Generate legend layout document
+    legend_doc = generate_legend_document()
+    # Determine trade codes and add to legend document.
     trade_codes = determine_trade_codes(upp_dict)
-    print(trade_codes)
+    # TODO: Append trade information to bottom right of the legend document.
 
-    #TODO: Create the legend
+    # TODO: Append gravity and diamater data to the top middle of the legend document
+
+    # TODO: Append planetary image to the top right of the legend document
+    
+    # TODO: Append a color to landmass type underneath the planetary image.
+
+    # TODO: Append planet name, UPP-Serial to the top left of the legend document.
+
+    # TODO: Determine government type, generate factions and add cultures.
+    # TODO: Append the data underneath around temperature data.
+
+    # TODO: Generate a random day/night cycle with a temperature graph (maybe using matplotlib)
+    # append atmo type and necessary protections, temperature min/max daycycle data
+    # to the left of the graph.
+
+    # TODO: Determine contraband and append them to the bottom left under separate categories.
 
     # Save to path with <name>_legend.
     # Create path
