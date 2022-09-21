@@ -113,6 +113,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
 
 def main():
+    # If called directly. Make planetary data up.
     upp_dict = upp_to_dict('A344556-10')
     color_palette = create_color_palette(upp_dict)
     path = os.path.join(os.getcwd(), 'Saved')
