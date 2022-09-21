@@ -85,6 +85,12 @@ def determine_trade_codes(upp_dict):
     return categorization
 
 def generate_legend_document():
+    # Values are without bleed area
+    # Size Name	    Size in mm      Size in pixels 300dpi
+    # A7	        105 x 74  mm	1240 x 874 px
+    # A6	        148 x 105 mm	1748 x 1240 px
+    # A5	        210 x 148 mm	2480 x 1748 px
+    # A4	        297 x 210 mm	3508 x 2480 px
     pass
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
