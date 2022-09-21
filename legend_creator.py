@@ -8,32 +8,6 @@ from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
 
 
-def generate_legend(upp_dict, color_palette, path, planet_name):
-    """Generates a planetary legend to give better overview for players.
-
-    Args:
-        upp_dict (dict): an UPP dictionary containing all generated planetary aspects.
-        color_palette (dict): A dictionary containing the colors and color names used in painting the world (E.g. grass : "turtle_green")
-        path (str): string providing the folder where the planetary image has been saved.
-        planet_name (str): name of the planet. Used to ensure the legends name will be <planet name>_legend
-    """
-    # Make sure the path directory exist. Otherwise create it.
-    if not os.path.exists(path):
-        os.makedirs(path)
-
-    # Determine trade codes
-    trade_codes = determine_trade_codes(upp_dict)
-    print(trade_codes)
-
-    #TODO: Create the legend
-
-    # Save to path with <name>_legend.
-    # Create path
-    planet_name += '_legend'
-    path = os.path.join(path, planet_name)
-
-    # TODO: Save the image.
-
 
 def value_in_range(value, min, max):
     """Takes a value and checks if its greater or equal to min and less or equal to max
@@ -109,6 +83,33 @@ def determine_trade_codes(upp_dict):
             categorization.append(type_requirements.get('code'))
 
     return categorization
+
+
+def generate_legend(upp_dict, color_palette, path, planet_name):
+    """Generates a planetary legend to give better overview for players.
+
+    Args:
+        upp_dict (dict): an UPP dictionary containing all generated planetary aspects.
+        color_palette (dict): A dictionary containing the colors and color names used in painting the world (E.g. grass : "turtle_green")
+        path (str): string providing the folder where the planetary image has been saved.
+        planet_name (str): name of the planet. Used to ensure the legends name will be <planet name>_legend
+    """
+    # Make sure the path directory exist. Otherwise create it.
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    # Determine trade codes
+    trade_codes = determine_trade_codes(upp_dict)
+    print(trade_codes)
+
+    #TODO: Create the legend
+
+    # Save to path with <name>_legend.
+    # Create path
+    planet_name += '_legend'
+    path = os.path.join(path, planet_name)
+
+    # TODO: Save the image.
 
 
 def main():
