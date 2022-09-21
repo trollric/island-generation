@@ -93,7 +93,17 @@ def generate_legend_document():
     # A6	        148 x 105 mm	1748 x 1240 px
     # A5	        210 x 148 mm	2480 x 1748 px
     # A4	        297 x 210 mm	3508 x 2480 px
-    pass
+
+    # Create a new empty Image as a portrait A4. And draw class.
+    legend_im = Image.new('RGBA', (2480, 3508))
+    legend_draw = ImageDraw.Draw(legend_im)
+
+    # Select a line color
+    line_fill_color = colors.get_rgb_color('orange_red')
+    legend_draw.rectangle((0, 0), (2480, 3508), fill=line_fill_color, width=10)
+    
+
+    return legend_im
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
@@ -108,7 +118,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     if not os.path.exists(path):
         os.makedirs(path)
 
-    # TODO: Generate legend layout document
+    # TODO: Generate legend layout document as an Image.
     legend_doc = generate_legend_document()
     # Determine trade codes and add to legend document.
     trade_codes = determine_trade_codes(upp_dict)
