@@ -510,15 +510,31 @@ def add_atmosphere(planet_world, upp_dict):
     return planet_world
 
 def add_station(planet_world, upp_dict):
+    """Appends a station with appropriate quality to the upper left of a planet.
+    Distance from the planet is adjusted with planetary size.
+
+    Args:
+        planet_world (np.ndarray): Needs to be a numpy array.
+        upp_dict (dict): Dictionary contaning UPP-data.
+
+    Raises:
+        TypeError: planet_world will raise a type error if not of type np.ndarray
+        TypeError: planet_world will raise a type error if not of appropriate shape. (x, y, 4)
+
+    Returns:
+        np.ndarray: Returns planet_world with the appended station in array format.
+    """
     # if station quality is not none or 0.
     if not upp_dict['starport_quality'] == 0 and not upp_dict['starport_quality'] == None:
         # read in space station stock file.
         station_image = Image.open('Images/space-station.png')
 
-        # If no planet world is provided. Create a blank numpy array.
+        # If no planet world is provided. Raise an exception
         if not isinstance(planet_world, np.ndarray):
-            planet_width, planet_height = 500,500
-            planet_world = np.empty((planet_width, planet_height, 4))
+            raise TypeError('The planet_array must be an numpy array of shape (x, y, 4')
+        elif planet_world[_][_].size != 4:
+            raise TypeError('''The planet_array provided is of wrong shape.
+                                Needs to be of shape: (x, y, 4)''')
         else:
             planet_width, planet_height, _ = planet_world.shape
 
