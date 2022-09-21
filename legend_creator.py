@@ -95,13 +95,22 @@ def generate_legend_document():
     # A4	        297 x 210 mm	3508 x 2480 px
 
     # Create a new empty Image as a portrait A4. And draw class.
-    legend_im = Image.new('RGBA', (2480, 3508))
+    legend_height = 3508
+    legend_width = 2480
+    legend_im = Image.new('RGBA', (legend_width, legend_height))
     legend_draw = ImageDraw.Draw(legend_im)
 
-    # Select a line color
-    line_fill_color = colors.get_rgb_color('orange_red')
-    legend_draw.rectangle((0, 0), (2480, 3508), fill=line_fill_color, width=10)
+    # Select a line color (remember PIL uses tuples)
+    line_fill_color = tuple(colors.get_rgb_color('orange_red'))
+    line_width = 20
+
+    # Draw the legnd boundary lines.
+    legend_draw.rectangle([(0, 0), (legend_width, legend_height)], outline=line_fill_color, width=line_width)
     
+    # Draw first separator line.
+    sep1_y = int(legend_height/4)
+    separator_1 = [(0, sep1_y), (legend_width, sep1_y)]
+    legend_draw.line(separator_1, fill=line_fill_color, width=line_width)
 
     return legend_im
 
@@ -120,6 +129,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # TODO: Generate legend layout document as an Image.
     legend_doc = generate_legend_document()
+    legend_doc.show()
     # Determine trade codes and add to legend document.
     trade_codes = determine_trade_codes(upp_dict)
     # TODO: Append trade information to bottom right of the legend document.
