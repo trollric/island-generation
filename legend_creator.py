@@ -6,6 +6,8 @@ import os
 import colors
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
+from PIL import Image
+from PIL import ImageDraw
 
 
 
