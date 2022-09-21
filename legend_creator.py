@@ -33,7 +33,6 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     path = os.path.join(path, planet_name)
 
     # TODO: Save the image.
-    pass
 
 
 def value_in_range(value, min, max):
