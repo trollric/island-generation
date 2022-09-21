@@ -711,11 +711,6 @@ def main(DEBUG_MODE = False):
     detail = 1
     octave = 8
 
-    #perlin2d_array = perlin.perlin2d(width, height, detail, octave)
-    #planet_array = world_image_creation(perlin2d_array)
-
-    #img = Image.fromarray(planet_array, 'RGBA')
-    #img.show()
     # While loop
     if not DEBUG_MODE:
         print("""Please provide a universal planetary profile.""")
