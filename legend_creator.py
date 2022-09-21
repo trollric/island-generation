@@ -107,10 +107,16 @@ def generate_legend_document():
     # Draw the legnd boundary lines.
     legend_draw.rectangle([(0, 0), (legend_width, legend_height)], outline=line_fill_color, width=line_width)
     
-    # Draw first separator line.
-    sep1_y = int(legend_height/4)
-    separator_1 = [(0, sep1_y), (legend_width, sep1_y)]
-    legend_draw.line(separator_1, fill=line_fill_color, width=line_width)
+    # Draw first three boxes
+    box_x = int(legend_width/3)
+    box_y = box_x
+    div1 = [(box_x, 0), (box_x, box_y)]
+    div2 = [(box_x*2, 0), (box_x*2, box_y)]
+    sep1 = [(0, box_y),(box_x*3, box_y)]
+    lines = [div1, div2, sep1]
+
+    for line in lines:
+        legend_draw.line(line, fill=line_fill_color, width=line_width)
 
     return legend_im
 
