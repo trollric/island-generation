@@ -105,7 +105,7 @@ def generate_legend_document():
 
     # Select a line color (remember PIL uses tuples)
     line_fill_color = tuple(colors.get_rgb_color('orange_red'))
-    line_width = 15
+    line_width = 12
 
     # Draw the legnd boundary lines.
     legend_draw.rectangle([(0, 0), (legend_width, legend_height)],
@@ -113,14 +113,43 @@ def generate_legend_document():
                                     fill=background,
                                     width=line_width)
     
-    # Draw first three boxes
-    box_x = int(legend_width/3)
-    box_y = box_x
-    div1 = [(box_x, 0), (box_x, box_y)]
-    div2 = [(box_x*2, 0), (box_x*2, box_y)]
-    sep1 = [(0, box_y),(box_x*3, box_y)]
+    # First three boxes ratio 1-1-1
+    x = int(legend_width/3)
+    y = x
+    div1 = [(x, 0), (x, y)]
+    div2 = [(x*2, 0), (x*2, y)]
+    sep1 = [(0, y),(x*3, y)]
     lines = [div1, div2, sep1]
+    
+    # Second set of boxes ratio width ratio 2-1
+    # Height ratio 1/3 + 1/4 = 7/12
+    y = int(legend_width/12)
+    # Divider
+    lines.append([(0, y*7), (legend_width, y*7)])
+    # separator at 2-1 ratio.
+    lines.append([(x*2, y*4), (x*2, y*7)])
 
+    # Thid box width 1-1 ratio
+    # Height half of the box above 3/24 part of width
+    x = int(legend_width/2)
+    y = int(legend_width/24)
+    # Divider 7/12 + 3/24 => 14/24 + 3/24 = 17/24
+    lines.append([(0, y*17), (legend_width, y*17)])
+    # Separator all the way down.
+    lines.append([(x, y*14), (x, legend_height)])
+
+    # Add a divider inside the trade box
+    half_box_y = int(y*3/2)
+    lines.append([(x, y*14 + half_box_y), (legend_width, y*14 + half_box_y)])
+    # Add separator for Buy/Sell tabs.
+    lines.append([(int(x*3/2), y*14 + half_box_y), (int(x*3/2), legend_height)])
+
+    # TODO: Calculated remaining space for the contraband section and draw lines
+    # evenly distributed.
+
+    
+
+    # Draw all lines 
     for line in lines:
         legend_draw.line(line, fill=line_fill_color, width=line_width)
 
