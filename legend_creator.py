@@ -145,9 +145,15 @@ def generate_legend_document():
     lines.append([(int(x*3/2), y*14 + half_box_y), (int(x*3/2), legend_height)])
 
     # TODO: Calculated remaining space for the contraband section and draw lines
-    # evenly distributed.
+    # evenly distributed. (Weapons, Armour, Information, Technology, Travelers, Psionics)
+    # numbers 6 categories.
 
-    
+    y_dist = (legend_height - y*17) / 6
+    y_zero = y*17
+
+    for y in range(6):
+        y_coord = y_zero + y*y_dist
+        lines.append([(0, y_coord), (x, y_coord)])
 
     # Draw all lines 
     for line in lines:
