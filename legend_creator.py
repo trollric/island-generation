@@ -100,12 +100,18 @@ def generate_legend_document():
     legend_im = Image.new('RGBA', (legend_width, legend_height))
     legend_draw = ImageDraw.Draw(legend_im)
 
+    # Chose a background fill color.
+    background = tuple(colors.get_rgb_color('dim_gray'))
+
     # Select a line color (remember PIL uses tuples)
     line_fill_color = tuple(colors.get_rgb_color('orange_red'))
-    line_width = 20
+    line_width = 15
 
     # Draw the legnd boundary lines.
-    legend_draw.rectangle([(0, 0), (legend_width, legend_height)], outline=line_fill_color, width=line_width)
+    legend_draw.rectangle([(0, 0), (legend_width, legend_height)],
+                                    outline=line_fill_color,
+                                    fill=background,
+                                    width=line_width)
     
     # Draw first three boxes
     box_x = int(legend_width/3)
