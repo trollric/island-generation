@@ -87,6 +87,12 @@ def determine_trade_codes(upp_dict):
     return categorization
 
 def generate_legend_document():
+    """Creates a fillable form to enter all the generated data into.
+    Aspects: A4 300DPI (3508x2480 px)
+
+    Returns:
+        Image: Returns a fillable image form.
+    """
     # Values are without bleed area
     # Size Name	    Size in mm      Size in pixels 300dpi
     # A7	        105 x 74  mm	1240 x 874 px
