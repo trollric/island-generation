@@ -250,6 +250,9 @@ def upp_to_dict(upp_string):
     if not isinstance(upp_string, str):
         raise TypeError('An UPP string must be of type string.')
     
+    # Save the upp_string to be added as upp in the dictionary.
+    upp_serial = upp_string
+
     # Since Tech level is not hexadecimal. Split the array and handle tech level separately.
     upp_string, tech_level = upp_string.split('-')
 
@@ -265,7 +268,9 @@ def upp_to_dict(upp_string):
     # If spaceport quality = X (Set it to 0)
     upp_string = upp_string.replace('X', '0')
 
-    upp_dict = {}
+    # Initalize the upp_dict with upp_serial as its first key
+    upp_dict = {'upp_serial' : upp_serial}
+
     for variable_name, upp_value in zip(upp_variables, upp_string):
         upp_dict.update({variable_name : int(upp_value, 16)})
 
@@ -532,7 +537,7 @@ def add_station(planet_world, upp_dict):
         # If no planet world is provided. Raise an exception
         if not isinstance(planet_world, np.ndarray):
             raise TypeError('The planet_array must be an numpy array of shape (x, y, 4')
-        elif planet_world[_][_].size != 4:
+        elif planet_world[0][0].size != 4:
             raise TypeError('''The planet_array provided is of wrong shape.
                                 Needs to be of shape: (x, y, 4)''')
         else:
