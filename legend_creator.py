@@ -8,6 +8,7 @@ from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
 from PIL import Image
 from PIL import ImageDraw
+from PIL import ImageFont
 
 
 
@@ -150,7 +151,7 @@ def generate_legend_document():
     # Add separator for Buy/Sell tabs.
     lines.append([(int(x*3/2), y*14 + half_box_y), (int(x*3/2), legend_height)])
 
-    # TODO: Calculated remaining space for the contraband section and draw lines
+    # Calculated remaining space for the contraband section and draw lines
     # evenly distributed. (Weapons, Armour, Information, Technology, Travelers, Psionics)
     # numbers 6 categories.
 
@@ -167,6 +168,25 @@ def generate_legend_document():
 
     return legend_im
 
+
+def legend_append_trade_codes(legend_image, trade_codes):
+    
+    # Get image size
+    legend_width, legend_height = legend_image.size
+
+    # Create imagedraw object
+    legend_draw = ImageDraw.Draw(legend_image)
+
+    # Create a font
+    # Font size in pixels
+    font_color = tuple(colors.get_rgb_color('gold'))
+    font_size = int(legend_height/45)
+    font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
+
+
+    return legend_image
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -180,12 +200,14 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     if not os.path.exists(path):
         os.makedirs(path)
 
-    # TODO: Generate legend layout document as an Image.
+    # Generate legend layout document as an Image.
     legend_doc = generate_legend_document()
-    legend_doc.show()
+
     # Determine trade codes and add to legend document.
     trade_codes = determine_trade_codes(upp_dict)
+
     # TODO: Append trade information to bottom right of the legend document.
+    legend_doc = legend_append_trade_codes(legend_doc, trade_codes)
 
     # TODO: Append gravity and diamater data to the top middle of the legend document
 
@@ -204,12 +226,12 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # TODO: Determine contraband and append them to the bottom left under separate categories.
 
-    # Save to path with <name>_legend.
-    # Create path
+    legend_doc.show()
+    # Create path to save location
     planet_name += '_legend'
     path = os.path.join(path, planet_name)
 
-    # TODO: Save the image.
+    # TODO: Save image to path with <name>_legend.
 
 
 def main():
