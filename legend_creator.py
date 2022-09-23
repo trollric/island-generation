@@ -185,12 +185,27 @@ def legend_append_trade_codes(legend_image, trade_codes):
     font_color = tuple(colors.get_rgb_color('gold'))
     font_size = int(legend_height/60)
     font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
-    padding = 10
+    padding = 20
 
     # Write Trade Codes: <And add every trade code
     trade_string = ', '.join(trade_codes)
     text = f'Trade codes: {trade_string}'
     text_coord = (x_off + padding, y_off + padding)
+    legend_draw.text(text_coord, text, font_color, font=font)
+
+    # Add text purchase info and sell info.
+    text = 'Purchase info'
+    x, y = font.getsize(text)
+    x_center = int((legend_width/4 - x)/2)
+    y_center = int((legend_width * 3/48 - y*1.2)/2)
+    text_coord = (x_off + x_center , y_off + y_center + (legend_width * 3/48))
+    legend_draw.text(text_coord, text, font_color, font=font)
+
+    text = 'Sell info'
+    x, y = font.getsize(text)
+    x_center = int((legend_width/4 - x)/2)
+    y_center = int((legend_width * 3/48 - y*1.2)/2)
+    text_coord = (x_off + legend_width/4 +x_center , y_off + y_center + (legend_width * 3/48))
     legend_draw.text(text_coord, text, font_color, font=font)
 
     return legend_image
