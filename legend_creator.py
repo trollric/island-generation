@@ -175,7 +175,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
     legend_width, legend_height = legend_image.size
     # Create coordinate offset to upper left of the box
     x_off = int(legend_width/2)
-    y_off = int(legend_width * 17/24)
+    y_off = int(legend_width * 7/12)
 
     # Create imagedraw object
     legend_draw = ImageDraw.Draw(legend_image)
@@ -183,12 +183,15 @@ def legend_append_trade_codes(legend_image, trade_codes):
     # Create a font
     # Font size in pixels
     font_color = tuple(colors.get_rgb_color('gold'))
-    font_size = int(legend_height/50)
+    font_size = int(legend_height/60)
     font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
+    padding = 10
 
     # Write Trade Codes: <And add every trade code
-    text = f'Trade codes: {trade_codes}'
-    legend_draw.text((x_off, y_off), text, font_color, font=font)
+    trade_string = ', '.join(trade_codes)
+    text = f'Trade codes: {trade_string}'
+    text_coord = (x_off + padding, y_off + padding)
+    legend_draw.text(text_coord, text, font_color, font=font)
 
     return legend_image
 
