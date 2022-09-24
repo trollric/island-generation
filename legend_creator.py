@@ -206,7 +206,7 @@ def get_trade_goods(trade_codes):
         
         # If available and a buy or sell dm exist save the highest one that occured
         if available or purchase_dm > 0 or sell_dm > 0:
-            trade_goods.update(type, {'purchase_dm' : purchase_dm, 'sale_dm' : sell_dm})
+            trade_goods.update({type : {'purchase_dm' : purchase_dm, 'sale_dm' : sell_dm}})
 
 
     return trade_goods
@@ -253,6 +253,8 @@ def legend_append_trade_codes(legend_image, trade_codes):
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
+
+    # TODO: Append trade codes in the bottom right. ()
 
 
     return legend_image
