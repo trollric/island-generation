@@ -69,6 +69,24 @@
         "purchase_dm" :     {"In" : 2, "Ht" : 1},
         "sale_dm" :         {"As" : 2, "Ni" : 1},
         "examples" :        "Machine components and spare parts, including gravitic components"
+    },
+
+    "Advanced Manufactured Goods" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 5],
+        "base_price" :      100000,
+        "purchase_dm" :     {"In" : 1},
+        "sale_dm" :         {"Hi" : 1, "Ri" : 2},
+        "examples" :        "Devices and clothing incorporating advanced technology"
+    },
+
+    "Advanced Weapons" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 5],
+        "base_price" :      150000,
+        "purchase_dm" :     {"Ht" : 2},
+        "sale_dm" :         {"Po" : 1, "Amber" : 2, "Red" : 4},
+        "examples" :        "Firearms, explosives, ammunition, artillery and other military-grade weaponry"
     }
 
 }
