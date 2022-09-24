@@ -1,0 +1,23 @@
+{
+    "agricultural" : {
+        "code" :                    "Ag",
+        "size" :                    null,
+        "atmosphere_type" :         ["range", 4, 9],
+        "hydrographic_percentage" : ["range", 4, 8],
+        "population" :              ["range", 5, 7],
+        "government_type" :         null,
+        "law_level" :               null,
+        "tech_level" :              null
+    },
+
+    "asteroid" : {
+        "code" :                    "As",
+        "size" :                    ["specific", [0]],
+        "atmosphere_type" :         ["specific", [0]],
+        "hydrographic_percentage" : ["specific", [0]],
+        "population" :              null,
+        "government_type" :         null,
+        "law_level" :               null,
+        "tech_level" :              null
+    }
+}
