@@ -170,6 +170,16 @@ def generate_legend_document():
     return legend_im
 
 
+def get_trade_goods(trade_codes):
+
+    # Import the json-data
+    # Step through the data
+    #   If available and a buy or sell dm exist save the highest one that occured
+    #   Save it into a dictionary with types as keys and values as sub dictionaries
+    #   dict = {'type' : {'purchase_dm' : <int>, 'sell_dm' : <int>}}
+    pass
+
+
 def legend_append_trade_codes(legend_image, trade_codes):
     
     # Get image size
@@ -208,6 +218,10 @@ def legend_append_trade_codes(legend_image, trade_codes):
     y_center = int((legend_width * 3/48 - y*1.2)/2)
     text_coord = (x_off + legend_width/4 +x_center , y_off + y_center + (legend_width * 3/48))
     legend_draw.text(text_coord, text, font_color, font=font)
+
+    # Get which types of trade goods should be appended.
+    eligible_trade_goods = get_trade_goods(trade_codes)
+
 
     return legend_image
 
