@@ -1,23 +1,47 @@
 {
-    "agricultural" : {
-        "code" :                    "Ag",
-        "size" :                    null,
-        "atmosphere_type" :         ["range", 4, 9],
-        "hydrographic_percentage" : ["range", 4, 8],
-        "population" :              ["range", 5, 7],
-        "government_type" :         null,
-        "law_level" :               null,
-        "tech_level" :              null
+    "Common Electronics" : {
+        "availability" :    "all",
+        "tons" :            [2, 10],
+        "base_price" :      20000,
+        "purchase_dm" :     {"In" : 2, "Ht" : 3, "Ri" : 1},
+        "sale_dm" :         {"Ni" : 2, "Lt" : 1, "Po" : 1},
+        "examples" :        "Simple electronics including basic computers up to TL:10"
     },
 
-    "asteroid" : {
-        "code" :                    "As",
-        "size" :                    ["specific", [0]],
-        "atmosphere_type" :         ["specific", [0]],
-        "hydrographic_percentage" : ["specific", [0]],
-        "population" :              null,
-        "government_type" :         null,
-        "law_level" :               null,
-        "tech_level" :              null
+    "Common Industrial Goods" : {
+        "availability" :    "all",
+        "tons" :            [2, 10],
+        "base_price" :      10000,
+        "purchase_dm" :     {"Na" : 2, "In" : 5},
+        "sale_dm" :         {"Ni" : 3, "Ag" : 2},
+        "examples" :        "Machine components and spare parts for common machinery"
+    },
+
+    "Common Manufactured Goods" : {
+        "availability" :    "all",
+        "tons" :            [2, 10],
+        "base_price" :      20000,
+        "purchase_dm" :     {"Na" : 2, "In" : 5},
+        "sale_dm" :         {"Ni" : 3, "Hi" : 2},
+        "examples" :        "Household appliances, clothing and so forth"
+    },
+
+    "Common Raw Materials" : {
+        "availability" :    "all",
+        "tons" :            [2, 20],
+        "base_price" :      5000,
+        "purchase_dm" :     {"Ag" : 3, "Ga" : 2},
+        "sale_dm" :         {"In" : 2, "Po" : 2},
+        "examples" :        "Metal, plastics, chemicals, and other basic materials"
+    },
+
+    "Common Consumables" : {
+        "availability" :    "all",
+        "tons" :            [2, 20],
+        "base_price" :      500,
+        "purchase_dm" :     {"Ag" : 3, "Wa" : 2, "Ga" : 1, "As" : -4},
+        "sale_dm" :         {"As" : 1, "Fl" : 1, "Ic" : 1, "Hi" : 1},
+        "examples" :        "Food, drink and other agricultural products"
     }
+
 }
