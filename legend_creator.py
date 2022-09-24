@@ -170,12 +170,48 @@ def generate_legend_document():
     return legend_im
 
 
-def get_trade_goods(trade_codes):
+def validate_trade_codes(trade_codes):
+    """Takes a list of trade_codes and checks if they are all correct trade code strings.
 
+    Args:
+        trade_codes (list): List of trade codes to be validated.
+
+    Returns:
+        bool: Returns true if all vales in the list are actual trade codes.
+    """
+    valid_trade_codes = ['Ag', 'As', 'Ba', 'De', 'Fl', 'Ga', 'Hi', 'Ht',
+                            'Ic', 'In', 'Lo', 'Lt', 'Na', 'Ni', 'Po', 'Ri',
+                            'Va', 'Wa', 'Amber', 'Red']
+    result = True
+    for code in trade_codes:
+        if not code in valid_trade_codes:
+            result = False
+            break
+    return result
+
+
+def get_trade_goods(trade_codes):
+    """Takes a list of trade codes.
+    Example: ['Ni', 'Ht', 'Wa']
+
+    Args:
+        trade_codes (list): A list containing the viable trade codes of the planet.
+        Eg. ['Ni', 'Ht', 'Wa']
+
+    Raises:
+        TypeError: If the provided variable is not a list raise an Error.
+
+    Returns:
+        dict: Returns a dictionary with different types of trade items with potential buy/sell dm
+    """
     # Check that trade_codes is a list.
     if not isinstance(trade_codes, list):
         raise TypeError('Trade codes needs to be a list of traveler trade codes.')
     
+    # Check that all values inside trade_codes are trade codes.
+    if not validate_trade_codes(trade_codes):
+        raise TypeError(f'One or more trade codes are not valid.\nCodes: {trade_codes}')
+
     # Import the json-data
     with open("trade_goods_table.json",) as trade_goods_data:
         trade_requirements = json.load(trade_goods_data)
