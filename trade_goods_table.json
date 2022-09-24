@@ -1,6 +1,6 @@
 {
     "Common Electronics" : {
-        "availability" :    "all",
+        "availability" :    ["all"],
         "tons" :            [2, 10],
         "base_price" :      20000,
         "purchase_dm" :     {"In" : 2, "Ht" : 3, "Ri" : 1},
@@ -9,7 +9,7 @@
     },
 
     "Common Industrial Goods" : {
-        "availability" :    "all",
+        "availability" :    ["all"],
         "tons" :            [2, 10],
         "base_price" :      10000,
         "purchase_dm" :     {"Na" : 2, "In" : 5},
@@ -18,7 +18,7 @@
     },
 
     "Common Manufactured Goods" : {
-        "availability" :    "all",
+        "availability" :    ["all"],
         "tons" :            [2, 10],
         "base_price" :      20000,
         "purchase_dm" :     {"Na" : 2, "In" : 5},
@@ -27,7 +27,7 @@
     },
 
     "Common Raw Materials" : {
-        "availability" :    "all",
+        "availability" :    ["all"],
         "tons" :            [2, 20],
         "base_price" :      5000,
         "purchase_dm" :     {"Ag" : 3, "Ga" : 2},
@@ -36,12 +36,39 @@
     },
 
     "Common Consumables" : {
-        "availability" :    "all",
+        "availability" :    ["all"],
         "tons" :            [2, 20],
         "base_price" :      500,
         "purchase_dm" :     {"Ag" : 3, "Wa" : 2, "Ga" : 1, "As" : -4},
         "sale_dm" :         {"As" : 1, "Fl" : 1, "Ic" : 1, "Hi" : 1},
         "examples" :        "Food, drink and other agricultural products"
+    },
+
+    "Common Ore" : {
+        "availability" :    ["all"],
+        "tons" :            [2, 20],
+        "base_price" :      1000,
+        "purchase_dm" :     {"As" : 4},
+        "sale_dm" :         {"In" : 3, "Ni" : 1},
+        "examples" :        "Ore bearing common metals"
+    },
+
+    "Advanced Electronics" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 5],
+        "base_price" :      100000,
+        "purchase_dm" :     {"In" : 2, "Ht" : 3},
+        "sale_dm" :         {"Ni" : 1, "Ri" : 2, "As" : 3},
+        "examples" :        "Advanced sensors, computers and other electronics up to TL:15"
+    },
+
+    "Advanced Machine Parts" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 5],
+        "base_price" :      75000,
+        "purchase_dm" :     {"In" : 2, "Ht" : 1},
+        "sale_dm" :         {"As" : 2, "Ni" : 1},
+        "examples" :        "Machine components and spare parts, including gravitic components"
     }
 
 }
