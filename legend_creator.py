@@ -195,14 +195,14 @@ def get_trade_goods(trade_codes):
                 available = True
 
             # If there is a buy dm save the highest applicable.
-            if not goods_data.get('purchase_dm').get('code') == None:
-                if goods_data.get('purchase_dm').get('code') > sell_dm:
-                    purchase_dm = goods_data.get('purchase_dm').get('code')
+            if not goods_data.get('purchase_dm').get(code) == None:
+                if goods_data.get('purchase_dm').get(code) > sell_dm:
+                    purchase_dm = goods_data.get('purchase_dm').get(code)
 
             # If there is a sell dm save the highest one applicable.
-            if not goods_data.get('sale_dm').get('code') == None:
-                if goods_data.get('sale_dm').get('code') > sell_dm:
-                    sell_dm = goods_data.get('sale_dm').get('code')
+            if not goods_data.get('sale_dm').get(code) == None:
+                if goods_data.get('sale_dm').get(code) > sell_dm:
+                    sell_dm = goods_data.get('sale_dm').get(code)
         
         # If available and a buy or sell dm exist save the highest one that occured
         if available or purchase_dm > 0 or sell_dm > 0:
