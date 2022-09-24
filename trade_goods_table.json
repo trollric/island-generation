@@ -258,5 +258,59 @@
         "purchase_dm" :     {"Ag" : 6},
         "sale_dm" :         {"Ri" : 2, "In" : 1},
         "examples" :        "Hard or beatiful woods and plant extracts"
+    },
+
+    "Vehicles" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 10],
+        "base_price" :      15000,
+        "purchase_dm" :     {"In" : 2, "Ht" : 1},
+        "sale_dm" :         {"Ni" : 2, "Hi" : 1},
+        "examples" :        "Wheeled, tracked and other vehicles from TL10 or lower"
+    },
+
+    "Illegal Biochemicals" : {
+        "availability" :    ["Ag", "Wa"],
+        "tons" :            [1, 5],
+        "base_price" :      50000,
+        "purchase_dm" :     {"Wa" : 2},
+        "sale_dm" :         {"In" : 6},
+        "examples" :        "Dangerous chemicals, extracts from endagered species"
+    },
+
+    "Illegal Cybernetics" : {
+        "availability" :    ["Ht"],
+        "tons" :            [1, 1],
+        "base_price" :      250000,
+        "purchase_dm" :     {"Ht" : 1},
+        "sale_dm" :         {"As" : 4, "Ic" : 4, "Ri" : 8, "Amber" : 6, "Red" : 6},
+        "examples" :        "Combat cybernetics, illegal enhancements"
+    },
+
+    "Illegal Drugs" : {
+        "availability" :    ["As", "De", "Hi", "Wa"],
+        "tons" :            [1, 1],
+        "base_price" :      100000,
+        "purchase_dm" :     {"As" : 1, "De" : 1, "Ga" : 1, "Wa" : 1},
+        "sale_dm" :         {"Ri" : 6, "Hi" : 6},
+        "examples" :        "Addictive drugs, combat drugs"
+    },
+
+    "Illegal Luxuries" : {
+        "availability" :    ["Ag", "Ga", "Wa"],
+        "tons" :            [1, 1],
+        "base_price" :      50000,
+        "purchase_dm" :     {"Ag" : 2, "Wa" : 1},
+        "sale_dm" :         {"Ri" : 6, "Hi" : 4},
+        "examples" :        "Debauched or addictive luxuries"
+    },
+
+    "Illegal Weapons" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 5],
+        "base_price" :      150000,
+        "purchase_dm" :     {"Ht" : 2},
+        "sale_dm" :         {"Po" : 6, "Amber" : 8, "Red" : 10},
+        "examples" :        "Hard or beatiful woods and plant extracts"
     }
 }
