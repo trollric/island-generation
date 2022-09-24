@@ -87,6 +87,68 @@
         "purchase_dm" :     {"Ht" : 2},
         "sale_dm" :         {"Po" : 1, "Amber" : 2, "Red" : 4},
         "examples" :        "Firearms, explosives, ammunition, artillery and other military-grade weaponry"
-    }
+    },
 
+    "Advanced Vehicles" : {
+        "availability" :    ["In", "Ht"],
+        "tons" :            [1, 5],
+        "base_price" :      180000,
+        "purchase_dm" :     {"Ht" : 2},
+        "sale_dm" :         {"As" : 2, "Ri" : 2},
+        "examples" :        "Air/rafts, spacecraft, grav tanks, and other vehicles up to TL-15"
+    },
+
+    "Biochemicals" : {
+        "availability" :    ["Ag", "Wa"],
+        "tons" :            [1, 5],
+        "base_price" :      50000,
+        "purchase_dm" :     {"Ag" : 1, "Wa" : 2},
+        "sale_dm" :         {"In" : 2},
+        "examples" :        "Biofuels, organic chemicals, extracts"
+    },
+
+    "Crystals & Gems" : {
+        "availability" :    ["As", "De", "Ic"],
+        "tons" :            [1, 5],
+        "base_price" :      20000,
+        "purchase_dm" :     {"As" : 2, "De" : 1, "Ic" : 1},
+        "sale_dm" :         {"In" : 3, "Ri" : 2},
+        "examples" :        "Diamonds, synthetic or natural gemstones"
+    },
+
+    "Cybernetics" : {
+        "availability" :    ["Ht"],
+        "tons" :            [1, 1],
+        "base_price" :      250000,
+        "purchase_dm" :     {"Ht" : 1},
+        "sale_dm" :         {"As" : 1, "Ic" : 1, "Ri" : 2},
+        "examples" :        "Cybernetic components, replacement limbs"
+    },
+
+    "Live Animals" : {
+        "availability" :    ["Ag", "Ga"],
+        "tons" :            [1, 10],
+        "base_price" :      10000,
+        "purchase_dm" :     {"Ag" : 2},
+        "sale_dm" :         {"Lo" : 3},
+        "examples" :        "Riding animals, beasts of burden, exotic pets"
+    },
+
+    "Luxury Consumables" : {
+        "availability" :    ["Ag", "Ga", "Wa"],
+        "tons" :            [1, 10],
+        "base_price" :      20000,
+        "purchase_dm" :     {"Ag" : 2, "Wa" : 1},
+        "sale_dm" :         {"Ri" : 2, "Hi" : 2},
+        "examples" :        "Rare foods, fine liquors"
+    },
+
+    "Luxury Goods" : {
+        "availability" :    ["Hi"],
+        "tons" :            [1, 1],
+        "base_price" :      200000,
+        "purchase_dm" :     {"Hi" : 1},
+        "sale_dm" :         {"Ri" : 4},
+        "examples" :        "Rare or extremely high-quality manufactured goods"
+    }
 }
