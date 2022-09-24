@@ -150,5 +150,113 @@
         "purchase_dm" :     {"Hi" : 1},
         "sale_dm" :         {"Ri" : 4},
         "examples" :        "Rare or extremely high-quality manufactured goods"
+    },
+
+    "Medical Supplies" : {
+        "availability" :    ["Ht", "Hi"],
+        "tons" :            [1, 5],
+        "base_price" :      50000,
+        "purchase_dm" :     {"Ht" : 2},
+        "sale_dm" :         {"In" : 2, "Po" : 1, "Ri" : 1},
+        "examples" :        "Diagnostic equipment, basic drugs, cloning technology"
+    },
+
+    "Petrochemicals" : {
+        "availability" :    ["De", "Fl", "Ic", "Wa"],
+        "tons" :            [1, 10],
+        "base_price" :      10000,
+        "purchase_dm" :     {"De" : 2},
+        "sale_dm" :         {"In" : 2, "Ag" : 1, "Lt" : 2},
+        "examples" :        "Oil, liquid fuels"
+    },
+
+    "Pharmaceuticals" : {
+        "availability" :    ["As", "De", "Hi", "Wa"],
+        "tons" :            [1, 1],
+        "base_price" :      100000,
+        "purchase_dm" :     {"As" : 2, "Hi" : 1},
+        "sale_dm" :         {"Ri" : 2, "Lt" : 1},
+        "examples" :        "Drugs, medical supplies, anagathics, fast or slow drugs"
+    },
+
+    "Polymers" : {
+        "availability" :    ["In"],
+        "tons" :            [1, 10],
+        "base_price" :      7000,
+        "purchase_dm" :     {"In" : 1},
+        "sale_dm" :         {"Ri" : 2, "Ni" : 1},
+        "examples" :        "Plastics and other synthetics"
+    },
+
+    "Precious Metals" : {
+        "availability" :    ["As", "De", "Ic", "Fl"],
+        "tons" :            [1, 1],
+        "base_price" :      50000,
+        "purchase_dm" :     {"As" : 3, "De" : 1, "Ic" : 2},
+        "sale_dm" :         {"Ri" : 3, "In" : 2, "Ht" : 1},
+        "examples" :        "Gold, silver, platinum, rare elements"
+    },
+
+    "Radioactives" : {
+        "availability" :    ["As", "De", "Lo"],
+        "tons" :            [1, 1],
+        "base_price" :      1000000,
+        "purchase_dm" :     {"As" : 2, "Lo" : 2},
+        "sale_dm" :         {"In" : 3, "Ht" : 1, "Ni" : -2, "Ag" : -3},
+        "examples" :        "Uranium, plutonium, unobtanium, rare elements"
+    },
+
+    "Robots" : {
+        "availability" :    ["In"],
+        "tons" :            [1, 5],
+        "base_price" :      400000,
+        "purchase_dm" :     {"In" : 1},
+        "sale_dm" :         {"Ag" : 2, "Ht" : 1},
+        "examples" :        "Industrial and personal robots and drones"
+    },
+
+    "Spices" : {
+        "availability" :    ["Ga", "De", "Wa"],
+        "tons" :            [1, 10],
+        "base_price" :      6000,
+        "purchase_dm" :     {"De" : 2},
+        "sale_dm" :         {"Hi" : 2, "Ri" : 3, "Po" : 3},
+        "examples" :        "Preservatives, luxury food additives, natural drugs"
+    },
+
+    "Textiles" : {
+        "availability" :    ["Ag", "Ni"],
+        "tons" :            [1, 20],
+        "base_price" :      3000,
+        "purchase_dm" :     {"Ag" : 7},
+        "sale_dm" :         {"Hi" : 3, "Na" : 2},
+        "examples" :        "Clothing and fabrics"
+    },
+
+    "Uncommon Ore" : {
+        "availability" :    ["As", "Ic"],
+        "tons" :            [1, 20],
+        "base_price" :      5000,
+        "purchase_dm" :     {"As" : 4},
+        "sale_dm" :         {"In" : 3, "Ni" : 1},
+        "examples" :        "Ore containing precious or valuable metals"
+    },
+
+    "Uncommon Raw Materials" : {
+        "availability" :    ["Ag", "De", "Wa"],
+        "tons" :            [1, 10],
+        "base_price" :      20000,
+        "purchase_dm" :     {"Ag" : 2, "Wa" : 1},
+        "sale_dm" :         {"In" : 2, "Ht" : 1},
+        "examples" :        "Valuable metals like titanium, rare elements"
+    },
+
+    "Wood" : {
+        "availability" :    ["Ag", "Ga"],
+        "tons" :            [1, 20],
+        "base_price" :      1000,
+        "purchase_dm" :     {"Ag" : 6},
+        "sale_dm" :         {"Ri" : 2, "In" : 1},
+        "examples" :        "Hard or beatiful woods and plant extracts"
     }
 }
