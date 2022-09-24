@@ -172,12 +172,44 @@ def generate_legend_document():
 
 def get_trade_goods(trade_codes):
 
+    # Check that trade_codes is a list.
+    if not isinstance(trade_codes, list):
+        raise TypeError('Trade codes needs to be a list of traveler trade codes.')
+    
     # Import the json-data
+    with open("trade_goods_table.json",) as trade_goods_data:
+        trade_requirements = json.load(trade_goods_data)
+    
+
     # Step through the data
-    #   If available and a buy or sell dm exist save the highest one that occured
-    #   Save it into a dictionary with types as keys and values as sub dictionaries
-    #   dict = {'type' : {'purchase_dm' : <int>, 'sell_dm' : <int>}}
-    pass
+    trade_goods = {}
+    for type, goods_data in trade_requirements.items():
+
+        # Step through trade codes and check if they are available, if they have buy dm, if they have sell dm.
+        available = False
+        purchase_dm = 0
+        sell_dm = 0
+        for code in trade_codes: 
+            # Is the goods available at the planet.
+            if code in goods_data.get('availability') or 'all' in goods_data.get('availability'):
+                available = True
+
+            # If there is a buy dm save the highest applicable.
+            if not goods_data.get('purchase_dm').get('code') == None:
+                if goods_data.get('purchase_dm').get('code') > sell_dm:
+                    purchase_dm = goods_data.get('purchase_dm').get('code')
+
+            # If there is a sell dm save the highest one applicable.
+            if not goods_data.get('sale_dm').get('code') == None:
+                if goods_data.get('sale_dm').get('code') > sell_dm:
+                    sell_dm = goods_data.get('sale_dm').get('code')
+        
+        # If available and a buy or sell dm exist save the highest one that occured
+        if available or purchase_dm > 0 or sell_dm > 0:
+            trade_goods.update(type, {'purchase_dm' : purchase_dm, 'sale_dm' : sell_dm})
+
+
+    return trade_goods
 
 
 def legend_append_trade_codes(legend_image, trade_codes):
