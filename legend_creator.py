@@ -512,11 +512,11 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 def legend_append_trade_codes(legend_image, trade_codes):
     
     #-------------------------
-    # b1                     |
+    #b1                      |
     #-------------------------
     #b2          |b3         |
     #-------------------------
-    #b4          |b4         |
+    #b4          |b5         |
     #            |           |
     #            |           |
     #            |           |
@@ -525,20 +525,34 @@ def legend_append_trade_codes(legend_image, trade_codes):
     #            |           |
     #            |           |
     #-------------------------
-    
+
     # Get image size
     legend_width, legend_height = legend_image.size
 
-    # Create coordinate offset to upper left of the box
-    x_off = int(legend_width/2)
-    y_off = int(legend_width * 7/12)
+    # Create coordinate offset to upper left of b1
+    x_offset = int(legend_width/2)
+    y_offset = int(legend_width * 7/12)
 
+    # Create helper veriables defining box sizes.
+    half_box_y = int(legend_width * 3/48)
+    box_x = int(legend_width / 2)
+    half_box_x = int(legend_width / 4)
+
+    # Create bounded boxes b1 through b5
+    b1 = [(x_offset, y_offset),(x_offset + box_x, y_offset + half_box_y)]
+
+    # Change y_offset for the next set of boxes.
+    y_offset += half_box_y
+    b2 = [(x_offset, y_offset), (x_offset + half_box_x, y_offset + half_box_y)]
+    b3 = [(x_offset + half_box_x, y_offset), (x_offset + box_x, y_offset + half_box_y)]
+
+    # Change y_offset for the next set of boxes
     # Create imagedraw object
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Create a font
     # Font size in pixels
-    font_color = tuple(colors.get_rgb_color('gold'))
+    """ font_color = tuple(colors.get_rgb_color('gold'))
     font_size = int(legend_height/60)
     font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
     padding = 20
@@ -560,7 +574,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
     text = 'Purchase DM | Sell DM'
     x, y = font.getsize(text)
     text_coord = (x_off + legend_width/4 +text_x_alignment , y_off + text_y_alignment + (legend_width * 3/48))
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, font_color, font=font) """
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
