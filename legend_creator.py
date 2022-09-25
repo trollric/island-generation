@@ -248,22 +248,34 @@ def get_trade_goods(trade_codes):
     return trade_goods
 
 
-def box_dimension_error():
-    """Raises a verbose error if box dimensions have not been given
-    in the correct way
+def box_dimensions_valid(box_dimensions):
+    """Checks that box dimensions have been given properly
+
+    Args:
+        box_dimensions (tuple, list): The box_dimensions are checked to see if they are of acceptable
+        types:
+        tuple: (int, int): (width, height)
+        list(tuple, tuple): [(int x1, int y1),(int x2, int y2)]
+        list(int, int, int, int): [x1, y1, x2, y2]
 
     Raises:
-        TypeError: Raises error with explanation how box dimensions needs to be provided.
+        TypeError: box dimensions needs to be of type list or tuple
+        ValueError: List length needs to be 2 or 4
+        TypeError: One or more of the list elements are not of tuple type.
+        TypeError: All values inside the tuples must be of int type.
+        ValueError: If any int is of negative type
+        ValueError: x1 can't be larger than x2, y1 can't be larger than y2
+        TypeError: All values needs to be of int type.
+        ValueError: If any int is negative.
+        ValueError: x1 can't be larger than x2, y1 can't be larger than y2
+        ValueError: Tuple not of size 2
+        TypeError: Tuple values not of type int
+        ValueError: One or more int values negative.
     """
-    raise TypeError('''The box dimensions needs to be given in on of the following forms
-                            tuple: (width, height),\n
-                            list of tuples: [(x1, y1), (x2, y2)],\n
-                            list of coordinate values: [x1, y1, x2, y2]''')
-
-
-def box_dimensions_valid(box_dimensions):
-
     # Check that box dimensions have been given correctly
+
+    if not isinstance(box_dimensions, (list, tuple)):
+        raise TypeError('Box dimenions needs to be of type list or tuple')
 
     # If box dimensions is a list of tuples or ints
     if isinstance(box_dimensions, list):
@@ -276,7 +288,7 @@ def box_dimensions_valid(box_dimensions):
         elif len(box_dimensions) == 2:
             # Check that all items are tuples
             if not all(isinstance(value, tuple) for value in box_dimensions):
-                raise ValueError(f'''Both list elements needs to be touples containing int values.\n
+                raise TypeError(f'''Both list elements needs to be touples containing int values.\n
                                 Ex: [(10, 10), (20, 20)].\n
                                 provided types: [{type(box_dimensions[0])}, 
                                 {type(box_dimensions[1])}''')
@@ -285,13 +297,40 @@ def box_dimensions_valid(box_dimensions):
             for items in box_dimensions:
                 if not all(isinstance(value, int) for value in items):
                     raise TypeError(f'All values needs to be of type int.\nProvided: {items}')
+                
+                # Check that no value in the tuple is negative.
+                if not all(val >= 0 for val in items):
+                    raise ValueError('All numbers needs to be of positive integer type')
+            
+            # Check that x1 > x2 or y1 > y2
+            x1, y1 = box_dimensions[0]
+            x2, y2 = box_dimensions[1]
+            if x1 > x2 or y1 > y2:
+                raise ValueError(f'''The secon dimension can not be smaller than the first.\n
+                                provided values x1: {x1}, y1: {y1}, x2: {x2}, y2: {y2}''')
 
         # If box dimension is of a four int value list type.
         elif len(box_dimensions) == 4:
             if not all(isinstance(value, int) for value in box_dimensions):
-                raise ValueError(f'All four x and y values needs to be of type integer')
+                raise TypeError(f'All four x and y values needs to be of type integer')
 
-    return True
+            # Check that x2 is largen than x1 and y2 is larger than y1 and no value is smaller
+            # than 0
+            x1, y1, x2, y2 = box_dimensions
+
+            if not all(val >= 0 for val in box_dimensions):
+                raise ValueError('All numbers needs to be of positive integer type.')
+            if x1 > x2 or y1 > y2:
+                raise ValueError(f'''The second dimension can not be smaller than the first.\n
+                                provided values x1: {x1}, y1: {y1}, x2: {x2}, y2: {y2}''')
+
+        if isinstance(box_dimensions, tuple):
+            if not len(box_dimensions) == 2:
+                raise ValueError('tuple can only contain two values.')
+            if not all(isinstance(val, int) for val in box_dimensions):
+                raise TypeError('The provided values inside the tuple must be of type int.')
+            if not all(val >= 0 for val in box_dimensions):
+                raise ValueError('The integer values must be positive.')
 
 
 def font_align(box_dimensions, horizontal = 'left', vertical = 'top', padding = 0):
