@@ -440,6 +440,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     elif horizontal.lower() == 'right':
         adjustment_x = width - (text_width + padding[0])
 
+    # TODO: Look at the y center alignment. Text is slightly off center.
     # Calculated adjustment_y
     if vertical.lower() == 'top':
         adjustment_y = padding[1]
