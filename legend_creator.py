@@ -333,7 +333,7 @@ def validate_box_dimensions(box_dimensions):
                 raise ValueError('The integer values must be positive.')
 
 
-def font_align(box_dimensions, text, font, horizontal = 'left',
+def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
             vertical = 'top', padding = 0, padding_mode_percentage = False):
 
     # Check that box dimensions are valid.
