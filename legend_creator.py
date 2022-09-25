@@ -248,6 +248,30 @@ def get_trade_goods(trade_codes):
     return trade_goods
 
 
+def box_dimension_error():
+    """Raises a verbose error if box dimensions have not been given
+    in the correct way
+
+    Raises:
+        TypeError: Raises error with explanation how box dimensions needs to be provided.
+    """
+    raise TypeError('''The box dimensions needs to be given in on of the following forms
+                            tuple: (width, height),\n
+                            list of tuples: [(x1, y1), (x2, y2)],\n
+                            list of coordinate values: [x1, y1, x2, y2]''')
+
+
+def font_align(box_dimensions, horizontal = 'left', vertical = 'top', padding = 0):
+
+    if isinstance(box_dimensions, list):
+        if not len(box_dimensions) in [2, 4]:
+            raise TypeError
+    if not len(box_dimensions) in [1, 2, 4]:
+        box_dimension_error()
+
+
+
+
 def legend_append_trade_codes(legend_image, trade_codes):
     
     # Get image size
@@ -273,24 +297,23 @@ def legend_append_trade_codes(legend_image, trade_codes):
     legend_draw.text(text_coord, text, font_color, font=font)
 
     # Add text purchase info and sell info.
-    text = 'Purchase info'
+    text = 'Trade goods'
     x, y = font.getsize(text)
-    x_center = int((legend_width/4 - x)/2)
-    y_center = int((legend_width * 3/48 - y*1.2)/2)
-    text_coord = (x_off + x_center , y_off + y_center + (legend_width * 3/48))
+    text_x_alignment = int((legend_width/4 - x)/2)
+    text_y_alignment = int((legend_width * 3/48 - y)/2)
+    text_coord = (x_off + text_x_alignment , y_off + text_y_alignment + (legend_width * 3/48))
     legend_draw.text(text_coord, text, font_color, font=font)
 
-    text = 'Sell info'
+    text = 'Purchase DM | Sell DM'
     x, y = font.getsize(text)
-    x_center = int((legend_width/4 - x)/2)
-    y_center = int((legend_width * 3/48 - y*1.2)/2)
-    text_coord = (x_off + legend_width/4 +x_center , y_off + y_center + (legend_width * 3/48))
+    text_coord = (x_off + legend_width/4 +text_x_alignment , y_off + text_y_alignment + (legend_width * 3/48))
     legend_draw.text(text_coord, text, font_color, font=font)
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
 
-    # TODO: Append trade codes in the bottom right. ()
+    # TODO: Append trade codes in the bottom right.
+
 
 
     return legend_image
