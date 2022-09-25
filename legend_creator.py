@@ -335,7 +335,30 @@ def validate_box_dimensions(box_dimensions):
 
 def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
             vertical = 'top', padding = 0, padding_mode_percentage = False):
+    """Takes a bound box (left, top, bottom, right) or a (widht, height) touple.
+    A text to align and the font given
 
+    Args:
+        box_dimensions (_type_): _description_
+        text (_type_): _description_
+        font (_type_): _description_
+        horizontal (str, optional): _description_. Defaults to 'left'.
+        vertical (str, optional): _description_. Defaults to 'top'.
+        padding (int, optional): _description_. Defaults to 0.
+        padding_mode_percentage (bool, optional): _description_. Defaults to False.
+
+    Raises:
+        TypeError: _description_
+        TypeError: _description_
+        ValueError: _description_
+        ValueError: _description_
+        TypeError: _description_
+        ValueError: _description_
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """
     # Check that box dimensions are valid.
     validate_box_dimensions(box_dimensions)
 
@@ -351,7 +374,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     if not horizontal.lower() in ['left, center, right']:
         raise ValueError('Horizontal alignment can only be left, center or right')
 
-    if not vertical.lower() in ['top', 'centre', 'bottom']:
+    if not vertical.lower() in ['top', 'center', 'bottom']:
         raise ValueError('Vertical alignment can only be top, center or bottom')
 
     # Check that input padding value is valid
@@ -378,17 +401,36 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
         height = box_dimensions[1] - box_dimensions[3]
 
     # Get text width and height with the current font
-    text_width, text_height = font.getsize(text)
+    x1, y1, x2, y2 = font.getbbox(text)
+    text_width, text_height = (x2 - x1, y2 - y1)
 
     # TODO: Calculate adjustment_x and adjustment_y depending on alignment settings
     # and padding options.
     adjustment_x, adjustment_y = (0, 0)
     
+    # Calculate padding if needed.
     if padding_mode_percentage:
         padding = (int(width * padding/100), int(height * padding/100))
     else:
         padding = (padding, padding)
+    
+    # Calculate adjustment_x
+    if horizontal.lower() == 'left':
+        adjustment_x = padding[0]
+    elif horizontal.lower() == 'center':
+        adjustment_x = int((width - text_width) / 2)
+    elif horizontal.lower() == 'right':
+        adjustment_x = width - (text_width + padding[0])
 
+    # Calculated adjustment_y
+    if vertical.lower() == 'top':
+        adjustment_y = padding[1]
+    elif vertical.lower() == 'center':
+        adjustment_y = int((height - text_height) / 2)
+    elif vertical.lower() == 'bottom':
+        adjustment_y = height - (text_height + padding[1])
+
+    return adjustment_x, adjustment_y
 
 
 
