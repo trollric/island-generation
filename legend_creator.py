@@ -547,6 +547,10 @@ def legend_append_trade_codes(legend_image, trade_codes):
     b3 = [(x_offset + half_box_x, y_offset), (x_offset + box_x, y_offset + half_box_y)]
 
     # Change y_offset for the next set of boxes
+    y_offset += half_box_y
+    b4 = [(x_offset, y_offset), (x_offset + half_box_x, legend_height)]
+    b5 = [(x_offset + half_box_x, y_offset), (x_offset + box_x, y_offset + half_box_y)]
+    
     # Create imagedraw object
     legend_draw = ImageDraw.Draw(legend_image)
 
