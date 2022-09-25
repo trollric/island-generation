@@ -438,6 +438,19 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     return adjustment_x, adjustment_y
 
 
+def get_max_font_size(box_dimensions, text, font, padding = 0):
+    
+    # Check if box_dimensions are valid
+    validate_box_dimensions(box_dimensions)
+
+    # validate text
+    if not isinstance(text, str):
+        raise TypeError(f'text needs to be of type string. Provided type was: {type(text)}')
+
+    # Validate font
+    if not isinstance(font, ImageFont.FreeTypeFont):
+        raise TypeError(f'font needs ot be a FreeTypeFont. Provided type was: {type(font)}')
+
 
 def legend_append_trade_codes(legend_image, trade_codes):
     
