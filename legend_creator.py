@@ -347,7 +347,10 @@ def font_align(box_dimensions, text, font, horizontal = 'left',
     
     # Check that alignment values are of correct types
     if not horizontal.lower() in ['left, center, right']:
-        raise ValueError('Horizontal alignment can only be left, center or lower')
+        raise ValueError('Horizontal alignment can only be left, center or right')
+
+    if not vertical.lower() in ['top', 'centre', 'bottom']:
+        raise ValueError('Vertical alignment can only be top, center or bottom')
 
     # Check that input padding value is valid
     if not isinstance(padding, int):
