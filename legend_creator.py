@@ -400,7 +400,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
         raise TypeError('Font needs to be of PIL.ImageFont.FreeTypeFont class.')
     
     # Check that alignment values are of correct types
-    if not horizontal.lower() in ['left, center, right']:
+    if not horizontal.lower() in ['left', 'center', 'right']:
         raise ValueError('Horizontal alignment can only be left, center or right')
 
     if not vertical.lower() in ['top', 'center', 'bottom']:
@@ -550,35 +550,45 @@ def legend_append_trade_codes(legend_image, trade_codes):
     y_offset += half_box_y
     b4 = [(x_offset, y_offset), (x_offset + half_box_x, legend_height)]
     b5 = [(x_offset + half_box_x, y_offset), (x_offset + box_x, y_offset + half_box_y)]
-    
+
     # Create imagedraw object
     legend_draw = ImageDraw.Draw(legend_image)
 
-    # Create a font
-    # Font size in pixels
-    """ font_color = tuple(colors.get_rgb_color('gold'))
-    font_size = int(legend_height/60)
-    font = ImageFont.truetype("Fonts/Optima-LT-Medium-Italic.ttf", font_size)
+
+    # Set default font values.
+    font_color = tuple(colors.get_rgb_color('gold'))
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     padding = 20
 
-    # Write Trade Codes: <And add every trade code
+    # Create a font for the trade_string
     trade_string = ', '.join(trade_codes)
     text = f'Trade codes: {trade_string}'
-    text_coord = (x_off + padding, y_off + padding)
+    
+    # Determine maxiumum font size with padding.
+    font_size = get_max_font_size(b1, text, font_path, padding)
+    font = ImageFont.truetype(font_path, font_size)
+
+    x_alignment, y_alignment = get_font_align_offsets(  b1, text, font,
+                                                        vertical='center',
+                                                        padding=padding)
+
+    # Write Trade Codes: <And add every trade code
+    #text_coord = (x_offset + padding, y_offset + padding)
+    text_coord = (b1[0][0] + x_alignment, b1[0][1], y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
     # Add text purchase info and sell info.
-    text = 'Trade goods'
-    x, y = font.getsize(text)
-    text_x_alignment = int((legend_width/4 - x)/2)
-    text_y_alignment = int((legend_width * 3/48 - y)/2)
-    text_coord = (x_off + text_x_alignment , y_off + text_y_alignment + (legend_width * 3/48))
-    legend_draw.text(text_coord, text, font_color, font=font)
+    # text = 'Trade goods'
+    # x, y = font.getsize(text)
+    # text_x_alignment = int((legend_width/4 - x)/2)
+    # text_y_alignment = int((legend_width * 3/48 - y)/2)
+    # text_coord = (x_offset + text_x_alignment , y_offset + text_y_alignment + (legend_width * 3/48))
+    # legend_draw.text(text_coord, text, font_color, font=font)
 
-    text = 'Purchase DM | Sell DM'
-    x, y = font.getsize(text)
-    text_coord = (x_off + legend_width/4 +text_x_alignment , y_off + text_y_alignment + (legend_width * 3/48))
-    legend_draw.text(text_coord, text, font_color, font=font) """
+    # text = 'Purchase DM | Sell DM'
+    # x, y = font.getsize(text)
+    # text_coord = (x_offset + legend_width/4 +text_x_alignment , y_offset + text_y_alignment + (legend_width * 3/48))
+    # legend_draw.text(text_coord, text, font_color, font=font)
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
