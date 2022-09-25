@@ -451,7 +451,6 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     return adjustment_x, adjustment_y
 
 
-
 def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     
     # Check if box_dimensions are valid
@@ -475,9 +474,19 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 
     # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
     font_size = 1
+    width, height = get_box_dimension_size(box_dimensions)
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
         text_width, text_height = font.getsize(text)
+
+        # Break if we have reached the largest font size possible.
+        if text_width > width - 2 * padding or text_height > height - 2 * padding:
+            break
+
+        font_size = size
+
+    return font_size
+
         
     
 
