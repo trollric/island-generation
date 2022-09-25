@@ -333,10 +333,33 @@ def validate_box_dimensions(box_dimensions):
                 raise ValueError('The integer values must be positive.')
 
 
-def font_align(box_dimensions, horizontal = 'left', vertical = 'top', padding = 0):
+def font_align(box_dimensions, text, font, horizontal = 'left',
+            vertical = 'top', padding = 0, padding_mode_percentage = False):
 
     # Check that box dimensions are valid.
     validate_box_dimensions(box_dimensions)
+
+    # Check that text is valid.
+    if not isinstance(text, str):
+        raise TypeError('Text needs to be provided as a string.')
+
+    # TODO:Check that font is of trufont type
+    
+    # Check that alignment values are of correct types
+    if not horizontal.lower() in ['left, center, right']:
+        raise ValueError('Horizontal alignment can only be left, center or lower')
+
+    # Check that input padding value is valid
+    if not isinstance(padding, int):
+        raise TypeError('Padding needs to be provided as an int value.')
+
+    if padding_mode_percentage and not value_in_range(padding, 0, 100):
+        raise ValueError('''When providing padding in percentage it needs to be provided
+         as an integer between 0-100''')
+    elif not padding_mode_percentage and padding < 0:
+        raise ValueError('Padding needs to be a positive integer value')
+
+    # Get width, heigth from box_dimensions.
 
 
 
