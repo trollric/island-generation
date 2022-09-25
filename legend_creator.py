@@ -261,13 +261,42 @@ def box_dimension_error():
                             list of coordinate values: [x1, y1, x2, y2]''')
 
 
+def box_dimensions_valid(box_dimensions):
+
+    # Check that box dimensions have been given correctly
+
+    # If box dimensions is a list of tuples or ints
+    if isinstance(box_dimensions, list):
+
+        # If the box dimension list contains to many or to few items.
+        if not len(box_dimensions) in [2, 4]:
+            raise ValueError(f'List length expected 2 or 4. Received len:{len(box_dimensions)}')
+
+        # If box dimension is of tuple type.
+        elif len(box_dimensions) == 2:
+            # Check that all items are tuples
+            if not all(isinstance(value, tuple) for value in box_dimensions):
+                raise ValueError(f'''Both list elements needs to be touples containing int values.\n
+                                Ex: [(10, 10), (20, 20)].\n
+                                provided types: [{type(box_dimensions[0])}, 
+                                {type(box_dimensions[1])}''')
+
+            # Also check that the tuples only contain integers
+            for items in box_dimensions:
+                if not all(isinstance(value, int) for value in items):
+                    raise TypeError(f'All values needs to be of type int.\nProvided: {items}')
+
+        # If box dimension is of a four int value list type.
+        elif len(box_dimensions) == 4:
+            if not all(isinstance(value, int) for value in box_dimensions):
+                raise ValueError(f'All four x and y values needs to be of type integer')
+
+    return True
+
+
 def font_align(box_dimensions, horizontal = 'left', vertical = 'top', padding = 0):
 
-    if isinstance(box_dimensions, list):
-        if not len(box_dimensions) in [2, 4]:
-            raise TypeError
-    if not len(box_dimensions) in [1, 2, 4]:
-        box_dimension_error()
+    pass
 
 
 
