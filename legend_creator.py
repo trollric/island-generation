@@ -422,7 +422,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     # Get text width and height with the current font
     text_width, text_height = font.getsize(text)
 
-    # TODO: Calculate adjustment_x and adjustment_y depending on alignment settings
+    # Calculate adjustment_x and adjustment_y depending on alignment settings
     # and padding options.
     adjustment_x, adjustment_y = (0, 0)
     
