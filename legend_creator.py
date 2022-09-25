@@ -364,7 +364,26 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     elif not padding_mode_percentage and padding < 0:
         raise ValueError('Padding needs to be a positive integer value')
 
+
     # Get width, heigth from box_dimensions.
+    width = 0
+    height = 0
+    if isinstance(box_dimensions, tuple):
+        width, height = box_dimensions
+    elif len(box_dimensions) == 2:
+        width = box_dimensions[1][0] - box_dimensions[0][0]
+        height = box_dimensions[1][1] - box_dimensions[0][1]
+    elif len(box_dimensions) == 4:
+        width = box_dimensions[0] - box_dimensions[2]
+        height = box_dimensions[1] - box_dimensions[3]
+
+    # Get text widht and height with the current font
+    text_width, text_height = font.getsize(text)
+
+    # TODO: Calculate adjustment_x and adjustment_y depending on alignment settings
+    # and padding options.
+    adjustment_x, adjustment_y = (0, 0)
+    
 
 
 
