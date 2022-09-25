@@ -511,8 +511,24 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 
 def legend_append_trade_codes(legend_image, trade_codes):
     
+    #-------------------------
+    # b1                     |
+    #-------------------------
+    #b2          |b3         |
+    #-------------------------
+    #b4          |b4         |
+    #            |           |
+    #            |           |
+    #            |           |
+    #            |           |
+    #            |           |
+    #            |           |
+    #            |           |
+    #-------------------------
+    
     # Get image size
     legend_width, legend_height = legend_image.size
+
     # Create coordinate offset to upper left of the box
     x_off = int(legend_width/2)
     y_off = int(legend_width * 7/12)
