@@ -248,7 +248,7 @@ def get_trade_goods(trade_codes):
     return trade_goods
 
 
-def box_dimensions_valid(box_dimensions):
+def validate_box_dimensions(box_dimensions):
     """Checks that box dimensions have been given properly
 
     Args:
@@ -335,7 +335,8 @@ def box_dimensions_valid(box_dimensions):
 
 def font_align(box_dimensions, horizontal = 'left', vertical = 'top', padding = 0):
 
-    pass
+    # Check that box dimensions are valid.
+    validate_box_dimensions(box_dimensions)
 
 
 
