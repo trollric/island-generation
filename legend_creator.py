@@ -452,7 +452,28 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
 
 
 def get_max_font_size(box_dimensions, text, font_path, padding = 0):
-    
+    """Takes a bouning box and returns the largest possible font size. If you wish to 
+    write out text in the font from the provided font_path. Optionally space for padding
+    can be taken into consideration.
+
+    Args:
+        box_dimensions (tuple/list): list of tuples or integers spanning a bounding box.
+        Optionally a tuple containing width/heigh can be given.
+        text (str): The text that font size will be tested with.
+        font_path (str): A string containing the path to a truefont.
+        padding (int, optional): Padding in the bounded box. Defaults to 0.
+
+    Raises:
+        TypeError: text needs to be a string.
+        TypeError: the path must be provided as a string.
+        FileNotFoundError: if the font can not be found at given path.
+        TypeError: padding must be an integer.
+        ValueError: padding must be a positive integer.
+
+    Returns:
+        int: Returns the largest font size that can be used for a bounded box with padding optional
+        as an integer.
+    """
     # Check if box_dimensions are valid
     validate_box_dimensions(box_dimensions)
 
