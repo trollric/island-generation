@@ -508,9 +508,6 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 
     return font_size
 
-        
-    
-
 
 def legend_append_trade_codes(legend_image, trade_codes):
     
