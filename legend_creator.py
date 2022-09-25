@@ -335,29 +335,34 @@ def validate_box_dimensions(box_dimensions):
 
 def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
             vertical = 'top', padding = 0, padding_mode_percentage = False):
-    """Takes a bound box (left, top, bottom, right) or a (widht, height) touple.
-    A text to align and the font given
+    """Takes a bounding box, a text and a font. With additional parameters
+    as needed and returns a touple with x, y offset values to align the
+    text after the provided alignment demands.
 
     Args:
-        box_dimensions (_type_): _description_
-        text (_type_): _description_
-        font (_type_): _description_
-        horizontal (str, optional): _description_. Defaults to 'left'.
-        vertical (str, optional): _description_. Defaults to 'top'.
-        padding (int, optional): _description_. Defaults to 0.
-        padding_mode_percentage (bool, optional): _description_. Defaults to False.
+        box_dimensions (list/tuple): A list containing two tuples or four int values. or a
+        tuple containing width, height
+        text (str): A text string that needs to be aligned inside a bounding box.
+        font (PIL.ImageFont.FreeTypeFont): A font object that will be used to render the text.
+        horizontal (str, optional): Alignment option left, center or right. Defaults to 'left'.
+        vertical (str, optional): Alignment option top, center or bottom. Defaults to 'top'.
+        padding (int, optional): Adds padding to the offset values. Or gives a percent value
+        if padding should be dependent on the bounding box. Defaults to 0.
+        padding_mode_percentage (bool, optional): If padding should be depending on the
+        bounding box set to True. Defaults to False.
 
     Raises:
-        TypeError: _description_
-        TypeError: _description_
-        ValueError: _description_
-        ValueError: _description_
-        TypeError: _description_
-        ValueError: _description_
-        ValueError: _description_
+        TypeError: Text needs to be string.
+        TypeError: Font needs to be a FreeTypeFont format.
+        ValueError: Horizontal needs to be a string of left, center or right
+        ValueError: Vertical needs to be a string of top, center or bottom.
+        TypeError: Padding value must be an integer.
+        ValueError: If padding is applied like percent it must be 0-100
+        ValueError: If padding not based of percent it needs to be a positive integer.
 
     Returns:
-        _type_: _description_
+        tuple: Returns a touple containing the alignment values for x and y inside the bounding
+        box
     """
     # Check that box dimensions are valid.
     validate_box_dimensions(box_dimensions)
