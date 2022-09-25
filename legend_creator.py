@@ -450,6 +450,15 @@ def get_max_font_size(box_dimensions, text, font, padding = 0):
     if not isinstance(font, ImageFont.FreeTypeFont):
         raise TypeError(f'font needs ot be a FreeTypeFont. Provided type was: {type(font)}')
 
+    # Check padding is int and not a negative number.
+    if not isinstance(padding, int):
+        raise TypeError(f'padding was not an int. Type provided: {type(padding)}')
+    elif not padding > 0:
+        raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
+
+    
+    
+
 
 def legend_append_trade_codes(legend_image, trade_codes):
     
