@@ -384,7 +384,10 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     # and padding options.
     adjustment_x, adjustment_y = (0, 0)
     
-    
+    if padding_mode_percentage:
+        padding = (int(width * padding/100), int(height * padding/100))
+    else:
+        padding = (padding, padding)
 
 
 
