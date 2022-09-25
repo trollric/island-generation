@@ -333,6 +333,30 @@ def validate_box_dimensions(box_dimensions):
                 raise ValueError('The integer values must be positive.')
 
 
+def get_box_dimension_size(box_dimensions):
+    """Takes a box_dimension and returns width, height as a tuple.
+
+    Args:
+        box_dimensions (tuple/list): A list of values or tuples spanning the bounding box.
+        Or a tuple containing width and height.
+
+    Returns:
+        tuple: (width : int, height : int)
+    """
+    # Get width, heigth from box_dimensions.
+    width = 0
+    height = 0
+    if isinstance(box_dimensions, tuple):
+        width, height = box_dimensions
+    elif len(box_dimensions) == 2:
+        width = box_dimensions[1][0] - box_dimensions[0][0]
+        height = box_dimensions[1][1] - box_dimensions[0][1]
+    elif len(box_dimensions) == 4:
+        width = box_dimensions[0] - box_dimensions[2]
+        height = box_dimensions[1] - box_dimensions[3]
+    return width,height
+
+
 def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
             vertical = 'top', padding = 0, padding_mode_percentage = False):
     """Takes a bounding box, a text and a font. With additional parameters
@@ -393,17 +417,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
         raise ValueError('Padding needs to be a positive integer value')
 
 
-    # Get width, heigth from box_dimensions.
-    width = 0
-    height = 0
-    if isinstance(box_dimensions, tuple):
-        width, height = box_dimensions
-    elif len(box_dimensions) == 2:
-        width = box_dimensions[1][0] - box_dimensions[0][0]
-        height = box_dimensions[1][1] - box_dimensions[0][1]
-    elif len(box_dimensions) == 4:
-        width = box_dimensions[0] - box_dimensions[2]
-        height = box_dimensions[1] - box_dimensions[3]
+    width, height = get_box_dimension_size(box_dimensions)
 
     # Get text width and height with the current font
     text_width, text_height = font.getsize(text)
@@ -437,6 +451,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     return adjustment_x, adjustment_y
 
 
+
 def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     
     # Check if box_dimensions are valid
@@ -458,7 +473,12 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     elif not padding > 0:
         raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
 
+    # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
     font_size = 1
+    for size in range(1, 401):
+        font = ImageFont.truetype(font_path, size)
+        text_width, text_height = font.getsize(text)
+        
     
 
 
