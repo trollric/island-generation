@@ -343,7 +343,9 @@ def font_align(box_dimensions, text, font, horizontal = 'left',
     if not isinstance(text, str):
         raise TypeError('Text needs to be provided as a string.')
 
-    # TODO:Check that font is of trufont type
+    # Check that font is of FreeTypeFont type.
+    if not isinstance(font, ImageFont.FreeTypeFont):
+        raise TypeError('Font needs to be of PIL.ImageFont.FreeTypeFont class.')
     
     # Check that alignment values are of correct types
     if not horizontal.lower() in ['left, center, right']:
