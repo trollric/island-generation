@@ -437,7 +437,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     return adjustment_x, adjustment_y
 
 
-def get_max_font_size(box_dimensions, text, font, padding = 0):
+def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     
     # Check if box_dimensions are valid
     validate_box_dimensions(box_dimensions)
@@ -447,8 +447,10 @@ def get_max_font_size(box_dimensions, text, font, padding = 0):
         raise TypeError(f'text needs to be of type string. Provided type was: {type(text)}')
 
     # Validate font
-    if not isinstance(font, ImageFont.FreeTypeFont):
-        raise TypeError(f'font needs ot be a FreeTypeFont. Provided type was: {type(font)}')
+    if not isinstance(font_path, str):
+        raise TypeError(f'font needs ot be a string. Provided type was: {type(font_path)}')
+    elif not os.path.exists(font_path):
+        raise FileNotFoundError(f'Could not find the font at the given path. path given: {font_path}')
 
     # Check padding is int and not a negative number.
     if not isinstance(padding, int):
@@ -456,7 +458,7 @@ def get_max_font_size(box_dimensions, text, font, padding = 0):
     elif not padding > 0:
         raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
 
-    
+    font_size = 1
     
 
 
