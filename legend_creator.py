@@ -440,7 +440,7 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
     elif horizontal.lower() == 'right':
         adjustment_x = width - (text_width + padding[0])
 
-    # TODO: Look at the y center alignment. Text is slightly off center.
+    # Look at the y center alignment. Text is slightly off center.
     # Calculated adjustment_y
     if vertical.lower() == 'top':
         adjustment_y = padding[1]
@@ -603,6 +603,13 @@ def legend_append_trade_codes(legend_image, trade_codes):
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
+
+    # Divide the height of b4 in equally large boxes.
+    # Make space for a 1px padding for each box.
+    # height / (len(trade codes) + (len(trade codes) + 1) * padding)
+    number_of_codes = len(eligible_trade_goods)
+    padding = 1
+    sub_box_height = b4
 
     # TODO: Append trade codes in the bottom right.
 
