@@ -555,7 +555,6 @@ def legend_append_trade_codes(legend_image, trade_codes):
     # Create imagedraw object
     legend_draw = ImageDraw.Draw(legend_image)
 
-
     # Set default font values.
     font_color = tuple(colors.get_rgb_color('gold'))
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
@@ -574,7 +573,6 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                         padding=padding)
 
     # Write Trade Codes: <And add every trade code
-    #text_coord = (x_offset + padding, y_offset + padding)
     text_coord = (b1[0][0] + x_alignment, b1[0][1] + y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
