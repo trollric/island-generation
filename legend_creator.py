@@ -674,6 +674,11 @@ def legend_append_trade_codes(legend_image, trade_codes):
     return legend_image
 
 
+def legend_append_planetary_metrics(legend_doc, upp_dict):
+    # Calculates planetary metrics using the upp_dict.
+    return legend_doc
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -697,7 +702,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_trade_codes(legend_doc, trade_codes)
 
     # TODO: Append gravity and diamater data to the top middle of the legend document
-
+    legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
     # TODO: Append planetary image to the top right of the legend document
     
     # TODO: Append a color to landmass type underneath the planetary image.
