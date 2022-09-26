@@ -589,7 +589,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
     text_coord = (b2[0][0] + x_alignment , b2[0][1] + y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
-    text = 'Purchase DM | Sell DM'
+    text = 'Purchase | Sell DM'
     font_size = get_max_font_size(b3, text, font_path, padding)
     font = ImageFont.truetype(font_path, font_size)
 
