@@ -608,10 +608,44 @@ def legend_append_trade_codes(legend_image, trade_codes):
     # Make space for a 1px padding for each box.
     # height / (len(trade codes) + (len(trade codes) + 1) * padding)
     number_of_codes = len(eligible_trade_goods)
-    padding = 1
-    sub_box_height = b4
+    padding = 10
+    b4_width, b4_height = get_box_dimension_size(b4)
+
+    sub_box_height = int(b4_height / number_of_codes)
+    sub_box_b4 = (b4_width, sub_box_height)
+
 
     # TODO: Append trade codes in the bottom right.
+    # Find the largest font size possible that fits all boxes.
+    font_size = None
+    for text in eligible_trade_goods.keys():
+        sub_font_size = get_max_font_size(sub_box_b4, text, font_path, padding)
+        if font_size == None or sub_font_size < font_size:
+            font_size = sub_font_size
+
+    if font_size == None:
+        raise ValueError(f'''Something went wrong when trying to assign a font size.\n
+                            there are to many trade goods to fit or padding is to large.\n
+                            font_size: {font_size}, padding: {padding}''')
+
+    # Create the font with the largest font_size that will fit.
+    font = ImageFont.truetype(font_path, font_size)
+
+    # Assign special padding to the sub boxes of b5.
+    b5_width, _ = get_box_dimension_size(b5)
+    b5_padding = int(b5_width / 3)
+
+    # Set startoffset for the sub boxes.
+    x_offset, y_offset = (b4[0][0], b4[0][1])
+    for key in eligible_trade_goods:
+        # Get text alignment for the b4 sub box.
+        x_alignment, y_alignment = get_font_align_offsets(  sub_box_b4, key, font,
+                                                            vertical='center',
+                                                            padding=padding)
+        text_coord = (x_offset + x_alignment, y_offset, y_alignment)
+        legend_draw.text(text_coord, key, font_color, font=font)
+        y_offset += sub_box_height
+        
 
 
 
