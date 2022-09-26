@@ -671,7 +671,6 @@ def legend_append_trade_codes(legend_image, trade_codes):
         # Increment the sub_box_offset.
         y_offset += sub_box_height
         
-
     return legend_image
 
 
