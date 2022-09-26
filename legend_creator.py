@@ -511,7 +511,20 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 
 
 def legend_append_trade_codes(legend_image, trade_codes):
-    
+    """Takes a legend_image from the create_legend image function
+    and appends all viable trade data determined by trade_codes
+
+    Args:
+        legend_image (PIL.Image): legend image containing layout for the data.
+        trade_codes (list): List of the trade codes that are applicable to the planet.
+
+    Raises:
+        ValueError: If a font size can not be generated for the b4 bounding box. Raise a value
+        error.
+
+    Returns:
+        PIL.Image: Returns the legend image with appended trade code data.
+    """
     #-------------------------
     #b1                      |
     #-------------------------
