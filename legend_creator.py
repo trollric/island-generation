@@ -598,7 +598,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                         vertical='center',
                                                         padding=padding)
 
-    text_coord = (b3[0][0] + x_alignment, b3 + y_alignment)
+    text_coord = (b3[0][0] + x_alignment, b3[0][1] + y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
     # Get which types of trade goods should be appended.
