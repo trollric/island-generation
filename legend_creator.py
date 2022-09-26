@@ -581,16 +581,25 @@ def legend_append_trade_codes(legend_image, trade_codes):
     text = 'Trade goods'
     font_size = get_max_font_size(b2, text, font_path, padding)
     font = ImageFont.truetype(font_path, font_size)
+
     x_alignment, y_alignment = get_font_align_offsets(  b2, text, font,
                                                         vertical='center',
                                                         padding=padding)
+
     text_coord = (b2[0][0] + x_alignment , b2[0][1] + y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
-    # text = 'Purchase DM | Sell DM'
-    # x, y = font.getsize(text)
-    # text_coord = (x_offset + legend_width/4 +text_x_alignment , y_offset + text_y_alignment + (legend_width * 3/48))
-    # legend_draw.text(text_coord, text, font_color, font=font)
+    text = 'Purchase DM | Sell DM'
+    font_size = get_max_font_size(b3, text, font_path, padding)
+    font = ImageFont.truetype(font_path, font_size)
+
+    x_alignment, y_alignment = get_font_align_offsets(  b3, text, font,
+                                                        horizontal='center',
+                                                        vertical='center',
+                                                        padding=padding)
+
+    text_coord = (b3[0][0] + x_alignment, b3 + y_alignment)
+    legend_draw.text(text_coord, text, font_color, font=font)
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
