@@ -203,6 +203,7 @@ def get_trade_goods(trade_codes):
 
     Returns:
         dict: Returns a dictionary with different types of trade items with potential buy/sell dm
+        and availability status as bool.
     """
     # Check that trade_codes is a list.
     if not isinstance(trade_codes, list):
@@ -232,7 +233,7 @@ def get_trade_goods(trade_codes):
 
             # If there is a buy dm save the highest applicable.
             if not goods_data.get('purchase_dm').get(code) == None:
-                if goods_data.get('purchase_dm').get(code) > sell_dm:
+                if goods_data.get('purchase_dm').get(code) > purchase_dm:
                     purchase_dm = goods_data.get('purchase_dm').get(code)
 
             # If there is a sell dm save the highest one applicable.
@@ -242,7 +243,8 @@ def get_trade_goods(trade_codes):
         
         # If available and a buy or sell dm exist save the highest one that occured
         if available or purchase_dm > 0 or sell_dm > 0:
-            trade_goods.update({type : {'purchase_dm' : purchase_dm, 'sale_dm' : sell_dm}})
+            trade_goods.update({type : {'purchase_dm' : purchase_dm, 'sale_dm' : sell_dm,
+                                        'availability' : available}})
 
 
     return trade_goods
