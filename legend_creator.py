@@ -575,7 +575,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
 
     # Write Trade Codes: <And add every trade code
     #text_coord = (x_offset + padding, y_offset + padding)
-    text_coord = (b1[0][0] + x_alignment, b1[0][1], y_alignment)
+    text_coord = (b1[0][0] + x_alignment, b1[0][1] + y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
     # Add text purchase info and sell info.
