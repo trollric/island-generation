@@ -527,6 +527,9 @@ def legend_append_trade_codes(legend_image, trade_codes):
     #            |           |
     #-------------------------
 
+    #TODO: Could be improved by determining contraband and goods produced
+    # and giving these trade goods a special color accordingly.
+
     # Get image size
     legend_width, legend_height = legend_image.size
 
@@ -612,14 +615,14 @@ def legend_append_trade_codes(legend_image, trade_codes):
     b4_width, b4_height = get_box_dimension_size(b4)
 
     sub_box_height = int(b4_height / number_of_codes)
-    sub_box_b4 = (b4_width, sub_box_height)
+    sub_box = (b4_width, sub_box_height)
 
 
-    # TODO: Append trade codes in the bottom right.
+    # Append trade codes in the bottom right.
     # Find the largest font size possible that fits all boxes.
     font_size = None
     for text in eligible_trade_goods.keys():
-        sub_font_size = get_max_font_size(sub_box_b4, text, font_path, padding)
+        sub_font_size = get_max_font_size(sub_box, text, font_path, padding)
         if font_size == None or sub_font_size < font_size:
             font_size = sub_font_size
 
@@ -635,19 +638,39 @@ def legend_append_trade_codes(legend_image, trade_codes):
     b5_width, _ = get_box_dimension_size(b5)
     b5_padding = int(b5_width / 3)
 
-    # Set startoffset for the sub boxes.
-    x_offset, y_offset = (b4[0][0], b4[0][1])
-    for key in eligible_trade_goods:
-        # Get text alignment for the b4 sub box.
-        x_alignment, y_alignment = get_font_align_offsets(  sub_box_b4, key, font,
+    # Set startoffset for the sub boxes. ( They share y_offset)
+    x_offset_b4, y_offset = (b4[0][0], b4[0][1])
+    x_offset_b5 = b5[0][0]
+    for key, value in eligible_trade_goods.items():
+        # Get text alignment for the b4 sub box and draw the text.
+        x_alignment, y_alignment = get_font_align_offsets(  sub_box, key, font,
                                                             vertical='center',
                                                             padding=padding)
-        text_coord = (x_offset + x_alignment, y_offset, y_alignment)
+        text_coord = (x_offset_b4 + x_alignment, y_offset + y_alignment)
         legend_draw.text(text_coord, key, font_color, font=font)
+
+        # If purchase dm is not 0
+        # Get alignment and draw purchase_dm in b5
+        purchase_dm = value.get('purchase_dm')
+        if not purchase_dm == 0:
+            x_alignment, _ = get_font_align_offsets(  sub_box, str(purchase_dm), font,
+                                                                padding=b5_padding)
+            text_coord = (x_offset_b5 + x_alignment, y_offset + y_alignment)
+            legend_draw.text(text_coord, f'{purchase_dm}', font_color, font=font)
+
+        # If sale is not 0
+        # Get alignment and draw sale_dm in b5
+        sale_dm = value.get('sale_dm')
+        if not sale_dm == 0:
+            x_alignment, _ = get_font_align_offsets(  sub_box, str(sale_dm), font,
+                                                                horizontal='right',
+                                                                padding=b5_padding)
+            text_coord = (x_offset_b5 + x_alignment, y_offset + y_alignment)
+            legend_draw.text(text_coord, f'{sale_dm}', font_color, font=font)
+            
+        # Increment the sub_box_offset.
         y_offset += sub_box_height
         
-
-
 
     return legend_image
 
@@ -671,7 +694,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # Determine trade codes and add to legend document.
     trade_codes = determine_trade_codes(upp_dict)
 
-    # TODO: Append trade information to bottom right of the legend document.
+    # Append trade information to bottom right of the legend document.
     legend_doc = legend_append_trade_codes(legend_doc, trade_codes)
 
     # TODO: Append gravity and diamater data to the top middle of the legend document
