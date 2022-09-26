@@ -572,17 +572,20 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                         vertical='center',
                                                         padding=padding)
 
-    # Write Trade Codes: <And add every trade code
+    # Write Trade Codes: And add every trade code
     text_coord = (b1[0][0] + x_alignment, b1[0][1] + y_alignment)
     legend_draw.text(text_coord, text, font_color, font=font)
 
     # Add text purchase info and sell info.
-    # text = 'Trade goods'
-    # x, y = font.getsize(text)
-    # text_x_alignment = int((legend_width/4 - x)/2)
-    # text_y_alignment = int((legend_width * 3/48 - y)/2)
-    # text_coord = (x_offset + text_x_alignment , y_offset + text_y_alignment + (legend_width * 3/48))
-    # legend_draw.text(text_coord, text, font_color, font=font)
+    # Get maximum font size for b2 and create font.
+    text = 'Trade goods'
+    font_size = get_max_font_size(b2, text, font_path, padding)
+    font = ImageFont.truetype(font_path, font_size)
+    x_alignment, y_alignment = get_font_align_offsets(  b2, text, font,
+                                                        vertical='center',
+                                                        padding=padding)
+    text_coord = (b2[0][0] + x_alignment , b2[0][1] + y_alignment)
+    legend_draw.text(text_coord, text, font_color, font=font)
 
     # text = 'Purchase DM | Sell DM'
     # x, y = font.getsize(text)
