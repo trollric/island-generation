@@ -952,6 +952,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # TODO: Append gravity and diamater data to the top middle of the legend document
     legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
+
     # TODO: Append planetary image to the top right of the legend document
     
     # TODO: Append a color to landmass type underneath the planetary image.
@@ -959,6 +960,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
 
     # TODO: Determine government type, generate factions and add cultures.
+    
     # TODO: Append the data underneath around temperature data.
 
     # TODO: Generate a random day/night cycle with a temperature graph (maybe using matplotlib)
