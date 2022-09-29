@@ -14,7 +14,7 @@ class BoundBox:
     """Contains a start and end point spanning a bound box. With helper functions for
     keepin track of height/width.
     """
-    def __init__(self, x1:int, x2:int, y1:int, y2:int):
+    def __init__(self, x1:int, y1:int, x2:int, y2:int):
         """Creates the bound objects start and endpoint.
 
         Args:
@@ -56,6 +56,35 @@ class BoundBox:
             list: returns a list of two tuples.
         """
         return [self.start, self.end]
+
+    def get_side(self, side : str) -> int:
+        """Returns the provided sides value
+
+        Args:
+            side (str): side to be returns ['left', 'top', 'right', 'bottom']
+
+        Raises:
+            ValueError: If the value is not a side.
+            TypeError: If the provided value is not a string.
+
+        Returns:
+            int: The value of the side asked for.
+        """
+        if not isinstance(side, str):
+            raise TypeError('Provided side needs to be a string')
+        if side.lower not in ['left', 'top', 'right', 'bottom']:
+            raise ValueError('Provided string is not "left", "top", "right" or "bottom"')
+        value = 0
+        if side.lower() == 'left':
+            value = self.x1
+        elif side.lower() == 'top':
+            value = self.y1
+        elif side.lower() == 'right':
+            value = self.x2
+        elif side.lower() == 'bottom':
+            value = self.y2
+        
+        return value
 
 
 
@@ -769,7 +798,10 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Get offset values to the upper left corner of b1.
     x_offset = x_box
     y_offset = 0
-    b1 = [(x_offset, y_offset),(x_offset + x_box, y_offset + y_third_box)]
+
+    # Create the bound boxes
+    b1 = BoundBox(x_offset, y_offset, x_offset + x_box, y_offset + y_third_box)
+    
     
 
 
