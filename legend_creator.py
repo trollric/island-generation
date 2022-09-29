@@ -9,6 +9,7 @@ from planet_generator import upp_to_dict
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+from random import randint
 
 class BoundBox:
     """Contains a start and end point spanning a bound box. With helper functions for
@@ -822,14 +823,77 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     gravity = None
     size = upp_dict.get('size')
 
+    if size == 0:
+        diamater = randint(500, 100)
+        gravity = 'Negligible'
+    elif size == 1:
+        diamater = randint(1100,2200)
+        gravity = '0.05 G'
+    elif size == 2:
+        diamater = randint(2800,3600)
+        gravity = '0.15 G'
+    elif size == 3:
+        diamater = randint(4400,5200)
+        gravity = '0.25 G'
+    elif size == 4:
+        diamater = randint(6000,6800)
+        gravity = '0.35 G'
+    elif size == 5:
+        diamater = randint(7600,8400)
+        gravity = '0.45 G'
+    elif size == 6:
+        diamater = randint(9200,10000)
+        gravity = '0.7 G'
+    elif size == 7:
+        diamater = randint(10800,11600)
+        gravity = '0.9 G'
+    elif size == 8:
+        diamater = randint(12400,13200)
+        gravity = '1.0 G'
+    elif size == 9:
+        diamater = randint(14000,14800)
+        gravity = '1.25 G'
+    elif size == 10:
+        diamater = randint(15600,16400)
+        gravity = '1.4 G'
     
+
     # Get population data.
     population = None
+    upp_population = upp_dict.get('population')
+
+    if upp_population == 0:
+        population = 'None'
+    elif upp_population == 1:
+        population = 'Few'
+    elif upp_population == 2:
+        population = 'Hundreds'
+    elif upp_population == 3:
+        population = 'Thousands'
+    elif upp_population == 4:
+        population = 'Tens of thousands'
+    elif upp_population == 5:
+        population = 'Hundreds of thousands'
+    elif upp_population == 6:
+        population = 'Millions'
+    elif upp_population == 7:
+        population = 'Tens of millions'
+    elif upp_population == 8:
+        population = 'Hundreds of millions'
+    elif upp_population == 9:
+        population = 'Billions'
+    elif upp_population == 10:
+        population = 'Tens of billions'
+    elif upp_population == 11:
+        population = 'Hundred of billions'
+    elif upp_population == 12:
+        population = 'Trillions, World-Ciy'
+
 
     # Create datastrings in a list.
     size_and_population_metrics =[
         f'Diameter: {diamater} km',
-        f'Gravity: {gravity} G',
+        f'Gravity: {gravity}',
         f'Population: {population}',
     ]
 
