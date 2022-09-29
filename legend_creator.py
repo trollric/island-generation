@@ -791,7 +791,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Also get different width values usefull in determining
     # the size and offset for the other boxes.
     x_box = int(legend_width/3)
-    x_thid_box = int(x_box/3)
+    x_third_box = int(x_box/3)
     y_box = int(legend_width/3)
     y_third_box = int(y_box/3)
 
@@ -800,7 +800,11 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     y_offset = 0
 
     # Create the bound boxes
-    b1 = BoundBox(x_offset, y_offset, x_offset + x_box, y_offset + y_third_box)
+    b1 = BoundBox(  x_offset, y_offset, x_offset + x_box, y_offset + y_third_box)
+    b2 = BoundBox(  x_offset, b1.get_side('bottom'),
+                    x_offset + x_third_box, b1.get_side('bottom') + y_third_box)
+    b3 = BoundBox(  b1.get_side('bottom'), b2.get_side('right'), b1.get_side('right'),
+                    b2.get_side('bottom'))
     
     
 
