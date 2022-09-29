@@ -689,9 +689,44 @@ def legend_append_trade_codes(legend_image, trade_codes):
     return legend_image
 
 
-def legend_append_planetary_metrics(legend_doc, upp_dict):
+def legend_append_planetary_metrics(legend_image, upp_dict):
     # Calculates planetary metrics using the upp_dict.
-    return legend_doc
+    #|-------------------------------------|
+    #|b1                                   |
+    #|                                     |
+    #|                                     |
+    #|                                     |
+    #|-------------------------------------|
+    #|b2             |b3                   |
+    #|               |                     |
+    #|               |                     |
+    #|               |                     |
+    #|               |                     |
+    #|               |                     |
+    #|               |                     |
+    #|               |                     |
+    #|               |                     |
+    #|-------------------------------------|
+    
+    # Get legend image dimensions.
+    legend_width, legend_height = legend_image.size
+
+    # Get size of the sum of b1, b2, b3
+    # Also get different width values usefull in determining
+    # the size and offset for the other boxes.
+    x_box = int(legend_width/3)
+    x_thid_box = int(x_box/3)
+    y_box = int(legend_width/3)
+    y_third_box = int(y_box/3)
+
+    # Get offset values to the upper left corner of b1.
+    x_offset = x_box
+    y_offset = 0
+    b1 = [(x_offset, y_offset),(x_offset + x_box, y_offset + y_third_box)]
+    
+
+
+    return legend_image
 
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
