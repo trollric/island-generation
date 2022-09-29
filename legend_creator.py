@@ -10,6 +10,53 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
+class BoundBox:
+    """Contains a start and end point spanning a bound box. With helper functions for
+    keepin track of height/width.
+    """
+    def __init__(self, x1:int, x2:int, y1:int, y2:int):
+        """Creates the bound objects start and endpoint.
+
+        Args:
+            x1 (int): start value for x
+            x2 (int): end value for x
+            y1 (int): start value y
+            y2 (int): end value y
+
+        Raises:
+            ValueError: Returns an error if the start value of any type is bigger than the end
+            value.
+        """
+        if x1 > x2 or y1 > y2:
+            raise ValueError(f'''the start point values can not be smaller than the end point values.\n
+                                Provided x1: {x1}, x2: {x2}, y1: {y1}, y2: {y2} ''')
+        self.start = (x1, y1)
+        self.end = (x2, y2)
+
+    def get_width(self):
+        """Returns the width of the bound box
+
+        Returns:
+            int: width of the box
+        """
+        return self.x2 - self.x1
+
+    def get_height(self):
+        """Returns the height of the bound box object
+
+        Returns:
+            int: height of the bouind box
+        """
+        return self.y2 - self.y1
+
+    def get_dimensions(self):
+        """Returns the start and end point as a list of tuples
+
+        Returns:
+            list: returns a list of two tuples.
+        """
+        return [self.start, self.end]
+
 
 
 def value_in_range(value, min, max):
