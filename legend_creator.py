@@ -785,7 +785,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     #|-------------------------------------|
     
     # Get legend image dimensions.
-    legend_width, legend_height = legend_image.size
+    legend_width, _ = legend_image.size
 
     # Get size of the sum of b1, b2, b3
     # Also get different width values usefull in determining
@@ -806,7 +806,12 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     b3 = BoundBox(  b1.get_side('bottom'), b2.get_side('right'), b1.get_side('right'),
                     b2.get_side('bottom'))
     
-    
+    # Create draw object
+    legend_draw = ImageDraw.draw(legend_image)
+
+    # Create font
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    font_color = tuple(colors.get_rgb_color('gold'))
 
 
     return legend_image
