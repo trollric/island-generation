@@ -817,7 +817,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
 
     # Create a subbox for the three lines in b1.
     x1 ,y1 = b1.start
-    sub_box_b1 = BoundBox(x1, y1, b1.get_width(), int(b1.get_height()/3))
+    sub_box_b1 = BoundBox(x1, y1, x1 + b1.get_width(), y1 + int(b1.get_height()/3))
 
     # Get diamater and gravity data.
     diamater = None
