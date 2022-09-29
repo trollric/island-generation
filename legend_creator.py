@@ -921,6 +921,10 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         # Increment the sub_box_offset.
         y_offset += sub_box_b1.get_height()
 
+    # TODO: Generate the min/max temperature and determine day/night cycle.
+
+    # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
+
     return legend_image
 
 
