@@ -40,7 +40,7 @@ class BoundBox:
         Returns:
             int: width of the box
         """
-        return self.x2 - self.x1
+        return self.end[0] - self.start[0]
 
     def get_height(self):
         """Returns the height of the bound box object
@@ -48,7 +48,7 @@ class BoundBox:
         Returns:
             int: height of the bouind box
         """
-        return self.y2 - self.y1
+        return self.end[1] - self.start[1]
 
     def get_dimensions(self):
         """Returns the start and end point as a list of tuples
@@ -56,7 +56,7 @@ class BoundBox:
         Returns:
             list: returns a list of two tuples.
         """
-        return [self.start, self.end]
+        return [tuple(self.start), tuple(self.end)]
 
     def get_side(self, side : str) -> int:
         """Returns the provided sides value
@@ -73,17 +73,17 @@ class BoundBox:
         """
         if not isinstance(side, str):
             raise TypeError('Provided side needs to be a string')
-        if side.lower not in ['left', 'top', 'right', 'bottom']:
+        if side.lower() not in ['left', 'top', 'right', 'bottom']:
             raise ValueError('Provided string is not "left", "top", "right" or "bottom"')
         value = 0
         if side.lower() == 'left':
-            value = self.x1
+            value = self.start[0]
         elif side.lower() == 'top':
-            value = self.y1
+            value = self.start[1]
         elif side.lower() == 'right':
-            value = self.x2
+            value = self.end[0]
         elif side.lower() == 'bottom':
-            value = self.y2
+            value = self.end[1]
         
         return value
 
@@ -804,11 +804,11 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     b1 = BoundBox(  x_offset, y_offset, x_offset + x_box, y_offset + y_third_box)
     b2 = BoundBox(  x_offset, b1.get_side('bottom'),
                     x_offset + x_third_box, b1.get_side('bottom') + y_third_box)
-    b3 = BoundBox(  b1.get_side('bottom'), b2.get_side('right'), b1.get_side('right'),
+    b3 = BoundBox(  b2.get_side('right'), b1.get_side('bottom'), b1.get_side('right'),
                     b2.get_side('bottom'))
     
     # Create draw object
-    legend_draw = ImageDraw.draw(legend_image)
+    legend_draw = ImageDraw.Draw(legend_image)
 
     # Save font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
@@ -816,7 +816,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     padding = 15
 
     # Create a subbox for the three lines in b1.
-    sub_box_b1 = BoundBox(b1.x1, b1.y1, b1.get_width(), int(b1.get_height()/3))
+    x1 ,y1 = b1.start
+    sub_box_b1 = BoundBox(x1, y1, b1.get_width(), int(b1.get_height()/3))
 
     # Get diamater and gravity data.
     diamater = None
@@ -900,14 +901,25 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Find the largest font size possible that fits all boxes.
     font_size = None
     for line in size_and_population_metrics:
-        sub_font_size = get_max_font_size(sub_box_b1.get_dimensions, line, font_path, padding)
+        sub_font_size = get_max_font_size(sub_box_b1.get_dimensions(), line, font_path, padding)
         if font_size == None or sub_font_size < font_size:
             font_size = sub_font_size
 
     # Create font
-    font = (font_path, font_size)
+    font = ImageFont.truetype(font_path, font_size)
+    
 
     # Draw size, gravity and population data.
+    for line in size_and_population_metrics:
+        # Get text alignment for the b4 sub box and draw the text.
+        x_alignment, y_alignment = get_font_align_offsets(  sub_box_b1.get_dimensions(), line, font,
+                                                            vertical='center',
+                                                            padding=padding)
+        text_coord = (sub_box_b1.get_side('left') + x_alignment, y_offset + y_alignment)
+        legend_draw.text(text_coord, line, font_color, font=font)
+            
+        # Increment the sub_box_offset.
+        y_offset += sub_box_b1.get_height()
 
     return legend_image
 
