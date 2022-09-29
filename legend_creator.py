@@ -809,10 +809,41 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Create draw object
     legend_draw = ImageDraw.draw(legend_image)
 
-    # Create font
+    # Save font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
+    padding = 15
 
+    # Create a subbox for the three lines in b1.
+    sub_box_b1 = BoundBox(b1.x1, b1.y1, b1.get_width(), int(b1.get_height()/3))
+
+    # Get diamater and gravity data.
+    diamater = None
+    gravity = None
+    size = upp_dict.get('size')
+
+    
+    # Get population data.
+    population = None
+
+    # Create datastrings in a list.
+    size_and_population_metrics =[
+        f'Diameter: {diamater} km',
+        f'Gravity: {gravity} G',
+        f'Population: {population}',
+    ]
+
+    # Find the largest font size possible that fits all boxes.
+    font_size = None
+    for line in size_and_population_metrics:
+        sub_font_size = get_max_font_size(sub_box_b1.get_dimensions, line, font_path, padding)
+        if font_size == None or sub_font_size < font_size:
+            font_size = sub_font_size
+
+    # Create font
+    font = (font_path, font_size)
+
+    # Draw size, gravity and population data.
 
     return legend_image
 
