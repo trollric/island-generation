@@ -591,6 +591,18 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 
 
 def get_largest_font_size_from_list(list, font_path, box_dimensions, padding = 0):
+    """Takes a list of lines and checks what their maxiumum shared font_size can be.
+    If they are to fit in boxes of the same size.
+
+    Args:
+        list (list): List of strings to be evaluated.
+        font_path (string): Path to desired font to check against
+        box_dimensions (list of tuples): list of tuples [(x1, y1), (x2, y2)]
+        padding (int, optional): Take padding into consideration. Defaults to 0.
+
+    Returns:
+        int: Font size as an integer.
+    """
     font_size = None
     for line in list:
         sub_font_size = get_max_font_size(box_dimensions, line, font_path, padding)
@@ -908,7 +920,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         f'Population: {population}',
     ]
 
-    font_size = get_largest_font_size_from_list(font_path, padding, sub_box_b1, size_and_population_metrics)
+    font_size = get_largest_font_size_from_list(size_and_population_metrics, font_path, sub_box_b1,
+                                                padding)
 
     # Create font
     font = ImageFont.truetype(font_path, font_size)
@@ -931,7 +944,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     b2_x1, b2_y1 = b2.start
     sub_box_b2 = BoundBox(b2_x1, b2_y1, b2_x1 + b2.get_width(), y1 + int(b2.get_height()/3))
 
-    # TODO: Add atmo type in b2
+    # Get atmo data
     atmosphere = None
     ppe_required = None
     atmosphere_type = upp_dict.get('atmosphere_type')
