@@ -610,8 +610,19 @@ def get_largest_font_size_from_list(list, font_path, box_dimensions, padding = 0
     return font_size
 
 
-def draw_lines_in_list(y_offset, legend_draw, font_color, box_dimensions, list, font, padding = 0):
+def draw_lines_in_list(legend_draw, font, font_color, box_dimensions, list, padding = 0):
+    """Renders every text line in the list on separate lines.
+
+    Args:
+        legend_draw (ImageDraw): ImageDraw class with reference to image to be rendered on.
+        font (FreeTypeFont): FreeTypeFont object containing font and font_size
+        font_color (tuple): Tuple containing RGBA information.
+        box_dimensions (list, tuples): List of tuples containing boundbox dimensions.
+        list (list): List of strings.
+        padding (int, optional): Take padding into consideration as needed. Defaults to 0.
+    """
     # Draw every line in list.
+    y_offset = 0
     for line in list:
         # Get text alignments for the box dimensions.
         x_alignment, y_alignment = get_font_align_offsets(  box_dimensions, line, font,
@@ -942,8 +953,9 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Create font
     font = ImageFont.truetype(font_path, font_size)
     
-
-    draw_lines_in_list(y_offset, legend_draw, font_color, padding, sub_box_b1, size_and_population_metrics, font)
+    # Draw size and population data.
+    draw_lines_in_list( legend_draw, font, font_color, sub_box_b1.get_dimensions(),
+                        size_and_population_metrics, padding)
 
 
     # Get a subbox one third of b2:s height
