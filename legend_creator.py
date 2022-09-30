@@ -3,7 +3,6 @@
 # Atmosphearic demands, Startport quality and trade codes.
 import json
 import os
-from turtle import pen
 import colors
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
@@ -1010,6 +1009,10 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         f'PPE: {ppe_required}'
     ]
 
+    font_size = get_largest_font_size_from_list(atmosphere_data,
+                                                font_path,
+                                                sub_box_b2_1,
+                                                padding)
 
     # TODO: Generate the min/max temperature and determine day/night cycle.
 
