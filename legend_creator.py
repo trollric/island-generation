@@ -622,7 +622,7 @@ def draw_lines_in_list(legend_draw, font, font_color, box_dimensions, list, padd
         padding (int, optional): Take padding into consideration as needed. Defaults to 0.
     """
     # Draw every line in list.
-    y_offset = 0
+    _, y_offset = box_dimensions[0]
     for line in list:
         # Get text alignments for the box dimensions.
         x_alignment, y_alignment = get_font_align_offsets(  box_dimensions, line, font,
@@ -1034,7 +1034,13 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                                                 sub_box_b2_1.get_dimensions(),
                                                 padding)
 
+    # Create font
     font = ImageFont.truetype(font_path, font_size)
+
+    # Render atmospheric and personal protective equipment data.
+    draw_lines_in_list(legend_draw, font, font_color, sub_box_b2_1.get_dimensions(),
+                        atmosphere_data, padding)
+
     # TODO: Generate the min/max temperature and determine day/night cycle.
 
     # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
