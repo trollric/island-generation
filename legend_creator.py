@@ -1041,7 +1041,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     draw_lines_in_list(legend_draw, font, font_color, sub_box_b2_1.get_dimensions(),
                         atmosphere_data, padding)
 
-    # TODO: Generate the min/max temperature and determine day/night cycle.
+    # Generate the min/max temperature and determine day/night cycle.
     day_length = 8 + 8 * upp_dict.get('size)') + randint(-4, 4)
 
     min_temperature, max_temperature = None, None
@@ -1062,7 +1062,11 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         min_temperature = randint(81, 90)
         max_temperature = randint(176, 800)
 
-    # TODO: Make the string data
+    # Make the string data
+    temperature_and_time =[
+        f'Day/Night cycle: {day_length}h',
+        f'Temp: {min_temperature}-{max_temperature}C'
+    ]
 
     # TODO: Create sub box.
 
