@@ -610,6 +610,21 @@ def get_largest_font_size_from_list(list, font_path, box_dimensions, padding = 0
     return font_size
 
 
+def draw_lines_in_list(y_offset, legend_draw, font_color, box_dimensions, list, font, padding = 0):
+    # Draw every line in list.
+    for line in list:
+        # Get text alignments for the box dimensions.
+        x_alignment, y_alignment = get_font_align_offsets(  box_dimensions, line, font,
+                                                            vertical='center',
+                                                            padding=padding)
+        text_coord = (box_dimensions[0][0] + x_alignment, y_offset + y_alignment)
+        # Render the text
+        legend_draw.text(text_coord, line, font_color, font=font)
+            
+        # Increment the box_dimensions offset..
+        y_offset += (box_dimensions[1][1] - box_dimensions [0][1])
+
+
 def legend_append_trade_codes(legend_image, trade_codes):
     """Takes a legend_image from the create_legend image function
     and appends all viable trade data determined by trade_codes
@@ -919,29 +934,21 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         f'Population: {population}',
     ]
 
-    font_size = get_largest_font_size_from_list(size_and_population_metrics, font_path, sub_box_b1,
+    font_size = get_largest_font_size_from_list(size_and_population_metrics,
+                                                font_path,
+                                                sub_box_b1.get_dimensions(),
                                                 padding)
 
     # Create font
     font = ImageFont.truetype(font_path, font_size)
     
 
-    # Draw size, gravity and population data.
-    for line in size_and_population_metrics:
-        # Get text alignment for the b4 sub box and draw the text.
-        x_alignment, y_alignment = get_font_align_offsets(  sub_box_b1.get_dimensions(), line, font,
-                                                            vertical='center',
-                                                            padding=padding)
-        text_coord = (sub_box_b1.get_side('left') + x_alignment, y_offset + y_alignment)
-        legend_draw.text(text_coord, line, font_color, font=font)
-            
-        # Increment the sub_box_offset.
-        y_offset += sub_box_b1.get_height()
+    draw_lines_in_list(y_offset, legend_draw, font_color, padding, sub_box_b1, size_and_population_metrics, font)
 
 
     # Get a subbox one third of b2:s height
     b2_x1, b2_y1 = b2.start
-    sub_box_b2 = BoundBox(b2_x1, b2_y1, b2_x1 + b2.get_width(), y1 + int(b2.get_height()/3))
+    sub_box_b2 = BoundBox(b2_x1, b2_y1, b2_x1 + b2.get_width(), b2_y1 + int(b2.get_height()/3))
 
     # Get atmo data
     atmosphere = None
@@ -1009,11 +1016,13 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         f'PPE: {ppe_required}'
     ]
 
+    # Get max font size
     font_size = get_largest_font_size_from_list(atmosphere_data,
                                                 font_path,
-                                                sub_box_b2_1,
+                                                sub_box_b2_1.get_dimensions(),
                                                 padding)
 
+    font = ImageFont.truetype(font_path, font_size)
     # TODO: Generate the min/max temperature and determine day/night cycle.
 
     # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
