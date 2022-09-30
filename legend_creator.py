@@ -3,6 +3,7 @@
 # Atmosphearic demands, Startport quality and trade codes.
 import json
 import os
+from turtle import pen
 import colors
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
@@ -589,6 +590,15 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     return font_size
 
 
+def get_largest_font_size_from_list(list, font_path, box_dimensions, padding = 0):
+    font_size = None
+    for line in list:
+        sub_font_size = get_max_font_size(box_dimensions, line, font_path, padding)
+        if font_size == None or sub_font_size < font_size:
+            font_size = sub_font_size
+    return font_size
+
+
 def legend_append_trade_codes(legend_image, trade_codes):
     """Takes a legend_image from the create_legend image function
     and appends all viable trade data determined by trade_codes
@@ -898,12 +908,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         f'Population: {population}',
     ]
 
-    # Find the largest font size possible that fits all boxes.
-    font_size = None
-    for line in size_and_population_metrics:
-        sub_font_size = get_max_font_size(sub_box_b1.get_dimensions(), line, font_path, padding)
-        if font_size == None or sub_font_size < font_size:
-            font_size = sub_font_size
+    font_size = get_largest_font_size_from_list(font_path, padding, sub_box_b1, size_and_population_metrics)
 
     # Create font
     font = ImageFont.truetype(font_path, font_size)
@@ -920,6 +925,78 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
             
         # Increment the sub_box_offset.
         y_offset += sub_box_b1.get_height()
+
+
+    # Get a subbox one third of b2:s height
+    b2_x1, b2_y1 = b2.start
+    sub_box_b2 = BoundBox(b2_x1, b2_y1, b2_x1 + b2.get_width(), y1 + int(b2.get_height()/3))
+
+    # TODO: Add atmo type in b2
+    atmosphere = None
+    ppe_required = None
+    atmosphere_type = upp_dict.get('atmosphere_type')
+    if atmosphere_type == 0:
+        atmosphere = 'None'
+        ppe_required = 'Vacc Suit'
+    elif atmosphere_type == 1:
+        atmosphere = 'Trace'
+        ppe_required = 'Vacc Suit'
+    elif atmosphere_type == 2:
+        atmosphere = 'Very Thin, Tainted'
+        ppe_required = 'Respirator, Filter'
+    elif atmosphere_type == 3:
+        atmosphere = 'Very Thin'
+        ppe_required = 'Respirator'
+    elif atmosphere_type == 4:
+        atmosphere = 'Thin, Tainted'
+        ppe_required = 'Filter'
+    elif atmosphere_type == 5:
+        atmosphere = 'Thin'
+        ppe_required = 'None'
+    elif atmosphere_type == 6:
+        atmosphere = 'Standard, Tainted'
+        ppe_required = 'None'
+    elif atmosphere_type == 7:
+        atmosphere = 'Standard, Tainted'
+        ppe_required = 'Filter'
+    elif atmosphere_type == 8:
+        atmosphere = 'Dense'
+        ppe_required = 'None'
+    elif atmosphere_type == 9:
+        atmosphere = 'Dense, Tainted'
+        ppe_required = 'Filter'
+    elif atmosphere_type == 10:
+        atmosphere = 'Exotic'
+        ppe_required = 'Air Supply'
+    elif atmosphere_type == 11:
+        atmosphere = 'Corrosive'
+        ppe_required = 'Vacc Suit'
+    elif atmosphere_type == 12:
+        atmosphere = 'Insidious'
+        ppe_required = 'Vacc Suit'
+    elif atmosphere_type == 13:
+        atmosphere = 'Very Dense'
+        ppe_required = 'None'
+    elif atmosphere_type == 14:
+        atmosphere = 'Low'
+        ppe_required = 'None'
+    elif atmosphere_type == 15:
+        atmosphere = 'Unusual'
+        ppe_required = 'Varies'
+    
+    
+    # Split sub box in half to add both values.
+    sub_box_b2_1 = BoundBox(b2_x1,
+                            b2_y1,
+                            b2_x1 + sub_box_b2.get_width(),
+                            b2_y1 + int(sub_box_b2.get_height()/2))
+
+    # Generate the elements to be printed
+    atmosphere_data =[
+        f'Atmo: {atmosphere}',
+        f'PPE: {ppe_required}'
+    ]
+
 
     # TODO: Generate the min/max temperature and determine day/night cycle.
 
@@ -960,7 +1037,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
 
     # TODO: Determine government type, generate factions and add cultures.
-    
+
     # TODO: Append the data underneath around temperature data.
 
     # TODO: Generate a random day/night cycle with a temperature graph (maybe using matplotlib)
