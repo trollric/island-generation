@@ -850,7 +850,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Create the bound boxes
     b1 = BoundBox(  x_offset, y_offset, x_offset + x_box, y_offset + y_third_box)
     b2 = BoundBox(  x_offset, b1.get_side('bottom'),
-                    x_offset + x_third_box, b1.get_side('bottom') + y_third_box)
+                    x_offset + x_third_box, b1.get_side('bottom') + 2*y_third_box)
     b3 = BoundBox(  b2.get_side('right'), b1.get_side('bottom'), b1.get_side('right'),
                     b2.get_side('bottom'))
     
