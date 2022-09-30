@@ -1042,6 +1042,35 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         atmosphere_data, padding)
 
     # TODO: Generate the min/max temperature and determine day/night cycle.
+    day_length = 8 + 8 * upp_dict.get('size)') + randint(-4, 4)
+
+    min_temperature, max_temperature = None, None
+    temp_info = upp_dict.get('temperature')
+    if temp_info == 'frozen':
+        min_temperature = randint(-273, -70)
+        max_temperature = randint(-60, -51)
+    elif temp_info == 'cold':
+        min_temperature = randint(-51, -25)
+        max_temperature = randint(-20, 0)
+    elif temp_info == 'temperate':
+        min_temperature = randint(-5, 1)
+        max_temperature = randint(20, 30)
+    elif temp_info == 'hot':
+        min_temperature = randint(27, 40)
+        max_temperature = randint(63, 80)
+    elif temp_info == 'boiling':
+        min_temperature = randint(81, 90)
+        max_temperature = randint(176, 800)
+
+    # TODO: Make the string data
+
+    # TODO: Create sub box.
+
+    # TODO: Find largest font size
+
+    # TODO: Create the font
+
+    # TODO: Render the data
 
     # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
 
