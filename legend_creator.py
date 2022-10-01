@@ -1093,6 +1093,10 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Generate a temperature over day data
     temp_time = np.arange(0, day_length, 0.02)
 
+    # Build figure.
+    figsize = (b3.get_width(), b3.get_height())
+    figure = plt.figure(figsize=figsize)
+
     # build fig
     # figsize, dpi = self._calc_fig_size_res(img_height)
     # fig = plt.Figure(figsize=figsize)
