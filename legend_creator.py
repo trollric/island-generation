@@ -1042,7 +1042,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         atmosphere_data, padding)
 
     # Generate the min/max temperature and determine day/night cycle.
-    day_length = 8 + 8 * upp_dict.get('size)') + randint(-4, 4)
+    day_length = 8 + 8 * upp_dict.get('size') + randint(-4, 4)
 
     min_temperature, max_temperature = None, None
     temp_info = upp_dict.get('temperature')
@@ -1106,6 +1106,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_trade_codes(legend_doc, trade_codes)
 
     # TODO: Append gravity and diamater data to the top middle of the legend document
+    # Atmospherics, Temperature, day/night cycle.
     legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
 
     # TODO: Append planetary image to the top right of the legend document
