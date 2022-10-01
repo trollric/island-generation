@@ -5,6 +5,7 @@ import json
 import os
 import colors
 import math
+import matplotlib.pyplot as plt
 import numpy as np
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
