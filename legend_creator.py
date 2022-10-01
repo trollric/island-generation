@@ -1089,9 +1089,19 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         padding)
 
     # Generate a temperature over day data
-    temp = np.arange(0, day_length, 0.02)
-    for t in temp:
-        print(get)
+    temp_time = np.arange(0, day_length, 0.02)
+
+    # build fig
+    # figsize, dpi = self._calc_fig_size_res(img_height)
+    # fig = plt.Figure(figsize=figsize)
+    # canvas = FigureCanvas(fig)
+    # ax = fig.add_subplot(111)
+    # ax.imshow(torch.from_numpy(S).flip(0), cmap = cmap)
+    # fig.subplots_adjust(left = 0, right = 1, bottom = 0, top = 1)
+    # ax.axis('tight'); ax.axis('off')
+
+    #PIL.Image.frombytes('RGB', 
+    #fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
     
     # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
 
