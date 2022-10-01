@@ -4,6 +4,8 @@
 import json
 import os
 import colors
+import math
+import numpy as np
 from planet_generator import create_color_palette
 from planet_generator import upp_to_dict
 from PIL import Image
@@ -813,6 +815,21 @@ def legend_append_trade_codes(legend_image, trade_codes):
     return legend_image
 
 
+def temperature_over_time(time, min_temp, max_temp, day_lenght):
+    """Returns a temperature value for a given time during the day.
+
+    Args:
+        time (int, float): a time in hours.
+        min_temp (int): lowest planetary temperature
+        max_temp (int): highest plaentary temperature
+        day_lenght (int): amount of hours during a day.
+
+    Returns:
+        float: returns the temperature as a float value at the given time.
+    """
+    return min_temp + max_temp * math.sin(math.pi*time/day_lenght)
+
+
 def legend_append_planetary_metrics(legend_image, upp_dict):
     # Calculates planetary metrics using the upp_dict.
     #|-------------------------------------|
@@ -1069,6 +1086,11 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         planetary_metrics,
                         padding)
 
+    # Generate a temperature over day data
+    temp = np.arange(0, day_length, 0.02)
+    for t in temp:
+        print(get)
+    
     # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
 
     return legend_image
