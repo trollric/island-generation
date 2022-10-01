@@ -1086,9 +1086,11 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     Args:
         upp_dict (dict): an UPP dictionary containing all generated planetary aspects.
-        color_palette (dict): A dictionary containing the colors and color names used in painting the world (E.g. grass : "turtle_green")
+        color_palette (dict): A dictionary containing the colors and color names used
+        in painting the world (E.g. grass : "turtle_green")
         path (str): string providing the folder where the planetary image has been saved.
-        planet_name (str): name of the planet. Used to ensure the legends name will be <planet name>_legend
+        planet_name (str): name of the planet. Used to ensure the legends
+        name will be <planet name>_legend
     """
     # Make sure the path directory exist. Otherwise create it.
     if not os.path.exists(path):
