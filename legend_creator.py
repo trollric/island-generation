@@ -888,6 +888,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     gravity = None
     size = upp_dict.get('size')
 
+    # TODO: This data could be added as JSON database with int keys. Reducing the amount of lines
+    # used.
     if size == 0:
         diamater = randint(500, 100)
         gravity = 'Negligible'
