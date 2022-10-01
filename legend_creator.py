@@ -91,7 +91,6 @@ class BoundBox:
         return value
 
 
-
 def value_in_range(value, min, max):
     """Takes a value and checks if its greater or equal to min and less or equal to max
 
