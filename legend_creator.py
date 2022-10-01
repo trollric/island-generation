@@ -922,7 +922,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         diamater = randint(15600,16400)
         gravity = '1.4 G'
     
-
+    # TODO: This data could be added as JSON database with int keys. Reducing the amount of lines
+    # used.
     # Get population data.
     population = None
     upp_population = upp_dict.get('population')
@@ -974,7 +975,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     draw_lines_in_list( legend_draw, font, font_color, sub_box_b1.get_dimensions(),
                         size_and_population_metrics, padding)
 
-
+    # TODO: This data could be added as JSON database with int keys. Reducing the amount of lines
+    # used.
     # Get atmospheric data
     atmosphere = None
     ppe_required = None
