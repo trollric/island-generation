@@ -958,11 +958,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         size_and_population_metrics, padding)
 
 
-    # Get a subbox one third of b2:s height
-    b2_x1, b2_y1 = b2.start
-    sub_box_b2 = BoundBox(b2_x1, b2_y1, b2_x1 + b2.get_width(), b2_y1 + int(b2.get_height()/3))
-
-    # Get atmo data
+    # Get atmospheric data
     atmosphere = None
     ppe_required = None
     atmosphere_type = upp_dict.get('atmosphere_type')
@@ -1015,31 +1011,6 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         atmosphere = 'Unusual'
         ppe_required = 'Varies'
     
-    
-    # Split sub box in half to add both values.
-    sub_box_b2_1 = BoundBox(b2_x1,
-                            b2_y1,
-                            b2_x1 + sub_box_b2.get_width(),
-                            b2_y1 + int(sub_box_b2.get_height()/2))
-
-    # Generate the elements to be printed
-    atmosphere_data =[
-        f'Atmo: {atmosphere}',
-        f'PPE: {ppe_required}'
-    ]
-
-    # Get max font size
-    font_size = get_largest_font_size_from_list(atmosphere_data,
-                                                font_path,
-                                                sub_box_b2_1.get_dimensions(),
-                                                padding)
-
-    # Create font
-    font = ImageFont.truetype(font_path, font_size)
-
-    # Render atmospheric and personal protective equipment data.
-    draw_lines_in_list(legend_draw, font, font_color, sub_box_b2_1.get_dimensions(),
-                        atmosphere_data, padding)
 
     # Generate the min/max temperature and determine day/night cycle.
     day_length = 8 + 8 * upp_dict.get('size') + randint(-4, 4)
@@ -1063,18 +1034,40 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         max_temperature = randint(176, 800)
 
     # Make the string data
-    temperature_and_time =[
-        f'Day/Night cycle: {day_length}h',
-        f'Temp: {min_temperature}-{max_temperature}C'
+    planetary_metrics =[
+        f'Atmosphere:',
+        f'{atmosphere}',
+        f'PPE Required',
+        f'{ppe_required}',
+        f'Temperature:',
+        f'Min: {min_temperature} [C]',
+        f'Max: {max_temperature} [C]',
+        f'Day cycle:',
+        f'{day_length} [h]'
     ]
 
-    # TODO: Create sub box.
+    # Create sub box.
+    x1, y1  = b2.start
+    x2, _   = b2.end
+    y2 = y1 + int(b2.get_height() / len(planetary_metrics))
+    sub_box_b2 = BoundBox(x1, y1, x2, y2)
 
-    # TODO: Find largest font size
+    # Find largest font size
+    font_size = get_largest_font_size_from_list(planetary_metrics,
+                                                font_path,
+                                                sub_box_b2.get_dimensions(),
+                                                padding=5)
 
-    # TODO: Create the font
+    # Create the font
+    font = ImageFont.truetype(font_path, font_size)
 
-    # TODO: Render the data
+    # Render the data
+    draw_lines_in_list( legend_draw,
+                        font,
+                        font_color,
+                        sub_box_b2.get_dimensions(),
+                        planetary_metrics,
+                        padding)
 
     # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
 
