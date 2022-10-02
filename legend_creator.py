@@ -1109,6 +1109,9 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     plot_image = Image.open(buffer)
 
+    # TODO: Resize plot_image to bound box3:s size.
+
+    # TODO: Append plot_image into bound box b3
     plot_image.show()
     
 
