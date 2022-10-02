@@ -1081,22 +1081,29 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     time = np.arange(0, day_length, 0.05)
 
     # Make a vectorized function for calculatin temp(time)
-    temp = np.vectorize(lambda x: min_temperature + max_temperature * math.sin(math.pi*x/day_length))
+    temp = np.vectorize(
+        lambda x: min_temperature + math.abs(max_temperature * math.sin(math.pi*x/day_length))
+    )
 
     # Build figure.
     figsize = (4.0, 4.0)
     figure = plt.figure(figsize=figsize)
+    # Make the background transparent
+    figure.set_alpha(0.0)
     ax = figure.add_subplot(111)
+
+    # Set axis data.
+    ax.set_title('Temperature over time')
+    ax.set_ylabel('Temperature [C]')
+    ax.set_xlabel('Time [h]')
     
     # Plot
-    ax.plot(time, temp(time), 'r-', linewidth=2)
+    ax.plot(time, temp(time), 'b-', linewidth=1.5)
 
-    figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
-    ax.axis('tight')
-    ax.axis('off')
+    figure.subplots_adjust(left=0.13, right=0.95, bottom=0.15, top=0.90)
 
     buffer = io.BytesIO()
-    figure.savefig(buffer)
+    figure.savefig(buffer, facecolor=figure.get_facecolor())
     buffer.seek(0)
     
     plot_image = Image.open(buffer)
