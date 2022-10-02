@@ -1076,10 +1076,12 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         planetary_metrics,
                         padding)
 
-    # Generate a temperature over day data
-    #TODO: Vectorixe the temp values. (Maybe just use a for loop)
-    time = np.arange(0, day_length, 0.02)
-    temp = min_temperature + max_temperature * np.vectorize(math.sin(math.pi*time/day_length))
+    # Generate matplotlib graph to show temperature over a day/night cycle.
+    # Make a timeline array
+    time = np.arange(0, day_length, 0.05)
+
+    # Make a vectorized function for calculatin temp(time)
+    temp = np.vectorize(lambda x: min_temperature + max_temperature * math.sin(math.pi*x/day_length))
 
     # Build figure.
     figsize = (4.0, 4.0)
@@ -1087,7 +1089,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     ax = figure.add_subplot(111)
     
     # Plot
-    ax.plot(time, temp, 'r-', linewidth=4)
+    ax.plot(time, temp(time), 'r-', linewidth=2)
 
     figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
     ax.axis('tight')
@@ -1100,25 +1102,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     plot_image = Image.open(buffer)
 
     plot_image.show()
-
-    # buf = io.BytesIO()
-    # fig.savefig(buf)
-    # buf.seek(0)
-    # PIL.Image.open(buf)
-
-    # build fig
-    # figsize, dpi = self._calc_fig_size_res(img_height)
-    # fig = plt.Figure(figsize=figsize)
-    # canvas = FigureCanvas(fig)
-    # ax = fig.add_subplot(111)
-    # ax.imshow(torch.from_numpy(S).flip(0), cmap = cmap)
-    # fig.subplots_adjust(left = 0, right = 1, bottom = 0, top = 1)
-    # ax.axis('tight'); ax.axis('off')
-
-    #PIL.Image.frombytes('RGB', 
-    #fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
     
-    # TODO: Generate matplotlib graph to show temperature over a day/night cycle.
 
     return legend_image
 
