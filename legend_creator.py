@@ -4,6 +4,7 @@
 import json
 import os
 import colors
+import io
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -815,21 +816,6 @@ def legend_append_trade_codes(legend_image, trade_codes):
     return legend_image
 
 
-def temperature_over_time(time, min_temp, max_temp, day_lenght):
-    """Returns a temperature value for a given time during the day.
-
-    Args:
-        time (int, float): a time in hours.
-        min_temp (int): lowest planetary temperature
-        max_temp (int): highest plaentary temperature
-        day_lenght (int): amount of hours during a day.
-
-    Returns:
-        float: returns the temperature as a float value at the given time.
-    """
-    return min_temp + max_temp * math.sin(math.pi*time/day_lenght)
-
-
 def legend_append_planetary_metrics(legend_image, upp_dict):
     # Calculates planetary metrics using the upp_dict.
     #|-------------------------------------|
@@ -1091,11 +1077,33 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         padding)
 
     # Generate a temperature over day data
-    temp_time = np.arange(0, day_length, 0.02)
+    time = np.arange(0, day_length, 0.02)
+    temp = min_temperature + max_temperature * math.sin(math.pi*time/day_length)
 
     # Build figure.
-    figsize = (b3.get_width(), b3.get_height())
+    figsize = (4.0, 4.0)
     figure = plt.figure(figsize=figsize)
+    ax = figure.add_subplot(111)
+    
+    # Plot
+    ax.plot(time, temp, 'r-', linewidth=4)
+
+    figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
+    ax.axis('tight')
+    ax.axis('off')
+
+    buffer = io.BytesIO()
+    figure.savefig(buffer)
+    buffer.seek(0)
+    
+    plot_image = Image.open(buffer)
+
+    plot_image.show()
+
+    # buf = io.BytesIO()
+    # fig.savefig(buf)
+    # buf.seek(0)
+    # PIL.Image.open(buf)
 
     # build fig
     # figsize, dpi = self._calc_fig_size_res(img_height)
