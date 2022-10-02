@@ -1082,9 +1082,10 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
 
     # Make a vectorized function for calculatin temp(time)
     temp = np.vectorize(
-        lambda x: min_temperature + math.abs(max_temperature * math.sin(math.pi*x/day_length))
+        lambda x: min_temperature + abs(max_temperature * math.sin(math.pi*x/day_length))
     )
 
+    # TODO: Experiment until a nice look have been found.
     # Build figure.
     figsize = (4.0, 4.0)
     figure = plt.figure(figsize=figsize)
