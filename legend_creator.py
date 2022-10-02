@@ -1077,8 +1077,9 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
                         padding)
 
     # Generate a temperature over day data
+    #TODO: Vectorixe the temp values. (Maybe just use a for loop)
     time = np.arange(0, day_length, 0.02)
-    temp = min_temperature + max_temperature * math.sin(math.pi*time/day_length)
+    temp = min_temperature + max_temperature * np.vectorize(math.sin(math.pi*time/day_length))
 
     # Build figure.
     figsize = (4.0, 4.0)
