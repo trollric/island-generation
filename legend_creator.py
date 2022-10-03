@@ -1129,9 +1129,9 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Reapply lines around the boundbox.
     # Select a line color (remember PIL uses tuples)
     line_fill_color = tuple(colors.get_rgb_color('orange_red'))
-    line_width = 6
+    line_width = 4
     
-    # TODO: Redraw a box around b2 and b3.
+    # Redraw a box around b2 and b3.
     legend_draw.rectangle(b2.get_dimensions(), outline=line_fill_color, width=line_width)
     legend_draw.rectangle(b3.get_dimensions(), outline=line_fill_color, width=line_width)
 
