@@ -54,6 +54,14 @@ class BoundBox:
         """
         return self.end[1] - self.start[1]
 
+    def get_width_height(self):
+        """Provides the BoundBox width/height as tuple.
+
+        Returns:
+            tuple(int, int): Width/Height as a tuple.
+        """
+        return (self.get_width(), self.get_height())
+
     def get_dimensions(self):
         """Returns the start and end point as a list of tuples
 
@@ -1096,7 +1104,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Set axis data.
     ax.set_title('Temperature over time')
     ax.set_ylabel('Temperature [C]')
-    ax.set_xlabel('Time [h]')
+    ax.set_xlabel(f'Day cycle {day_length} [h]')
     
     # Plot
     ax.plot(time, temp(time), 'b-', linewidth=1.5)
@@ -1109,7 +1117,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     plot_image = Image.open(buffer)
 
-    # TODO: Resize plot_image to bound box3:s size.
+    # Resize plot_image to bound box3:s size.
+    plot_image.resize(b3.get_width_height())
 
     # TODO: Append plot_image into bound box b3
     plot_image.show()
