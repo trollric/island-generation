@@ -1092,7 +1092,6 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         lambda x: min_temperature + abs(max_temperature * math.sin(math.pi*x/day_length))
     )
 
-    # TODO: Experiment until a nice look have been found.
     # Build figure.
     figsize = (4.0, 4.0)
 
@@ -1113,7 +1112,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         ax.plot(time, temp(time), 'r-', linewidth=1.5)
     
 
-    figure.subplots_adjust(left=0.13, right=0.95, bottom=0.15, top=0.90)
+    figure.subplots_adjust(left=0.15, right=0.95, bottom=0.15, top=0.90)
 
     buffer = io.BytesIO()
     figure.savefig(buffer, facecolor=figure.get_facecolor())
@@ -1130,9 +1129,11 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # Reapply lines around the boundbox.
     # Select a line color (remember PIL uses tuples)
     line_fill_color = tuple(colors.get_rgb_color('orange_red'))
-    line_width = 12
+    line_width = 6
     
-    # TODO: Redraw a box around b3.
+    # TODO: Redraw a box around b2 and b3.
+    legend_draw.rectangle(b2.get_dimensions(), outline=line_fill_color, width=line_width)
+    legend_draw.rectangle(b3.get_dimensions(), outline=line_fill_color, width=line_width)
 
     return legend_image
 
