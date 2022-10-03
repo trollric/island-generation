@@ -1162,7 +1162,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # Append trade information to bottom right of the legend document.
     legend_doc = legend_append_trade_codes(legend_doc, trade_codes)
 
-    # TODO: Append gravity and diamater data to the top middle of the legend document
+    # Append gravity and diamater data to the top middle of the legend document
     # Atmospherics, Temperature, day/night cycle.
     legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
 
