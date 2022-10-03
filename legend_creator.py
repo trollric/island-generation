@@ -1132,6 +1132,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     line_fill_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 12
     
+    # TODO: Redraw a box around b3.
 
     return legend_image
 
