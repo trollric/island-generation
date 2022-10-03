@@ -845,7 +845,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     # Get legend image dimensions.
     legend_width, _ = legend_image.size
-
+    line_width = 14
     # Get size of the sum of b1, b2, b3
     # Also get different width values usefull in determining
     # the size and offset for the other boxes.
@@ -1071,7 +1071,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     font_size = get_largest_font_size_from_list(planetary_metrics,
                                                 font_path,
                                                 sub_box_b2.get_dimensions(),
-                                                padding=5)
+                                                padding=8)
 
     # Create the font
     font = ImageFont.truetype(font_path, font_size)
@@ -1118,7 +1118,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     plot_image = Image.open(buffer)
 
     # Resize plot_image to bound box3:s size.
-    plot_image.resize(b3.get_width_height())
+    plot_image = plot_image.resize(b3.get_width_height())
 
     # TODO: Append plot_image into bound box b3
     legend_image.paste(plot_image, b3.start)
