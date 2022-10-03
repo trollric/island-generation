@@ -845,7 +845,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     # Get legend image dimensions.
     legend_width, _ = legend_image.size
-    line_width = 14
+    line_width = 12
     # Get size of the sum of b1, b2, b3
     # Also get different width values usefull in determining
     # the size and offset for the other boxes.
@@ -1096,18 +1096,23 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     # TODO: Experiment until a nice look have been found.
     # Build figure.
     figsize = (4.0, 4.0)
-    figure = plt.figure(figsize=figsize)
-    # Make the background transparent
-    figure.set_alpha(0.0)
-    ax = figure.add_subplot(111)
 
-    # Set axis data.
-    ax.set_title('Temperature over time')
-    ax.set_ylabel('Temperature [C]')
-    ax.set_xlabel(f'Day cycle {day_length} [h]')
+    # Set the desired style.
+    with plt.style.context('dark_background'):
+        figure = plt.figure(figsize=figsize)
+        # Make the background transparent
+        figure.set_alpha(0.0)
+
+        ax = figure.add_subplot(111)
+
+        # Set axis data.
+        ax.set_title('Temperature over time')
+        ax.set_ylabel('Temperature [C]')
+        ax.set_xlabel(f'Day cycle {day_length} [h]')
     
-    # Plot
-    ax.plot(time, temp(time), 'b-', linewidth=1.5)
+        # Plot
+        ax.plot(time, temp(time), 'r-', linewidth=1.5)
+    
 
     figure.subplots_adjust(left=0.13, right=0.95, bottom=0.15, top=0.90)
 
@@ -1117,8 +1122,9 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     plot_image = Image.open(buffer)
 
+    width, height = b3.get_width_height()
     # Resize plot_image to bound box3:s size.
-    plot_image = plot_image.resize(b3.get_width_height())
+    plot_image = plot_image.resize((width - int(line_width/2), height - int(line_width/2)))
 
     # TODO: Append plot_image into bound box b3
     legend_image.paste(plot_image, b3.start)
