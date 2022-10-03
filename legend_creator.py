@@ -1051,7 +1051,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     planetary_metrics =[
         f'Atmosphere:',
         f'{atmosphere}',
-        f'PPE Required',
+        f'PPE Required:',
         f'{ppe_required}',
         f'Temperature:',
         f'Min: {min_temperature} [C]',
@@ -1112,7 +1112,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         ax.plot(time, temp(time), 'r-', linewidth=1.5)
     
 
-    figure.subplots_adjust(left=0.15, right=0.95, bottom=0.15, top=0.90)
+    figure.subplots_adjust(left=0.18, right=0.95, bottom=0.15, top=0.90)
 
     buffer = io.BytesIO()
     figure.savefig(buffer, facecolor=figure.get_facecolor())
