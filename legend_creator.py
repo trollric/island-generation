@@ -845,7 +845,6 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     # Get legend image dimensions.
     legend_width, _ = legend_image.size
-    line_width = 12
     # Get size of the sum of b1, b2, b3
     # Also get different width values usefull in determining
     # the size and offset for the other boxes.
@@ -1122,13 +1121,16 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     
     plot_image = Image.open(buffer)
 
-    width, height = b3.get_width_height()
     # Resize plot_image to bound box3:s size.
-    plot_image = plot_image.resize((width - int(line_width/2), height - int(line_width/2)))
+    plot_image = plot_image.resize(b3.get_width_height())
 
-    # TODO: Append plot_image into bound box b3
+    # Append plot_image into bound box b3
     legend_image.paste(plot_image, b3.start)
-    #plot_image.show()
+
+    # Reapply lines around the boundbox.
+    # Select a line color (remember PIL uses tuples)
+    line_fill_color = tuple(colors.get_rgb_color('orange_red'))
+    line_width = 12
     
 
     return legend_image
