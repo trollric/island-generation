@@ -1121,7 +1121,8 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     plot_image.resize(b3.get_width_height())
 
     # TODO: Append plot_image into bound box b3
-    plot_image.show()
+    legend_image.paste(plot_image, b3.start)
+    #plot_image.show()
     
 
     return legend_image
