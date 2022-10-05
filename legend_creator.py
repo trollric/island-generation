@@ -1200,10 +1200,10 @@ def legend_append_color_legend(legend_image, color_palette):
     # Save font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
-    padding = 10
+    padding = 30
 
     # Calculate subbox size.
-    sub_height = main_box.get_height() / len(color_palette)
+    sub_height = int(main_box.get_height() / len(color_palette))
     x1, y1 = main_box.start
     x2, _ = main_box.end
     y2 = y1 + sub_height
@@ -1211,7 +1211,14 @@ def legend_append_color_legend(legend_image, color_palette):
     sub_box = BoundBox(x1, y1, x2, y2)
     
     # Find largest font size.
-    text = color_palette.keys()
+    # Color palette examble (tuple list)
+    # E.g. ('blue, 0.4, 'Water')
+    text, color_list = [], []
+    
+    for color_string, _, line in color_palette:
+        text.append(line)
+        color_list.append(color_string)
+
     font_size = get_largest_font_size_from_list(text, font_path, sub_box.get_dimensions(), padding)
 
     # Create the font
@@ -1219,9 +1226,22 @@ def legend_append_color_legend(legend_image, color_palette):
 
     # TODO: Print every element and add a colored box to the end of it.
     x, y = sub_box.start
-    for line in text:
+    for line, color in zip(text, color_list):
         x_align, y_align = get_font_align_offsets(sub_box.get_dimensions(), line, font, vertical='center', padding=padding)
-        legend_draw.text((x_align + x, y_align + y), line, tuple(font_color))
+        legend_draw.text((x_align + x, y_align + y), line, tuple(font_color), font)
+
+        # Draw colored Square
+        square_side = int(font_size - 10)
+        x_square_align = int(3*sub_box.get_width()/5)
+        y_square_align = int((sub_box.get_height()-square_side)/2)
+        x1 = x + x_square_align
+        y1 = y + y_square_align
+        x2 = x1 + square_side
+        y2 = y1 + square_side
+
+        legend_draw.rectangle((x1, y1, x2, y2), tuple(colors.get_rgb_color(color)))
+        # Offset one more subbox
+        y += sub_box.get_height()
 
     return legend_image
 
