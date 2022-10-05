@@ -1210,7 +1210,10 @@ def legend_append_color_legend(legend_image, color_palette):
     
     sub_box = BoundBox(x1, y1, x2, y2)
     
-    # TODO: Find largest font size.
+    # Find largest font size.
+    text = color_palette.keys()
+    font_size = get_largest_font_size_from_list(text, font_path, sub_box.get_dimensions())
+
     # TODO: Create the font
     # TODO: Print every element and add a colored box to the end of it. 
     return legend_image
