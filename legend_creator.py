@@ -1201,7 +1201,15 @@ def legend_append_color_legend(legend_image, color_palette):
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
     padding = 15
-    # TODO: Calculate subbox size.
+
+    # Calculate subbox size.
+    sub_height = main_box.get_height() / len(color_palette)
+    x1, y1 = main_box.start
+    x2, _ = main_box.end
+    y2 = y1 + sub_height
+    
+    sub_box = BoundBox(x1, y1, x2, y2)
+    
     # TODO: Find largest font size.
     # TODO: Create the font
     # TODO: Print every element and add a colored box to the end of it. 
