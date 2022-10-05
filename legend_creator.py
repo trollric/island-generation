@@ -825,6 +825,16 @@ def legend_append_trade_codes(legend_image, trade_codes):
 
 
 def legend_append_planetary_metrics(legend_image, upp_dict):
+    """Adds planetary metrics to the top middle of the legend document.
+    Metrics like: Gravity, temperature etc.
+
+    Args:
+        legend_image (Image.Image): Image containing the legend document information.
+        upp_dict (dict): dictionary with all UPP-data.
+
+    Returns:
+        Image.Image: PIL.Image with planetary metrics.
+    """
     # Calculates planetary metrics using the upp_dict.
     #|-------------------------------------|
     #|b1                                   |
@@ -1211,7 +1221,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_planetary_image(legend_doc, path)
 
     # TODO: Append a color to landmass type underneath the planetary image.
-    legend_doc = legend_append_color_legend(color_palette)
+    legend_doc = legend_append_color_legend(legend_doc, color_palette)
 
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
 
