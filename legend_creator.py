@@ -1138,7 +1138,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     return legend_image
 
 
-def append_planetary_image(legend_image : Image.Image , path : str) -> Image.Image:
+def legend_append_planetary_image(legend_image : Image.Image , path : str) -> Image.Image:
     """Appends a generated planet at path to the legend document.
 
     Args:
@@ -1173,6 +1173,11 @@ def append_planetary_image(legend_image : Image.Image , path : str) -> Image.Ima
     return legend_image
 
 
+def legend_append_color_legend(legend_image, color_palette):
+
+    return legend_image
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -1203,9 +1208,10 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # Append planetary image to the top right of the legend document
     path = os.path.join(path, planet_name + '.png')
-    legend_doc = append_planetary_image(legend_doc, path)
+    legend_doc = legend_append_planetary_image(legend_doc, path)
 
     # TODO: Append a color to landmass type underneath the planetary image.
+    legend_doc = legend_append_color_legend(color_palette)
 
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
 
