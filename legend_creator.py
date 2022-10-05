@@ -1138,6 +1138,19 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     return legend_image
 
 
+def append_planetary_image(legend_image : Image.Image , path : str) -> Image.Image:
+    # Generate bound box
+    legend_width, _ = legend_image.size
+    x_offset = int(2*legend_width/3)
+    y_offset = 0
+    box_side = int(legend_width/3)
+
+    bbox = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + box_side)
+    # TODO: Load planetary image
+    # TODO: Append in boundbox
+    return legend_image
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -1167,7 +1180,8 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
 
     # TODO: Append planetary image to the top right of the legend document
-    
+    legend_doc = append_planetary_image(legend_doc, path)
+
     # TODO: Append a color to landmass type underneath the planetary image.
 
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
