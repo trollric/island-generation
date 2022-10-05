@@ -1139,6 +1139,11 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
 
 
 def append_planetary_image(legend_image : Image.Image , path : str) -> Image.Image:
+
+    # Test that image exist.
+    if not os.path.exists(path):
+        raise FileNotFoundError(f'The file at "{path}" could not be found')
+        
     # Generate bound box
     legend_width, _ = legend_image.size
     x_offset = int(2*legend_width/3)
@@ -1146,7 +1151,10 @@ def append_planetary_image(legend_image : Image.Image , path : str) -> Image.Ima
     box_side = int(legend_width/3)
 
     bbox = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + box_side)
-    # TODO: Load planetary image
+
+    # Load planetary image
+    planet_image = Image.open(path)
+
     # TODO: Append in boundbox
     return legend_image
 
@@ -1180,6 +1188,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
 
     # TODO: Append planetary image to the top right of the legend document
+    path = os.join(path, planet_name + '.png')
     legend_doc = append_planetary_image(legend_doc, path)
 
     # TODO: Append a color to landmass type underneath the planetary image.
