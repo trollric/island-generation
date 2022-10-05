@@ -1184,7 +1184,27 @@ def legend_append_planetary_image(legend_image : Image.Image , path : str) -> Im
 
 
 def legend_append_color_legend(legend_image, color_palette):
+    # Create main bound box.
+    legend_width, _ = legend_image.size
+    box_width = int(legend_width/3)
+    box_height = int(legend_width/1/4)
 
+    x_offset = box_width*2
+    y_offset = box_width
+
+    main_box = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
+
+    # Create draw object
+    legend_draw = ImageDraw.Draw(legend_image)
+
+    # Save font data.
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    font_color = tuple(colors.get_rgb_color('gold'))
+    padding = 15
+    # TODO: Calculate subbox size.
+    # TODO: Find largest font size.
+    # TODO: Create the font
+    # TODO: Print every element and add a colored box to the end of it. 
     return legend_image
 
 
