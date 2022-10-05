@@ -1214,7 +1214,9 @@ def legend_append_color_legend(legend_image, color_palette):
     text = color_palette.keys()
     font_size = get_largest_font_size_from_list(text, font_path, sub_box.get_dimensions())
 
-    # TODO: Create the font
+    # Create the font
+    font = ImageFont.truetype(font_path, font_size)
+
     # TODO: Print every element and add a colored box to the end of it. 
     return legend_image
 
