@@ -1200,7 +1200,7 @@ def legend_append_color_legend(legend_image, color_palette):
     # Save font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
-    padding = 30
+    padding = 20
 
     # Calculate subbox size.
     sub_height = int(main_box.get_height() / len(color_palette))
@@ -1216,7 +1216,7 @@ def legend_append_color_legend(legend_image, color_palette):
     text, color_list = [], []
     
     for color_string, _, line in color_palette:
-        text.append(line)
+        text.append(line.capitalize())
         color_list.append(color_string)
 
     font_size = get_largest_font_size_from_list(text, font_path, sub_box.get_dimensions(), padding)
@@ -1225,23 +1225,45 @@ def legend_append_color_legend(legend_image, color_palette):
     font = ImageFont.truetype(font_path, font_size)
 
     # TODO: Print every element and add a colored box to the end of it.
-    x, y = sub_box.start
+    x, y = main_box.start
     for line, color in zip(text, color_list):
         x_align, y_align = get_font_align_offsets(sub_box.get_dimensions(), line, font, vertical='center', padding=padding)
         legend_draw.text((x_align + x, y_align + y), line, tuple(font_color), font)
 
         # Draw colored Square
         square_side = int(font_size - 10)
-        x_square_align = int(3*sub_box.get_width()/5)
+        x_square_align = int(3*sub_box.get_width()/len(color_list))
         y_square_align = int((sub_box.get_height()-square_side)/2)
         x1 = x + x_square_align
         y1 = y + y_square_align
         x2 = x1 + square_side
         y2 = y1 + square_side
 
-        legend_draw.rectangle((x1, y1, x2, y2), tuple(colors.get_rgb_color(color)))
+        legend_draw.rectangle(  (x1, y1, x2, y2),
+                                fill=tuple(colors.get_rgb_color(color)),
+                                outline=(0, 0, 0),
+                                width=5)
+        
+        # TODO: REMOVE THIS DEBUG
+        d_y2 = y + sub_box.get_height()
+        legend_draw.rectangle(((x, y), (sub_box.get_side('right'), d_y2)),
+                                outline=(100,100,100), width=3)
         # Offset one more subbox
         y += sub_box.get_height()
+
+    # TODO: Investigate/implement this.
+    # from PIL import Image, ImageDraw, ImageFont
+    # image = Image.new("RGB", (200, 80))
+    # draw = ImageDraw.Draw(image)
+    # font = ImageFont.truetype("arial.ttf", 30)
+
+    # draw.text((20, 20), "Hello World", font=font)
+    # bbox = draw.textbbox((20, 20), "Hello World", font=font)
+    # draw.rectangle(bbox, outline="red")
+    # print(bbox)
+    # (20, 26, 175, 48)
+
+image.show()
 
     return legend_image
 
