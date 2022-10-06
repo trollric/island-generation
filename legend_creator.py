@@ -1327,13 +1327,16 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     padding = 20
 
     # Make the text list.
-
     b1_data = [
         f'{planet_name}',
         f'{upp_dict.get("upp_serial")}'
     ]
 
+    # Create font
     font_size = get_max_font_size_from_list(b1_data, font_path, b1.get_dimensions(), padding)
+    font = ImageFont.truetype(font_path, font_size)
+
+    draw_lines_in_list(legend_draw, font, font_color, b1.get_dimensions(), b1_data, padding)
 
     return legend_image
 
