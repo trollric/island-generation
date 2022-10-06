@@ -1307,6 +1307,7 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     third_box_side = int(box_side / 3)
 
     # Create bound boxes
+    # TODO: Fix size (right now its to big)
     x_offset, y_offset = (0, 0)
     b1 = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + box_side)
 
@@ -1331,12 +1332,16 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
         f'{planet_name}',
         f'{upp_dict.get("upp_serial")}'
     ]
-
+    x1, y1 = b1.start
+    x2, y2 = b1.end
+    y2 = int(y2/len(b1_data))
+    sub_box_b1 = BoundBox(x1, y1, x2, y2)
+    
     # Create font
     font_size = get_max_font_size_from_list(b1_data, font_path, b1.get_dimensions(), padding)
     font = ImageFont.truetype(font_path, font_size)
 
-    draw_lines_in_list(legend_draw, font, font_color, b1.get_dimensions(), b1_data, padding)
+    draw_lines_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
 
     return legend_image
 
