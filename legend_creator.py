@@ -619,7 +619,7 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     return font_size
 
 
-def get_largest_font_size_from_list(list, font_path, box_dimensions, padding = 0):
+def get_max_font_size_from_list(list, font_path, box_dimensions, padding = 0):
     """Takes a list of lines and checks what their maxiumum shared font_size can be.
     If they are to fit in boxes of the same size.
 
@@ -987,7 +987,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
         f'Population: {population}',
     ]
 
-    font_size = get_largest_font_size_from_list(size_and_population_metrics,
+    font_size = get_max_font_size_from_list(size_and_population_metrics,
                                                 font_path,
                                                 sub_box_b1.get_dimensions(),
                                                 padding)
@@ -1096,7 +1096,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     sub_box_b2 = BoundBox(x1, y1, x2, y2)
 
     # Find largest font size
-    font_size = get_largest_font_size_from_list(planetary_metrics,
+    font_size = get_max_font_size_from_list(planetary_metrics,
                                                 font_path,
                                                 sub_box_b2.get_dimensions(),
                                                 padding=8)
@@ -1248,7 +1248,7 @@ def legend_append_color_legend(legend_image, color_palette):
         text.append(line.capitalize())
         color_list.append(color_string)
 
-    font_size = get_largest_font_size_from_list(text, font_path, sub_box.get_dimensions(), padding)
+    font_size = get_max_font_size_from_list(text, font_path, sub_box.get_dimensions(), padding)
 
     # Create the font
     font = ImageFont.truetype(font_path, font_size)
@@ -1326,6 +1326,14 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     font_color = tuple(colors.get_rgb_color('gold'))
     padding = 20
 
+    # Make the text list.
+
+    b1_data = [
+        f'{planet_name}',
+        f'{upp_dict.get("upp_serial")}'
+    ]
+
+    font_size = get_max_font_size_from_list(b1_data, font_path, b1.get_dimensions(), padding)
 
     return legend_image
 
