@@ -1263,10 +1263,6 @@ def legend_append_color_legend(legend_image, color_palette):
                                 outline=(0, 0, 0),
                                 width=5)
         
-        # TODO: REMOVE THIS DEBUG
-        d_y2 = y + sub_box.get_height()
-        legend_draw.rectangle(((x, y), (sub_box.get_side('right'), d_y2)),
-                                outline=(100,100,100), width=3)
         # Offset one more subbox
         y += sub_box.get_height()
 
