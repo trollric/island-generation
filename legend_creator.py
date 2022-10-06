@@ -1286,12 +1286,13 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     # |                                |
     # |                                |
     # |                                |
-    # |                                |
+    # ----------------------------------
+    # | b2                             |
     # |                                |
     # |                                |
     # |                                |
     # ----------------------------------
-    # | b2       | b3       | b4       |
+    # | b3       | b4       | b5       |
     # |          |          |          |
     # |          |          |          |
     # |          |          |          |
@@ -1309,16 +1310,19 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     # Create bound boxes
     # TODO: Fix size (right now its to big)
     x_offset, y_offset = (0, 0)
-    b1 = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + box_side)
+    b1 = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + third_box_side)
+
+    y_offset = third_box_side
+    b2 = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + third_box_side)
 
     y_offset = 2 * third_box_side
-    b2 = BoundBox(x_offset, y_offset, x_offset + third_box_side, y_offset + third_box_side)
-
-    x_offset += third_box_side
     b3 = BoundBox(x_offset, y_offset, x_offset + third_box_side, y_offset + third_box_side)
 
     x_offset += third_box_side
     b4 = BoundBox(x_offset, y_offset, x_offset + third_box_side, y_offset + third_box_side)
+
+    x_offset += third_box_side
+    b5 = BoundBox(x_offset, y_offset, x_offset + third_box_side, y_offset + third_box_side)
     # Create the draw class.
     legend_draw = ImageDraw.Draw(legend_image)
 
@@ -1329,16 +1333,18 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
     # Make the text list.
     b1_data = [
-        f'{planet_name}',
-        f'{upp_dict.get("upp_serial")}'
+        f'Name: {planet_name}',
+        f'UPP:{upp_dict.get("upp_serial")}'
     ]
+
+    # Create subbox
     x1, y1 = b1.start
     x2, y2 = b1.end
     y2 = int(y2/len(b1_data))
     sub_box_b1 = BoundBox(x1, y1, x2, y2)
     
     # Create font
-    font_size = get_max_font_size_from_list(b1_data, font_path, b1.get_dimensions(), padding)
+    font_size = get_max_font_size_from_list(b1_data, font_path, sub_box_b1.get_dimensions(), padding)
     font = ImageFont.truetype(font_path, font_size)
 
     draw_lines_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
