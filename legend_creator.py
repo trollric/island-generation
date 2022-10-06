@@ -1279,6 +1279,36 @@ def legend_append_color_legend(legend_image, color_palette):
     return legend_image
 
 
+def legend_add_name_government_data(legend_image, planet_name, upp_dict):
+    
+    # ----------------------------------
+    # | b1                             |
+    # |                                |
+    # |                                |
+    # |                                |
+    # |                                |
+    # |                                |
+    # |                                |
+    # |                                |
+    # ----------------------------------
+    # | b2       | b3       | b4       |
+    # |          |          |          |
+    # |          |          |          |
+    # |          |          |          |
+    # ----------------------------------
+
+    # Create the draw class.
+    legend_draw = ImageDraw.Draw(legend_image)
+
+    # Font data.
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    font_color = tuple(colors.get_rgb_color('gold'))
+    padding = 20
+
+
+    return legend_image
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -1315,6 +1345,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_color_legend(legend_doc, color_palette)
 
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
+    legend_doc = legend_add_name_government_data(legend_doc, planet_name, upp_dict)
 
     # TODO: Determine government type, generate factions and add cultures.
 
