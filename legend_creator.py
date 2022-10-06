@@ -447,6 +447,25 @@ def get_box_dimension_size(box_dimensions):
     return width,height
 
 
+def get_text_dimensions(text_string, font):
+    """Takes a text and font and returns the width, height values of the close box
+
+    Args:
+        text_string (str): text to be rendered
+        font (FreeTypeFont): The font to be used.
+
+    Returns:
+        tuple(int, int): width,height
+    """
+    # https://stackoverflow.com/a/46220683/9263761
+    ascent, descent = font.getmetrics()
+
+    text_width = int(font.getmask(text_string).getbbox()[2])
+    text_height = int(font.getmask(text_string).getbbox()[3] + descent)
+
+    return (text_width, text_height)
+
+
 def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
             vertical = 'top', padding = 0, padding_mode_percentage = False):
     """Takes a bounding box, a text and a font. With additional parameters
@@ -1250,20 +1269,6 @@ def legend_append_color_legend(legend_image, color_palette):
                                 outline=(100,100,100), width=3)
         # Offset one more subbox
         y += sub_box.get_height()
-
-    # TODO: Investigate/implement this.
-    # from PIL import Image, ImageDraw, ImageFont
-    # image = Image.new("RGB", (200, 80))
-    # draw = ImageDraw.Draw(image)
-    # font = ImageFont.truetype("arial.ttf", 30)
-
-    # draw.text((20, 20), "Hello World", font=font)
-    # bbox = draw.textbbox((20, 20), "Hello World", font=font)
-    # draw.rectangle(bbox, outline="red")
-    # print(bbox)
-    # (20, 26, 175, 48)
-
-    # image.show()
 
     return legend_image
 
