@@ -1263,7 +1263,7 @@ def legend_append_color_legend(legend_image, color_palette):
     # print(bbox)
     # (20, 26, 175, 48)
 
-image.show()
+    # image.show()
 
     return legend_image
 
