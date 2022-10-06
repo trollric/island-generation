@@ -1203,6 +1203,16 @@ def legend_append_planetary_image(legend_image : Image.Image , path : str) -> Im
 
 
 def legend_append_color_legend(legend_image, color_palette):
+    """Adds a color legend to the middle right of the legend data sheet.
+
+    Args:
+        legend_image (PIL.Image): a PIL image containing legend data.
+        color_palette (list(tuple(tuple(int,int,int,int), float, str))): list of tuples containing
+        color data. (Color tuple, height float, terrain string)
+
+    Returns:
+        PIL.Image: Retuns the updated legend data image.
+    """
     # Create main bound box.
     legend_width, _ = legend_image.size
     box_width = int(legend_width/3)
@@ -1301,7 +1311,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     path = os.path.join(path, planet_name + '.png')
     legend_doc = legend_append_planetary_image(legend_doc, path)
 
-    # TODO: Append a color to landmass type underneath the planetary image.
+    # Append a color to landmass type underneath the planetary image.
     legend_doc = legend_append_color_legend(legend_doc, color_palette)
 
     # TODO: Append planet name, UPP-Serial to the top left of the legend document.
