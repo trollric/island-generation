@@ -1381,10 +1381,10 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # Append a color to landmass type underneath the planetary image.
     legend_doc = legend_append_color_legend(legend_doc, color_palette)
 
-    # TODO: Append planet name, UPP-Serial to the top left of the legend document.
+    # TODO: Append planet name, UPP-Serial and government type to the top left of the legend document.
     legend_doc = legend_add_name_government_data(legend_doc, planet_name, upp_dict)
 
-    # TODO: Determine government type, generate factions and add cultures.
+    # TODO: Generate factions and add cultures.
 
     # TODO: Append the data underneath around temperature data.
 
