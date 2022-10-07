@@ -1,0 +1,15 @@
+{
+    "0" : {
+        "type" : "None",
+        "description" : "No government structure, In many cases, family bonds predominate",
+        "examples" : ["Family", "Clan", "Anarchy"],
+        "contraband" : ["None"]
+    },
+
+    "1" : {
+        "type" : "None",
+        "description" : "No government structure, In many cases, family bonds predominate",
+        "examples" : ["Family", "Clan", "Anarchy"],
+        "contraband" : ["None"]
+    }
+}
