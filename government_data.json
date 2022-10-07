@@ -1,15 +1,58 @@
 {
     "0" : {
         "type" : "None",
-        "description" : "No government structure, In many cases, family bonds predominate",
+        "description" : [   "No government structure,",
+                            "In many cases, family bonds predominate."],
         "examples" : ["Family", "Clan", "Anarchy"],
         "contraband" : ["None"]
     },
 
     "1" : {
-        "type" : "None",
-        "description" : "No government structure, In many cases, family bonds predominate",
-        "examples" : ["Family", "Clan", "Anarchy"],
-        "contraband" : ["None"]
+        "type" : "Company/Corporation",
+        "description" : [   "Ruling functions are assumed by a company manegerial elite,",
+                            "and most citizenry are company employees or dependants."],
+        "examples" : ["Corporate outpost", "Asteroid Mine", "Feudal domain"],
+        "contraband" : ["Weapons", "Drugs", "Travelers"]
+    },
+
+    "2" : {
+        "type" : "Participating Democracy",
+        "description" : [   "Ruling functions are reached by the advice",
+                            "and consent of the citizenry directory."],
+        "examples" : ["Collective", "Tribal council", "Commlinked consensus"],
+        "contraband" : ["Drugs"]
+    },
+
+    "3" : {
+        "type" : "Self-Perpetuating Oligarchy",
+        "description" : [   "Ruling functions are performed by a restricted minority,",
+                            "with little to no input from the mass of citizenry."],
+        "examples" : ["Plutocracy", "Heriditary ruling caste"],
+        "contraband" : ["Technology", "Weapons", "Travelers"]
+    },
+
+    "4" : {
+        "type" : "Representative Democracy",
+        "description" : [   "Ruling functions are performed by elected representatives,"],
+        "examples" : ["Republic", "Democracy"],
+        "contraband" : ["Drugs", "Weapons", "Psionics"]
+    },
+
+    "5" : {
+        "type" : "Feudal Technocracy",
+        "description" : [   "Ruling functions are performed by specific individuals",
+                            "for persons who agree to be ruled by them.",
+                            "Relationships are based on the performance of technical",
+                            "activities that are mutually beneficial."],
+        "examples" : ["Those with access to higher technology tend to have higher social status."],
+        "contraband" : ["Technology", "Weapons", "Computers"]
+    },
+
+    "6" : {
+        "type" : "Captive Government",
+        "description" : [   "Ruling functions are performed by an imposed leadership",
+                            "answerable to an outside group."],
+        "examples" : ["Colony", "Captured area"],
+        "contraband" : ["Weapons", "Technology", "Travelers"]
     }
 }
