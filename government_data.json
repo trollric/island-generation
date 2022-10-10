@@ -12,7 +12,7 @@
         "description" : [   "Ruling functions are assumed by a company manegerial elite,",
                             "and most citizenry are company employees or dependants."],
         "examples" : ["Corporate outpost", "Asteroid Mine", "Feudal domain"],
-        "contraband" : ["Weapons", "Drugs", "Travelers"]
+        "contraband" : ["Weapons", "Drugs", "Travellers", "Psionics"]
     },
 
     "2" : {
@@ -28,7 +28,7 @@
         "description" : [   "Ruling functions are performed by a restricted minority,",
                             "with little to no input from the mass of citizenry."],
         "examples" : ["Plutocracy", "Heriditary ruling caste"],
-        "contraband" : ["Technology", "Weapons", "Travelers"]
+        "contraband" : ["Technology", "Weapons", "Travellers", "Psionics"]
     },
 
     "4" : {
@@ -53,6 +53,42 @@
         "description" : [   "Ruling functions are performed by an imposed leadership",
                             "answerable to an outside group."],
         "examples" : ["Colony", "Captured area"],
-        "contraband" : ["Weapons", "Technology", "Travelers"]
+        "contraband" : ["Weapons", "Technology", "Travellers", "Psionics"]
+    },
+
+    "7" : {
+        "type" : "Balkanisation",
+        "description" : [   "No central authority exists,",
+                            "Rival governments compete for control.",
+                            "Law level refers to the government closest",
+                            "to the star port."],
+        "examples" : ["Multiple governments", "Civil war"],
+        "contraband" : ["Varies"]
+    },
+
+    "8" : {
+        "type" : "Civil Service Bureaucracy",
+        "description" : [   "Ruling functions are performed by government",
+                            "agencies employing individuals selected",
+                            "for their expertise."],
+        "examples" : ["Technocracy", "Communism"],
+        "contraband" : ["Drugs", "Weapons"]
+    },
+
+    "9" : {
+        "type" : "Impersonal Bureaucracy",
+        "description" : [   "Ruling functions are performed by agencies which",
+                            "have become insulated from the governed citizens."],
+        "examples" : ["Entrenched castes of buraeucrats", "Decaying empire"],
+        "contraband" : ["Technology", "Weapons", "Drugs", "Travellers", "Psionics"]
+    },
+
+    "10" : {
+        "type" : "Charismatic Dictator",
+        "description" : [   "Ruling functions are performed by agencies",
+                            "directed by a single leader who enjoys the",
+                            "overwhelming confidence of the citizens."],
+        "examples" : ["Revolutionary leader", "Messiah", "Emperor"],
+        "contraband" : ["None"]
     }
 }
