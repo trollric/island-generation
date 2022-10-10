@@ -90,5 +90,13 @@
                             "overwhelming confidence of the citizens."],
         "examples" : ["Revolutionary leader", "Messiah", "Emperor"],
         "contraband" : ["None"]
+    },
+
+    "11" : {
+        "type" : "Non-Charismatic Leader",
+        "description" : [   "A previous charismatic dictator has been",
+                            "replaced by a leader through normal channels"],
+        "examples" : ["Military Dictatorship", "Hereditary Kingship"],
+        "contraband" : ["Weapons", "Technology", "Computers"]
     }
 }
