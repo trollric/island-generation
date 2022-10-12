@@ -98,5 +98,41 @@
                             "replaced by a leader through normal channels"],
         "examples" : ["Military Dictatorship", "Hereditary Kingship"],
         "contraband" : ["Weapons", "Technology", "Computers"]
+    },
+
+    "12" : {
+        "type" : "Charismatic Oligarchy",
+        "description" : [   "Ruling functions are performed by a select",
+                            "group or members of an organisation or class",
+                            "which enjoys the overwelming confidence of",
+                            "the citizenry."],
+        "examples" : ["Junta", "Revolutionary council"],
+        "contraband" : ["Weapons"]
+    },
+
+    "13" : {
+        "type" : "Religious Dictatorship",
+        "description" : [   "Ruling functions are performed by a religious",
+                            "organisation without regard to the specific",
+                            "individual needs of the citizenry"],
+        "examples" : ["Cult", "Transcendant philosophy", "Psionic group mind"],
+        "contraband" : ["Varies"]
+    },
+
+    "14" : {
+        "type" : "Religious Autocracy",
+        "description" : [   "Government by a single religious leader",
+                            "having absolute power over the citizenry."],
+        "examples" : ["Messiah", "God King"],
+        "contraband" : ["Varies"]
+    },
+
+    "15" : {
+        "type" : "Totalitarian Oligarchy",
+        "description" : [   "Government by an all-powerfull minority",
+                            "which maintains absolute control through",
+                            "widespread coercion and oppression"],
+        "examples" : ["World church", "Ruthless corporation"],
+        "contraband" : ["Varies"]
     }
 }
