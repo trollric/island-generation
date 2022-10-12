@@ -1253,7 +1253,7 @@ def legend_append_color_legend(legend_image, color_palette):
     # Create the font
     font = ImageFont.truetype(font_path, font_size)
 
-    # TODO: Print every element and add a colored box to the end of it.
+    # Print every element and add a colored box to the end of it.
     x, y = main_box.start
     for line, color in zip(text, color_list):
         x_align, y_align = get_font_align_offsets(sub_box.get_dimensions(), line, font, vertical='center', padding=padding)
