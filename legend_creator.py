@@ -1306,8 +1306,9 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     # ----------------------------------
     # b1: Planet name and UPP-Serial
     # b2: Government type
-    # b3: Law level (With a sherrifs badge in the background)
-    # b4: Tech level with circuit behind.
+    # b3: Symbol depicting goverment type.
+    # b4: Law level with a sheriffs badge behind.
+    # b5: Tech level with circuit behind
 
     # Calculate sub box sizes.
     legend_width, _ = legend_image.size
