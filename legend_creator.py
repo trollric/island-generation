@@ -1279,13 +1279,6 @@ def legend_append_color_legend(legend_image, color_palette):
     return legend_image
 
 
-def generate_government_type(upp_dict : dict) -> dict:
-    # TODO: Generate government type
-    government_information = {}
-    # TODO: Generate government subtype
-    return government_information
-
-
 def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     
     # ----------------------------------
@@ -1356,10 +1349,11 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
     draw_lines_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
 
-    # TODO: Generate government type.
-    gov_type_name = generate_government_type(upp_dict)
+    # TODO: Get goverment type.
 
-    # TODO: Write the information.
+    # TODO: Write the information in b2.
+
+    # TODO: Write b3, b4 & b5
 
     return legend_image
 
