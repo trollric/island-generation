@@ -1339,8 +1339,8 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
     # Create subbox
     x1, y1 = b1.start
-    x2, y2 = b1.end
-    y2 = int(y2/len(b1_data))
+    x2, _ = b1.end
+    y2 = int((b1.get_height()/len(b1_data)) + y1)
     sub_box_b1 = BoundBox(x1, y1, x2, y2)
     
     # Create font
@@ -1349,9 +1349,27 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
     draw_lines_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
 
-    # TODO: Get goverment type.
+    # Get goverment type.
+    # Import the json-data
+    with open("government_data.json",) as government_data:
+        government_information = json.load(government_data)
+
+    government_number = str(upp_dict.get('government_type'))
+    government_dict = government_information.get(government_number)
+
+    text = [f'Government type:',
+            f"{government_dict.get('type')}"]
 
     # TODO: Write the information in b2.
+    x1, y1  = b2.start
+    x2, _  = b2.end
+    y2 = int((b2.get_height()/len(text)) + y1)
+    sub_box_b2 = BoundBox(x1, y1, x2, y2)
+
+    font_size = get_max_font_size_from_list(text, font_path, sub_box_b2.get_dimensions(), padding)
+    font = ImageFont.truetype(font_path, font_size)
+
+    draw_lines_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
 
     # TODO: Write b3, b4 & b5
 
