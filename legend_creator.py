@@ -1394,8 +1394,6 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     # Create the image
     image_path = "Images/sheriff-badge.png"
     with Image.open(image_path) as law_image:
-        # TODO: Imagedraw a number ontop.
-
         # Get image size
         im_width, im_height = law_image.size
 
@@ -1421,8 +1419,6 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
         # Append to legend image.
         legend_image.paste(law_image, b4.start, law_image)
 
-
-        # TODO: Append image to legend image.
 
     # TODO: Append tech level in b5
     # TODO: Create the image
