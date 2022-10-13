@@ -1377,7 +1377,7 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     # Open the image.
     image_path = government_dict.get('symbol_path')
     with Image.open(image_path) as symbol_image:
-        # Resize image.
+        # Resize image. (take padding into consideration)
         width, height = b3.get_width_height()
         width = int(width-(2*padding))
         height = int(height-(2*padding))
