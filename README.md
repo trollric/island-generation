@@ -12,3 +12,6 @@ Sherifs badge used in the legend creator:
 
 Circuit board used in the legend creator:
 <a href="https://www.flaticon.com/free-icons/circuit" title="circuit icons">Circuit icons created by Good Ware - Flaticon</a>
+
+Anarchy symbol for government types.
+<a href="https://www.flaticon.com/free-icons/anarchy-symbol" title="anarchy symbol icons">Anarchy symbol icons created by Freepik - Flaticon</a>
