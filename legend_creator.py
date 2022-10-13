@@ -1390,9 +1390,39 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
         legend_image.paste(symbol_image, (x, y), symbol_image)
 
     # TODO: Append law level in b4
-    # TODO: Create the image
-    # TODO: Imagedraw a number ontop.
-    # TODO: Append image to legend image.
+    
+    # Create the image
+    image_path = "Images/sheriff-badge.png"
+    with Image.open(image_path) as law_image:
+        # TODO: Imagedraw a number ontop.
+
+        # Get image size
+        im_width, im_height = law_image.size
+
+        # Create font
+        font_size = int(im_height / 4)
+        font = ImageFont.truetype(font_path, font_size)
+
+        # Get law level to write
+        law_level = str(upp_dict.get('law_level'))
+
+        # Check font width, height.
+        font_width, font_height = get_text_dimensions(law_level, font)
+
+        # Get coordinate for the text.
+        x = int((im_width - font_width)/2)
+        y = int(((im_height - font_height)/2) + im_height/35)
+
+        # Draw the text at coordinates
+        law_draw = ImageDraw.Draw(law_image)
+        law_draw.text((x, y), law_level, font_color, font)
+        law_image = law_image.resize(b4.get_width_height())
+
+        # Append to legend image.
+        legend_image.paste(law_image, b4.start, law_image)
+
+
+        # TODO: Append image to legend image.
 
     # TODO: Append tech level in b5
     # TODO: Create the image
