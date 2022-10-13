@@ -1373,7 +1373,21 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
     # TODO: Write b3, b4 & b5
 
-    # TODO: Append symbol in b3.
+    # Append symbol in b3.
+    # Open the image.
+    image_path = government_dict.get('symbol_path')
+    with Image.open(image_path) as symbol_image:
+        # Resize image.
+        width, height = b3.get_width_height()
+        width = int(width-(2*padding))
+        height = int(height-(2*padding))
+        symbol_image = symbol_image.resize((width, height))
+
+        # Paste image to the legend image. (image, coordinates, mask)
+        x, y = b3.start
+        x += padding
+        y += padding
+        legend_image.paste(symbol_image, (x, y), symbol_image)
 
     # TODO: Append law level in b4
     # TODO: Create the image
