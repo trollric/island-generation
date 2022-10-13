@@ -4,7 +4,8 @@
         "description" : [   "No government structure,",
                             "In many cases, family bonds predominate."],
         "examples" : ["Family", "Clan", "Anarchy"],
-        "contraband" : ["None"]
+        "contraband" : ["None"],
+        "symbol_path" : "Images/Government_symbols/anarchy-symbol.png"
     },
 
     "1" : {
@@ -12,7 +13,8 @@
         "description" : [   "Ruling functions are assumed by a company manegerial elite,",
                             "and most citizenry are company employees or dependants."],
         "examples" : ["Corporate outpost", "Asteroid Mine", "Feudal domain"],
-        "contraband" : ["Weapons", "Drugs", "Travellers", "Psionics"]
+        "contraband" : ["Weapons", "Drugs", "Travellers", "Psionics"],
+        "symbol_path" : "Images/Government_symbols/money.png"
     },
 
     "2" : {
@@ -20,7 +22,8 @@
         "description" : [   "Ruling functions are reached by the advice",
                             "and consent of the citizenry directory."],
         "examples" : ["Collective", "Tribal council", "Commlinked consensus"],
-        "contraband" : ["Drugs"]
+        "contraband" : ["Drugs"],
+        "symbol_path" : "Images/Government_symbols/vote.png"
     },
 
     "3" : {
@@ -28,14 +31,16 @@
         "description" : [   "Ruling functions are performed by a restricted minority,",
                             "with little to no input from the mass of citizenry."],
         "examples" : ["Plutocracy", "Heriditary ruling caste"],
-        "contraband" : ["Technology", "Weapons", "Travellers", "Psionics"]
+        "contraband" : ["Technology", "Weapons", "Travellers", "Psionics"],
+        "symbol_path" : "Images/Government_symbols/vip-person.png"
     },
 
     "4" : {
         "type" : "Representative Democracy",
         "description" : [   "Ruling functions are performed by elected representatives,"],
         "examples" : ["Republic", "Democracy"],
-        "contraband" : ["Drugs", "Weapons", "Psionics"]
+        "contraband" : ["Drugs", "Weapons", "Psionics"],
+        "symbol_path" : "Images/Government_symbols/meeting.png"
     },
 
     "5" : {
@@ -45,7 +50,8 @@
                             "Relationships are based on the performance of technical",
                             "activities that are mutually beneficial."],
         "examples" : ["Those with access to higher technology tend to have higher social status."],
-        "contraband" : ["Technology", "Weapons", "Computers"]
+        "contraband" : ["Technology", "Weapons", "Computers"],
+        "symbol_path" : "Images/Government_symbols/electronics.png"
     },
 
     "6" : {
@@ -53,7 +59,8 @@
         "description" : [   "Ruling functions are performed by an imposed leadership",
                             "answerable to an outside group."],
         "examples" : ["Colony", "Captured area"],
-        "contraband" : ["Weapons", "Technology", "Travellers", "Psionics"]
+        "contraband" : ["Weapons", "Technology", "Travellers", "Psionics"],
+        "symbol_path" : "Images/Government_symbols/conquer.png"
     },
 
     "7" : {
@@ -63,7 +70,8 @@
                             "Law level refers to the government closest",
                             "to the star port."],
         "examples" : ["Multiple governments", "Civil war"],
-        "contraband" : ["Varies"]
+        "contraband" : ["Varies"],
+        "symbol_path" : "Images/Government_symbols/ethnic.png"
     },
 
     "8" : {
@@ -72,7 +80,8 @@
                             "agencies employing individuals selected",
                             "for their expertise."],
         "examples" : ["Technocracy", "Communism"],
-        "contraband" : ["Drugs", "Weapons"]
+        "contraband" : ["Drugs", "Weapons"],
+        "symbol_path" : "Images/Government_symbols/hammer.png"
     },
 
     "9" : {
@@ -80,7 +89,8 @@
         "description" : [   "Ruling functions are performed by agencies which",
                             "have become insulated from the governed citizens."],
         "examples" : ["Entrenched castes of buraeucrats", "Decaying empire"],
-        "contraband" : ["Technology", "Weapons", "Drugs", "Travellers", "Psionics"]
+        "contraband" : ["Technology", "Weapons", "Drugs", "Travellers", "Psionics"],
+        "symbol_path" : "Images/Government_symbols/official-documents.png"
     },
 
     "10" : {
@@ -89,7 +99,8 @@
                             "directed by a single leader who enjoys the",
                             "overwhelming confidence of the citizens."],
         "examples" : ["Revolutionary leader", "Messiah", "Emperor"],
-        "contraband" : ["None"]
+        "contraband" : ["None"],
+        "symbol_path" : "Images/Government_symbols/leadership.png"
     },
 
     "11" : {
@@ -97,7 +108,8 @@
         "description" : [   "A previous charismatic dictator has been",
                             "replaced by a leader through normal channels"],
         "examples" : ["Military Dictatorship", "Hereditary Kingship"],
-        "contraband" : ["Weapons", "Technology", "Computers"]
+        "contraband" : ["Weapons", "Technology", "Computers"],
+        "symbol_path" : "Images/Government_symbols/manipulation.png"
     },
 
     "12" : {
@@ -107,7 +119,8 @@
                             "which enjoys the overwelming confidence of",
                             "the citizenry."],
         "examples" : ["Junta", "Revolutionary council"],
-        "contraband" : ["Weapons"]
+        "contraband" : ["Weapons"],
+        "symbol_path" : "Images/Government_symbols/group.png"
     },
 
     "13" : {
@@ -116,7 +129,8 @@
                             "organisation without regard to the specific",
                             "individual needs of the citizenry"],
         "examples" : ["Cult", "Transcendant philosophy", "Psionic group mind"],
-        "contraband" : ["Varies"]
+        "contraband" : ["Varies"],
+        "symbol_path" : "Images/Government_symbols/freemasonry.png"
     },
 
     "14" : {
@@ -124,7 +138,8 @@
         "description" : [   "Government by a single religious leader",
                             "having absolute power over the citizenry."],
         "examples" : ["Messiah", "God King"],
-        "contraband" : ["Varies"]
+        "contraband" : ["Varies"],
+        "symbol_path" : "Images/Government_symbols/jesus.png"
     },
 
     "15" : {
@@ -133,6 +148,7 @@
                             "which maintains absolute control through",
                             "widespread coercion and oppression"],
         "examples" : ["World church", "Ruthless corporation"],
-        "contraband" : ["Varies"]
+        "contraband" : ["Varies"],
+        "symbol_path" : "Images/Government_symbols/surveillance.png"
     }
 }
