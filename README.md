@@ -43,3 +43,20 @@ Civil service bureaucracy
 Impersonal bureaucracy.
 <a href="https://www.flaticon.com/free-icons/document" title="document icons">Document icons created by Freepik - Flaticon</a>
 
+Charismatic dicator symbol.
+<a href="https://www.flaticon.com/free-icons/leader" title="leader icons">Leader icons created by Becris - Flaticon</a>
+
+Non-Charismatic leader symbol.
+<a href="https://www.flaticon.com/free-icons/boss" title="boss icons">Boss icons created by noomtah - Flaticon</a>
+
+Charismatic oligarchy symbol
+<a href="https://www.flaticon.com/free-icons/team" title="team icons">Team icons created by Freepik - Flaticon</a>
+
+Religious dictatorship symbol.
+<a href="https://www.flaticon.com/free-icons/pyramid" title="pyramid icons">Pyramid icons created by Freepik - Flaticon</a>
+
+religious autocracy symbol
+<a href="https://www.flaticon.com/free-icons/god" title="god icons">God icons created by Freepik - Flaticon</a>
+
+Totalitarian Oligarchy symbol
+<a href="https://www.flaticon.com/free-icons/surveillance" title="surveillance icons">Surveillance icons created by Freepik - Flaticon</a>
