@@ -1490,12 +1490,6 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # TODO: Generate factions and add cultures.
 
-    # TODO: Append the data underneath around temperature data.
-
-    # TODO: Generate a random day/night cycle with a temperature graph (maybe using matplotlib)
-    # append atmo type and necessary protections, temperature min/max daycycle data
-    # to the left of the graph.
-
     # TODO: Determine contraband and append them to the bottom left under separate categories.
 
     legend_doc.show()
