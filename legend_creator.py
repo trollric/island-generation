@@ -1360,7 +1360,7 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     text = [f'Government type:',
             f"{government_dict.get('type')}"]
 
-    # TODO: Write the information in b2.
+    # Write the information in b2.
     x1, y1  = b2.start
     x2, _  = b2.end
     y2 = int((b2.get_height()/len(text)) + y1)
@@ -1372,6 +1372,18 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     draw_lines_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
 
     # TODO: Write b3, b4 & b5
+
+    # TODO: Append symbol in b3.
+
+    # TODO: Append law level in b4
+    # TODO: Create the image
+    # TODO: Imagedraw a number ontop.
+    # TODO: Append image to legend image.
+
+    # TODO: Append tech level in b5
+    # TODO: Create the image
+    # TODO: Imagedraw a number ontop.
+    # TODO: Append image to legend image.
 
     return legend_image
 
