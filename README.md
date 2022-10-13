@@ -15,3 +15,6 @@ Circuit board used in the legend creator:
 
 Anarchy symbol for government types.
 <a href="https://www.flaticon.com/free-icons/anarchy-symbol" title="anarchy symbol icons">Anarchy symbol icons created by Freepik - Flaticon</a>
+
+Money symbol for corporation.
+<a href="https://www.flaticon.com/free-icons/business-and-commerce" title="business and commerce icons">Business and commerce icons created by Made by Made Premium - Flaticon</a>
