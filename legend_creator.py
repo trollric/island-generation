@@ -1389,8 +1389,7 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
         y += padding
         legend_image.paste(symbol_image, (x, y), symbol_image)
 
-    # TODO: Append law level in b4
-    
+    # Append law level in b4
     # Create the image
     image_path = "Images/sheriff-badge.png"
     with Image.open(image_path) as law_image:
