@@ -1316,7 +1316,6 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     third_box_side = int(box_side / 3)
 
     # Create bound boxes
-    # TODO: Fix size (right now its to big)
     x_offset, y_offset = (0, 0)
     b1 = BoundBox(x_offset, y_offset, x_offset + box_side, y_offset + third_box_side)
 
