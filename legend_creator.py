@@ -1371,7 +1371,6 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
     draw_lines_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
 
-    # TODO: Write b3, b4 & b5
 
     # Append symbol in b3.
     # Open the image.
@@ -1419,10 +1418,34 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
         legend_image.paste(law_image, b4.start, law_image)
 
 
-    # TODO: Append tech level in b5
-    # TODO: Create the image
-    # TODO: Imagedraw a number ontop.
-    # TODO: Append image to legend image.
+    # Append tech level in b5
+    # Create the image
+    image_path = "Images/circuit.png"
+    with Image.open(image_path) as law_image:
+        # Get image size
+        im_width, im_height = law_image.size
+
+        # Create font
+        font_size = int(im_height / 4)
+        font = ImageFont.truetype(font_path, font_size)
+
+        # Get law level to write
+        law_level = str(upp_dict.get('tech_level'))
+
+        # Check font width, height.
+        font_width, font_height = get_text_dimensions(law_level, font)
+
+        # Get coordinate for the text.
+        x = int(((im_width - font_width)/2) - im_width/80)
+        y = int(((im_height - font_height)/2) - im_height/50)
+
+        # Draw the text at coordinates
+        law_draw = ImageDraw.Draw(law_image)
+        law_draw.text((x, y), law_level, font_color, font)
+        law_image = law_image.resize(b5.get_width_height())
+
+        # Append to legend image.
+        legend_image.paste(law_image, b5.start, law_image)
 
     return legend_image
 
