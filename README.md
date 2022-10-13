@@ -40,3 +40,6 @@ Balkanisation symbol.
 Civil service bureaucracy
 <a href="https://www.flaticon.com/free-icons/communist" title="communist icons">Communist icons created by Freepik - Flaticon</a>
 
+Impersonal bureaucracy.
+<a href="https://www.flaticon.com/free-icons/document" title="document icons">Document icons created by Freepik - Flaticon</a>
+
