@@ -1450,6 +1450,48 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
     return legend_image
 
 
+def generate_faction_name():
+    faction_name = ""
+
+    return faction_name
+
+
+def generate_factions(upp_dict : dict) -> dict:
+    """Takes UPP data and returns randomly generated factions.
+
+    Args:
+        upp_dict (dict): UPP data in dictionary form.
+
+    Returns:
+        dict: Includes a dictionary for each faction. Faction name being the keys for the
+        subdictionaries.
+    """
+    # Create an empty dict to hold the values
+    faction_dict = {}
+
+    # Determine how many factions should be generated
+    # Formula roll a D3 add +1 if government type is 0 or 7
+    number_of_factions = randint(1, 3)
+    government_type = upp_dict.get('government_type')
+
+    if government_type == 0 or government_type == 7:
+        number_of_factions += 1
+
+    # Iterate and create each faction.
+    for _ in range(number_of_factions):
+        faction = {}
+        # TODO: Get faction name
+
+        # TODO: Get Faction support level
+
+        # TODO: cultural differences/traits
+
+        # TODO: Get faction government type.
+
+
+    return faction_dict
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
