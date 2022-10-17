@@ -1514,9 +1514,10 @@ def generate_factions(upp_dict : dict) -> dict:
         # Get faction name
         faction_name = generate_faction_name()
         
-        # TODO: Get Faction support level
+        # Get Faction support level
         support_level = ""
         result = roll_2d()
+
         if 0 < result <= 3:
             support_level = 'Obscure group'
         elif 4 <= result <= 5:
@@ -1548,6 +1549,18 @@ def roll_2d():
     """
     dice1 = randint(1,6)
     dice2 = randint(1,6)
+
+    return dice1 + dice2
+
+def roll_d66():
+    """Rolls two six sided dies with one representing the ones and one representing the tens
+
+    Returns:
+        int: 11-16, 21-26, 31-36, 41-46, 51-56, 61-66
+    """
+    dice1 = int(randint(1,6) * 10)
+    dice2 = randint(1,6)
+
     return dice1 + dice2
 
 
