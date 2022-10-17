@@ -13,6 +13,7 @@ from planet_generator import upp_to_dict
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+from random import choice as random_choice
 from random import randint
 
 class BoundBox:
@@ -1452,6 +1453,46 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
 def generate_faction_name():
     faction_name = ""
+    # Import the json-data
+    with open("nouns.json",) as nouns_json:
+        nouns_list = json.load(nouns_json)
+
+    with open("verbs.json",) as verbs_json:
+        verbs_list = json.load(verbs_json)
+
+    with open("adverbs.json",) as adverbs_json:
+        adverbs_list = json.load(adverbs_json)
+    
+    with open("adjectives.json",) as adjectives_json:
+        adjectives_list = json.load(adjectives_json)
+
+    # Generate random adjective, adverbs, nouns and verbs
+    adjective_1 = random_choice(adjectives_list)
+    adjective_2 = random_choice(adjectives_list)
+    adjective_3 = random_choice(adjectives_list)
+
+    adverb_1 = random_choice(adverbs_list)
+    adverb_2 = random_choice(adverbs_list)
+    adverb_3 = random_choice(adverbs_list)
+
+    noun_1 = random_choice(nouns_list)
+    noun_2 = random_choice(nouns_list)
+    noun_3 = random_choice(nouns_list)
+
+    verb_1 = random_choice(verbs_list)
+    verb_2 = random_choice(verbs_list)
+    verb_3 = random_choice(verbs_list)
+
+    generated_name_list =[
+        f'{adjective_1} {noun_1}',
+        f'{adverb_1} {verb_1} of the {adjective_1} {noun_1}',
+        f'The {verb_1} {noun_1}'
+    ]
+
+    # This line is for debugging.
+    for faction_name in generated_name_list:
+        print(faction_name)
+
 
     return faction_name
 
