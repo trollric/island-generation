@@ -667,6 +667,30 @@ def draw_lines_in_list(legend_draw, font, font_color, box_dimensions, list, padd
         y_offset += (box_dimensions[1][1] - box_dimensions [0][1])
 
 
+def roll_2d():
+    """Rolls two six sided dies and returns the sum rolled.
+
+    Returns:
+        int: Sum of the two dice rolled.
+    """
+    dice1 = randint(1,6)
+    dice2 = randint(1,6)
+
+    return dice1 + dice2
+
+
+def roll_d66():
+    """Rolls two six sided dies with one representing the ones and one representing the tens
+
+    Returns:
+        int: 11-16, 21-26, 31-36, 41-46, 51-56, 61-66
+    """
+    dice1 = int(randint(1,6) * 10)
+    dice2 = randint(1,6)
+
+    return dice1 + dice2
+
+
 def legend_append_trade_codes(legend_image, trade_codes):
     """Takes a legend_image from the create_legend image function
     and appends all viable trade data determined by trade_codes
@@ -1540,28 +1564,6 @@ def generate_factions(upp_dict : dict) -> dict:
 
 
     return faction_dict
-
-def roll_2d():
-    """Rolls two six sided dies and returns the sum rolled.
-
-    Returns:
-        int: Sum of the two dice rolled.
-    """
-    dice1 = randint(1,6)
-    dice2 = randint(1,6)
-
-    return dice1 + dice2
-
-def roll_d66():
-    """Rolls two six sided dies with one representing the ones and one representing the tens
-
-    Returns:
-        int: 11-16, 21-26, 31-36, 41-46, 51-56, 61-66
-    """
-    dice1 = int(randint(1,6) * 10)
-    dice2 = randint(1,6)
-
-    return dice1 + dice2
 
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
