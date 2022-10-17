@@ -1452,6 +1452,12 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
 
 def generate_faction_name():
+    """Generates a faction name randomly using lists of adjective,
+    adverbs, nouns and verbs
+
+    Returns:
+        string: A text string representing a faction name
+    """
     # Import the json-data
     with open("nouns.json",) as nouns_json:
         nouns_list = json.load(nouns_json)
@@ -1509,6 +1515,20 @@ def generate_factions(upp_dict : dict) -> dict:
         faction_name = generate_faction_name()
         
         # TODO: Get Faction support level
+        support_level = ""
+        result = roll_2d()
+        if 0 < result <= 3:
+            support_level = 'Obscure group'
+        elif 4 <= result <= 5:
+            support_level = "Fringe group"
+        elif 6 <= result <= 7:
+            support_level = "Minor group"
+        elif 8 <= result <= 9:
+            support_level = "Notable group"
+        elif 10 <= result <= 11:
+            support_level = "Significant group"
+        elif result == 12:
+            support_level = "Overwhelming support"
 
         # TODO: cultural differences/traits
 
@@ -1519,6 +1539,16 @@ def generate_factions(upp_dict : dict) -> dict:
 
 
     return faction_dict
+
+def roll_2d():
+    """Rolls two six sided dies and returns the sum rolled.
+
+    Returns:
+        int: Sum of the two dice rolled.
+    """
+    dice1 = randint(1,6)
+    dice2 = randint(1,6)
+    return dice1 + dice2
 
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
