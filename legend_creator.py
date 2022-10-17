@@ -1555,6 +1555,8 @@ def generate_factions(upp_dict : dict) -> dict:
         elif result == 12:
             support_level = "Overwhelming support"
 
+        faction.update({'support' : support_level})
+
         # TODO: cultural differences/traits
 
         # TODO: Get faction government type.
