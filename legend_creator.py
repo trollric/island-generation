@@ -1505,13 +1505,17 @@ def generate_factions(upp_dict : dict) -> dict:
     # Iterate and create each faction.
     for _ in range(number_of_factions):
         faction = {}
-        # TODO: Get faction name
-
+        # Get faction name
+        faction_name = generate_faction_name()
+        
         # TODO: Get Faction support level
 
         # TODO: cultural differences/traits
 
         # TODO: Get faction government type.
+
+        # TODO: Append to faction_dict
+        faction_dict.update({faction_name : faction})
 
 
     return faction_dict
