@@ -1452,7 +1452,6 @@ def legend_add_name_government_data(legend_image, planet_name, upp_dict):
 
 
 def generate_faction_name():
-    faction_name = ""
     # Import the json-data
     with open("nouns.json",) as nouns_json:
         nouns_list = json.load(nouns_json)
@@ -1467,34 +1466,19 @@ def generate_faction_name():
         adjectives_list = json.load(adjectives_json)
 
     # Generate random adjective, adverbs, nouns and verbs
-    adjective_1 = random_choice(adjectives_list)
-    adjective_2 = random_choice(adjectives_list)
-    adjective_3 = random_choice(adjectives_list)
+    adjective = random_choice(adjectives_list)
+    adverb = random_choice(adverbs_list)
+    noun = random_choice(nouns_list)
+    verb = random_choice(verbs_list)
 
-    adverb_1 = random_choice(adverbs_list)
-    adverb_2 = random_choice(adverbs_list)
-    adverb_3 = random_choice(adverbs_list)
-
-    noun_1 = random_choice(nouns_list)
-    noun_2 = random_choice(nouns_list)
-    noun_3 = random_choice(nouns_list)
-
-    verb_1 = random_choice(verbs_list)
-    verb_2 = random_choice(verbs_list)
-    verb_3 = random_choice(verbs_list)
 
     generated_name_list =[
-        f'{adjective_1} {noun_1}',
-        f'{adverb_1} {verb_1} of the {adjective_1} {noun_1}',
-        f'The {verb_1} {noun_1}'
+        f'{adjective} {noun}',
+        f'{adverb} {verb} of the {adjective} {noun}',
+        f'The {verb} {noun}'
     ]
 
-    # This line is for debugging.
-    for faction_name in generated_name_list:
-        print(faction_name)
-
-
-    return faction_name
+    return random_choice(generated_name_list)
 
 
 def generate_factions(upp_dict : dict) -> dict:
@@ -1585,15 +1569,12 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
 def main():
     # If called directly. Make planetary data up.
-    # upp_dict = upp_to_dict('A344556-10')
-    # color_palette = create_color_palette(upp_dict)
-    # path = os.path.join(os.getcwd(), 'Saved')
-    # planet_name = 'Debug'
+    upp_dict = upp_to_dict('A344556-10')
+    color_palette = create_color_palette(upp_dict)
+    path = os.path.join(os.getcwd(), 'Saved')
+    planet_name = 'Debug'
 
-    # generate_legend(upp_dict, color_palette, path, planet_name)
-
-    # Debug faction name generation
-    generate_faction_name()
+    generate_legend(upp_dict, color_palette, path, planet_name)
 
 
 if __name__ == '__main__':
