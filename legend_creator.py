@@ -1654,7 +1654,7 @@ def legend_append_factions(legend_image, upp_dict):
     # Get a dictionary of factions
     factions_dictionary = generate_factions(upp_dict)
     
-    # TODO: Create the lists to be written in subboxes
+    # Create the lists to be written in subboxes
     faction_names = []
     faction_support_levels = []
     faction_cultures = []
