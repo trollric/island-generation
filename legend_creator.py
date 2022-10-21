@@ -1562,6 +1562,10 @@ def generate_factions(upp_dict : dict) -> dict:
         # TODO: cultural differences/traits
 
         # If 25 is rolled. Generate with fstring f'Influenced - {reroll]'
+        # reroll until a result not 25 or 26 has been reached.
+
+        # If 26 is rolled. Generate with a fstring f'Fusion of {reroll1} & {reroll2}
+        # Reroll 25, 26 and culture 2 if the same as culture 1
 
         # TODO: Append to faction_dict
         faction_dict.update({faction_name : faction})
