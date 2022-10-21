@@ -1659,10 +1659,10 @@ def legend_append_factions(legend_image, upp_dict):
     faction_support_levels = []
     faction_cultures = []
 
-    for key, dictionary in factions_dictionary.items():
-        faction_names.append(key)
-        faction_support_levels.append(dictionary.get('support'))
-        faction_cultures.append(dictionary.get('culture'))
+    for name, faction_data in factions_dictionary.items():
+        faction_names.append(name)
+        faction_support_levels.append(faction_data.get('support'))
+        faction_cultures.append(faction_data.get('culture'))
 
 
     return legend_image
