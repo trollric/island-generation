@@ -1561,6 +1561,8 @@ def generate_factions(upp_dict : dict) -> dict:
 
         # TODO: cultural differences/traits
 
+        # If 25 is rolled. Generate with fstring f'Influenced - {reroll]'
+
         # TODO: Append to faction_dict
         faction_dict.update({faction_name : faction})
 
