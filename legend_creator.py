@@ -1,6 +1,7 @@
 # Takes an UPP dictionary (Universal planetary profile) and cretes a map legend
 # This include descriptive name of the different colors, goverment type, temperature range,
 # Atmosphearic demands, Startport quality and trade codes.
+from email.quoprimime import body_check
 import json
 import os
 import colors
@@ -1615,18 +1616,50 @@ def generate_factions(upp_dict : dict) -> dict:
     return faction_dict
 
 
-def legend_append_factions(legend_doc, upp_dict):
+def legend_append_factions(legend_image, upp_dict):
 
+    # ------------------------------------------------------------------------
+    # |b1                                |b2                |b3              |
+    # |                                  |                  |                |
+    # |                                  |                  |                |
+    # |                                  |                  |                |
+    # |                                  |                  |                |
+    # |                                  |                  |                |
+    # |                                  |                  |                |
+    # ------------------------------------------------------------------------
+    # b1 : all faction names
+    # b2 : all faction support levels
+    # b3 : all faction cultures
+
+    # Calculate box sizes
+    im_width, _ = legend_image.size
+    width = int(2 * im_width / 3)
+    box_height = int(im_width/4)
+    box_width = int(width / 4)
+
+    x_offset = 0
+    y_offset = 2 * box_width
+
+    # Bound box b1
+    b1 = BoundBox(x_offset, y_offset, x_offset + (2 * box_width), y_offset + box_height)
+
+    # Bound box b2
+    x_offset += 2 * box_width
+    b2 = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
+
+    # Bound box b3
+    x_offset += box_width
+    b3 = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
 
     # Get a dictionary of factions
     factions_dictionary = generate_factions(upp_dict)
     
-    # Debug faction dictionary
+    # TODO: Create the lists to be written in subboxes
     for key, value in factions_dictionary.items():
-        print(key)
-        print(value)
+        pass
 
-    return legend_doc
+
+    return legend_image
 
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
@@ -1669,7 +1702,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # TODO: Generate factions and add cultures.
     legend_doc = legend_append_factions(legend_doc, upp_dict)
-    
+
     # TODO: Determine contraband and append them to the bottom left under separate categories.
 
     legend_doc.show()
