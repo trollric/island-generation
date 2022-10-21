@@ -128,5 +128,136 @@
         "type" : "Tourist Attraction",
         "description" : [   "Some aspect of the culture or the planet draws",
                             "visitors from all over charted space."]
+    },
+
+    "42" : {
+        "type" : "Violent",
+        "description" : [   "Physical conflict is common, taking the form",
+                            "of duels, brawls or other contests. Trial by combat",
+                            "is a part of the judicual system."]
+    },
+
+    "43" : {
+        "type" : "Peacefull",
+        "description" : [   "Physical conflict is almost unheared of. The culture",
+                            "produces few soldiers, and diplomacy reigns supreme.",
+                            "Forcefull Travellers will be ostracised."]
+    },
+
+    "44" : {
+        "type" : "Obsessed",
+        "description" : [   "Everyone is obsessed with or addicted to a substance,",
+                            "personality, act or item. This monomania pervades every",
+                            "aspect of the culture."]
+    },
+
+    "45" : {
+        "type" : "Fashion",
+        "description" : [   "Fine clothing and decoration are considered vitally",
+                            "important in the culture. Underdressed Travellers",
+                            "will have no standing here."]
+    },
+
+    "46" : {
+        "type" : "At war",
+        "description" : [   "The culture is at war, either with another planet",
+                            "or polity, or is troubled by terrorists or rebels"]
+    },
+
+    "51" : {
+        "type" : "UC - Offworlders",
+        "description" : [   "Unusual Custom: Space travellers hold a uniqe",
+                            "position in the culture's mythology or beliefs,",
+                            "and Travellers will be expected to live up to",
+                            "these myths."]
+    },
+
+    "52" : {
+        "type" : "UC - Starport",
+        "description" : [   "Unusual Custom: The planet's starport is more",
+                            "than a commvercial centre. It might be a",
+                            "religious temple, or be seen as highly",
+                            "controversial and surrounded by protestors"]
+    },
+
+    "53" : {
+        "type" : "UC - Media",
+        "description" : [   "Unusual Custom: News agencies and telecommunications",
+                            "channels are especially strange here. Getting",
+                            "accurate information may be difficult."]
+    },
+
+    "54" : {
+        "type" : "UC - Technology",
+        "description" : [   "Unusual Custom: The culture interacts with",
+                            "technology in an unusual way. Telecommunications",
+                            "might be banned, robots might have civil rights",
+                            "or cyborgs might be property."]
+    },
+
+    "55" : {
+        "type" : "UC - Lifecycle",
+        "description" : [   "Unusual Custom: There might be a mandatory age",
+                            "of termination, or anagathics might be widely",
+                            "used. Family units might be different, with",
+                            "children being raised bu the state or banned",
+                            "in favor of cloning."]
+    },
+
+    "56" : {
+        "type" : "UC - Social Standings",
+        "description" : [   "Unusual Custom: The culture has a distinct",
+                            "caste system. Travellers of a low social",
+                            "standing who do not behave approproately",
+                            "will face punishment."]
+    },
+
+    "61" : {
+        "type" : "UC - Trade",
+        "description" : [   "Unusual Custom: The culture has an odd",
+                            "attitude towards some aspect of commerce,",
+                            "which may interfere with trade at the",
+                            "spaceport. For example, merchants might",
+                            "expect a gift as part of a deal, or some",
+                            "goods may only be handled by certain families."]
+    },
+
+    "62" : {
+        "type" : "UC - Nobility",
+        "description" : [   "Unusual Custom: Those of high social standing",
+                            "have a strange custom associated wuth them.",
+                            "Perhaps nobles are blinded, or must live in",
+                            "gilded cages, or only serve for a single year",
+                            "before being exiled."]
+    },
+
+    "63" : {
+        "type" : "UC - Sex",
+        "description" : [   "Unusual Custom: The culture has an unusual",
+                            "attitude towards intercourse and reproduction.",
+                            "Perhaps cloning is used instead, or sex is",
+                            "used to seal commercial deals."]
+    },
+
+    "64" : {
+        "type" : "UC - Eating",
+        "description" : [   "Unusual Custom: Food and drink occupies an",
+                            "unusual place in the culture. Perhaps earing",
+                            "is a private affair, or banquets and formal",
+                            "dinners are seen as the highest form of politness."]
+    },
+
+    "65" : {
+        "type" : "UC - Travel",
+        "description" : [   "Unusual Custom: Travellers may be distrusted",
+                            "or feted, or perhaps the culture frowns on",
+                            "those who leave their homes."]
+    },
+
+    "66" : {
+        "type" : "UC - Conspiracy",
+        "description" : [   "Unusual Custom: Something strange is going on.",
+                            "The government is being subverted by another",
+                            "group or agency"]
     }
 }
