@@ -1640,6 +1640,7 @@ def legend_append_factions(legend_image, upp_dict):
     x_offset = 0
     y_offset = 2 * box_width
 
+
     # Bound box b1
     b1 = BoundBox(x_offset, y_offset, x_offset + (2 * box_width), y_offset + box_height)
 
@@ -1650,6 +1651,15 @@ def legend_append_factions(legend_image, upp_dict):
     # Bound box b3
     x_offset += box_width
     b3 = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
+
+
+    # Create the draw class.
+    legend_draw = ImageDraw.Draw(legend_image)
+
+    # Font data.
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    font_color = tuple(colors.get_rgb_color('gold'))
+    padding = 10
 
     # Get a dictionary of factions
     factions_dictionary = generate_factions(upp_dict)
