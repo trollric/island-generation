@@ -1241,7 +1241,7 @@ def legend_append_color_legend(legend_image, color_palette):
     # Create main bound box.
     legend_width, _ = legend_image.size
     box_width = int(legend_width/3)
-    box_height = int(legend_width/1/4)
+    box_height = int(legend_width/4)
 
     x_offset = box_width*2
     y_offset = box_width
@@ -1304,7 +1304,7 @@ def legend_append_color_legend(legend_image, color_palette):
     return legend_image
 
 
-def legend_add_name_government_data(legend_image, planet_name, upp_dict):
+def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     
     # ----------------------------------
     # | b1                             |
@@ -1615,6 +1615,15 @@ def generate_factions(upp_dict : dict) -> dict:
     return faction_dict
 
 
+def legend_append_factions(legend_doc, upp_dict):
+
+
+    # Get a dictionary of factions
+    factions_dictionary = generate_factions(upp_dict)
+
+    return legend_doc
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -1651,10 +1660,10 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_color_legend(legend_doc, color_palette)
 
     # Append planet name, UPP-Serial and government type to the top left of the legend document.
-    legend_doc = legend_add_name_government_data(legend_doc, planet_name, upp_dict)
+    legend_doc = legend_append_name_government_data(legend_doc, planet_name, upp_dict)
 
     # TODO: Generate factions and add cultures.
-
+    legend_doc = legend_append_factions(legend_doc, upp_dict)
     # TODO: Determine contraband and append them to the bottom left under separate categories.
 
     legend_doc.show()
