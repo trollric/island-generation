@@ -1561,8 +1561,6 @@ def generate_factions(upp_dict : dict) -> dict:
 
         # TODO: cultural differences/traits
 
-        # TODO: Get faction government type.
-
         # TODO: Append to faction_dict
         faction_dict.update({faction_name : faction})
 
