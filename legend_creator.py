@@ -1506,7 +1506,7 @@ def generate_faction_name():
     generated_name_list =[
         f'{adjective} {noun}',
         f'{adverb} {verb} of the {adjective} {noun}',
-        f'The {verb} {noun}'
+        f'The {verb} {noun}',
         f'{verb} {noun} of {adjective} {noun2}'
     ]
 
@@ -1620,6 +1620,11 @@ def legend_append_factions(legend_doc, upp_dict):
 
     # Get a dictionary of factions
     factions_dictionary = generate_factions(upp_dict)
+    
+    # Debug faction dictionary
+    for key, value in factions_dictionary.items():
+        print(key)
+        print(value)
 
     return legend_doc
 
