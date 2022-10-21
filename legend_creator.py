@@ -1499,6 +1499,7 @@ def generate_faction_name():
     adjective = random_choice(adjectives_list)
     adverb = random_choice(adverbs_list)
     noun = random_choice(nouns_list)
+    noun2 = random_choice(nouns_list)
     verb = random_choice(verbs_list)
 
 
@@ -1506,6 +1507,7 @@ def generate_faction_name():
         f'{adjective} {noun}',
         f'{adverb} {verb} of the {adjective} {noun}',
         f'The {verb} {noun}'
+        f'{verb} {noun} of {adjective} {noun2}'
     ]
 
     return random_choice(generated_name_list)
