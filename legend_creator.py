@@ -1661,6 +1661,7 @@ def legend_append_factions(legend_image, upp_dict):
     font_color = tuple(colors.get_rgb_color('gold'))
     padding = 10
 
+
     # Get a dictionary of factions
     factions_dictionary = generate_factions(upp_dict)
     
