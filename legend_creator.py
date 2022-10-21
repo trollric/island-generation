@@ -1669,6 +1669,7 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
     # TODO: Generate factions and add cultures.
     legend_doc = legend_append_factions(legend_doc, upp_dict)
+    
     # TODO: Determine contraband and append them to the bottom left under separate categories.
 
     legend_doc.show()
