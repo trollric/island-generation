@@ -1655,15 +1655,23 @@ def legend_append_factions(legend_image, upp_dict):
     factions_dictionary = generate_factions(upp_dict)
     
     # Create the lists to be written in subboxes
-    faction_names = []
-    faction_support_levels = []
-    faction_cultures = []
+    faction_names = [f'Faction:']
+    faction_support_levels = [f'Support:']
+    faction_cultures = [f'Culture:']
 
     for name, faction_data in factions_dictionary.items():
         faction_names.append(name)
         faction_support_levels.append(faction_data.get('support'))
         faction_cultures.append(faction_data.get('culture'))
 
+
+    # TODO: Find largest font allowed.
+
+    # TODO: Write names as list.
+
+    # TODO: Write support as list.
+
+    # TODO: Write culture as list.
 
     return legend_image
 
