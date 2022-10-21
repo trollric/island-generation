@@ -1534,11 +1534,18 @@ def generate_factions(upp_dict : dict) -> dict:
     if government_type == 0 or government_type == 7:
         number_of_factions += 1
 
+    # Load in the cultural differences.
+    with open("cultural_differences_data.json",) as cultures_json:
+        culture_dict = json.load(cultures_json)
+
     # Iterate and create each faction.
     for _ in range(number_of_factions):
         faction = {}
         # Get faction name
         faction_name = generate_faction_name()
+
+        # Update to faction
+        faction.update({'name' : faction_name})
         
         # Get Faction support level
         support_level = ""
@@ -1557,17 +1564,51 @@ def generate_factions(upp_dict : dict) -> dict:
         elif result == 12:
             support_level = "Overwhelming support"
 
+        # Update faction with support level.
         faction.update({'support' : support_level})
 
-        # TODO: cultural differences/traits
+        # Get cultural differences/traits
+        # Roll D66 for result
+        dice_roll = roll_d66()
 
-        # If 25 is rolled. Generate with fstring f'Influenced - {reroll]'
-        # reroll until a result not 25 or 26 has been reached.
+        # Create empty string variable.
+        culture_type = ""
 
-        # If 26 is rolled. Generate with a fstring f'Fusion of {reroll1} & {reroll2}
-        # Reroll 25, 26 and culture 2 if the same as culture 1
+        # If 25  Generate with fstring f'Influenced - {reroll]'
+        if dice_roll == 25:
+            # Reroll until the result is not uniqe case 25 or 26
+            while dice_roll in [25, 26]:
+                dice_roll = roll_d66()
+            culture = culture_dict.get(str(dice_roll)).get('type')
 
-        # TODO: Append to faction_dict
+            culture_type = f'Influenced - {culture}'
+
+        # If 26 Generate with a fstring f'Fusion of {reroll1} & {reroll2}
+        elif dice_roll == 26:
+            # Roll both dice
+            dice_1 = roll_d66()
+            dice_2 = roll_d66()
+
+            # Reroll dice1 until the result is not uniqe case 25 or 26
+            while dice_1 in [25, 26]:
+                dice_1 = roll_d66()
+
+            # Reroll dice2 until its not uniqe case 25, 26 or the same as dice1
+            while dice_1 in [25, 26, dice_1]:
+                dice_2 = roll_d66()
+
+            # Save the two dictionaries from culture_dict
+            culture_1 = culture_dict.get(str(dice_1)).get('type')
+            culture_2 = culture_dict.get(str(dice_2)).get('type')
+            culture_type = f'Fusion of {culture_1} & {culture_2}'
+
+        else:
+            culture_type = culture_dict.get(str(dice_roll)).get('type')
+
+        # Append culture to faction.
+        faction.update({'culture' : culture_type})
+
+        # Append to faction_dict
         faction_dict.update({faction_name : faction})
 
 
