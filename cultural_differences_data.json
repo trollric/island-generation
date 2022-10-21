@@ -3,5 +3,80 @@
         "type" : "Sexist",
         "description" : [   "One gender is considered subservient",
                             "or inferior to the other."]
+    },
+
+    "12" : {
+        "type" : "Religious",
+        "description" : [   "Culture is heavily influenced by a religion",
+                            "or belif systems, possibly one unique to",
+                            "this world."]
+    },
+
+    "13" : {
+        "type" : "Artistic",
+        "description" : [   "Art and culture are highly prized.",
+                            "Aesthetic design is important in all artefacts",
+                            "produced on this world."]
+    },
+
+    "14" : {
+        "type" : "Ritualised",
+        "description" : [   "Social interaction and trade is highly formalised.",
+                            "Politeness and adherence to traditional forms is",
+                            "considered very important."]
+    },
+
+    "15" : {
+        "type" : "Conservative",
+        "description" : [   "The culture resist change and outside influence"
+                        ]
+    },
+
+    "16" : {
+        "type" : "Xenophobic",
+        "description" : [   "The culture distrust outsiders and alien influences.",
+                            "Offworlders will face considerable prejudice"]
+    },
+
+    "21" : {
+        "type" : "Taboo",
+        "description" : [   "A particular topic is forbidden and cannot",
+                            "be discussed. Travellers who unwittingly mention",
+                            "this topic will be ostracized"]
+    },
+
+    "22" : {
+        "type" : "Deceptive",
+        "description" : [   "Trickery and equivocation are considered",
+                            "acceptable. Honesty is a sign of weakness."
+                        ]
+    },
+
+    "23" : {
+        "type" : "Liberal",
+        "description" : [   "The culture welcomes change and offworld",
+                            "influence. Travellers who bring new and",
+                            "strange ideas will be welcomed."]
+    },
+
+    "24" : {
+        "type" : "Honourable",
+        "description" : [   "One's word is one's bond in the culture.",
+                            "Lying is both rare and despised"]
+    },
+
+    "25" : {
+        "type" : "Influenced",
+        "description" : [   "The culture is heavily influenced by another,",
+                            "neighbouring world. Roll again for a cultural",
+                            "quirk that has been inherited from the culture"]
+    },
+
+    "26" : {
+        "type" : "Fusion",
+        "description" : [   "The culture is a merger of two distinct cultures.",
+                            "Roll again twice to determine the quirks inherited",
+                            "from these cultures. If the quirks are incompatible",
+                            "then the culture is likely divided."]
     }
 }
