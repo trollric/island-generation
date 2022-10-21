@@ -78,5 +78,55 @@
                             "Roll again twice to determine the quirks inherited",
                             "from these cultures. If the quirks are incompatible",
                             "then the culture is likely divided."]
+    },
+
+    "31" : {
+        "type" : "Barbaric",
+        "description" : [   "Physical strength and combat prowess are highly",
+                            "valued in the culture. Travellers may be",
+                            "challenged to a fight, or dismissed if they seem",
+                            "incapable of defending themselves. Sports tend",
+                            "towards the bloody and violent."]
+    },
+
+    "32" : {
+        "type" : "Remnant",
+        "description" : [   "The culture is a surviving remenant of a",
+                            "once-great and vibrant civilisation, clining",
+                            "to its former glory. The world is filled",
+                            "with crumbling ruins, and every story",
+                            "revolves around the good old days."]
+    },
+
+    "33" : {
+        "type" : "Degenerate",
+        "description" : [   "The culture is falling apart and is on the",
+                            "brink of war or economic collapse. Violent",
+                            "protests are common, and the social order",
+                            "is decaying."]
+    },
+
+    "34" : {
+        "type" : "Progressive",
+        "description" : [   "The culture is expanding and vibrant. Fortunes",
+                            "are being made in trade and science is forging",
+                            "bravely ahead."]
+    },
+
+    "35" : {
+        "type" : "Recovering",
+        "description" : [   "A recent trauma, such as a plague, war, disaster",
+                            "or despotic regime has left scars on the culture"]
+    },
+
+    "36" : {
+        "type" : "Nexus",
+        "description" : [   "Members of many different cultures and species visit here"]
+    },
+
+    "41" : {
+        "type" : "Tourist Attraction",
+        "description" : [   "Some aspect of the culture or the planet draws",
+                            "visitors from all over charted space."]
     }
 }
