@@ -1705,8 +1705,8 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     legend_doc = legend_append_planetary_metrics(legend_doc, upp_dict)
 
     # Append planetary image to the top right of the legend document
-    path = os.path.join(path, planet_name + '.png')
-    legend_doc = legend_append_planetary_image(legend_doc, path)
+    planet_image_path = os.path.join(path, planet_name + '.png')
+    legend_doc = legend_append_planetary_image(legend_doc, planet_image_path)
 
     # Append a color to landmass type underneath the planetary image.
     legend_doc = legend_append_color_legend(legend_doc, color_palette)
