@@ -1812,7 +1812,7 @@ def legend_append_factions(legend_image, upp_dict):
 
     legend_draw.line([(x1, y), (x2, y)], line_color, line_width)
 
-    # TODO: Draw thin lines separating every subbox.
+    # Draw thin lines separating every subbox.
     sub_box_height = sub_box_b1.get_height()
     for line_offset_multiplier in range(len(faction_names) - 1):
         offset = (line_offset_multiplier * sub_box_height)
