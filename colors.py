@@ -337,6 +337,7 @@ def get_rgb_color(color, alpha = None):
 
     return(rgb_dictionary.get(color)+alpha)
 
+
 def get_hex_color(color, alpha_percent = None):
     """Takes a color name and optionally an alpha value in percentage 0-100.
     Then returns the corresponding color in hexadecimal values. Color names
@@ -383,9 +384,8 @@ def get_hex_color(color, alpha_percent = None):
 
         # Can only covert integers to hexadecimal values)
         to_hex = int(255*alpha_percent/100)
-        hex_alpha_string = hex_dictionary(to_hex)
+        hex_alpha_string = hex(to_hex)
         hex_alpha_string.replace('0x','')
     
     # Return the hex color value with a alpha level if provided
     return (hex_dictionary.get(color)+hex_alpha_string)
-
