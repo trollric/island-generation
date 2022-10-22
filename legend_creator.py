@@ -123,7 +123,7 @@ def value_in_range(value, min, max):
     return evaluation
 
 
-def percent_of_num(num, percentage) -> float:
+def percent_of_number(num, percentage) -> float:
     """Takes a number and percentage and returns the percentage part of that
     number.
 
@@ -1676,7 +1676,7 @@ def legend_append_factions(legend_image, upp_dict):
     b1_width_percent = int(60)
     b1_width = box_width * b1_width_percent
 
-    b1_width = percent_of_num(width, b1_width_percent)
+    b1_width = percent_of_number(width, b1_width_percent)
 
     b1 = BoundBox(x_offset, y_offset, x_offset + b1_width, y_offset + box_height)
 
