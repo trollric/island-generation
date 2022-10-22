@@ -1693,7 +1693,7 @@ def legend_append_factions(legend_image, upp_dict):
     # Create the font.
     font = ImageFont.truetype(font_path, font_size)
 
-    # TODO: Write names as list.
+    # Write names as list.
     draw_lines_in_list(legend_draw,
                         font,
                         font_color,
