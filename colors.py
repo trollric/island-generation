@@ -386,6 +386,6 @@ def get_hex_color(color, alpha_percent = None):
         hex_alpha_string = hex_dictionary(to_hex)
         hex_alpha_string.replace('0x','')
     
-    # Return the hex color valye with a alpha level if provided
+    # Return the hex color value with a alpha level if provided
     return (hex_dictionary.get(color)+hex_alpha_string)
 
