@@ -313,14 +313,15 @@ def get_rgb_color(color, alpha = None):
     if not isinstance(color, str):
         raise TypeError('color needs to be of type string')
 
+    # Ensure color is lowercase
+    if not color.islower():
+        color = color.lower()
+        
     # Check that the key exist
     if not color in rgb_dictionary:
         raise KeyError(f'''Tried to fetch the color: {color}. The color
          does not exist. Please consult the rgb spreadsheet.''')
     
-    # Ensure color is lowercase
-    if not color.islower():
-        color = color.lower()
 
     # Add alpha value if parameter is given.
     if alpha == None:
