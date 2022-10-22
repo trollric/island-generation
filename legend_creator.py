@@ -1672,7 +1672,7 @@ def legend_append_factions(legend_image, upp_dict):
 
 
     # Bound box b1
-    b1_percent = 55
+    b1_percent = 52
     b1_width = int(percent_of_number(width, b1_percent))
 
     b1 = BoundBox(x_offset, y_offset, x_offset + b1_width, y_offset + box_height)
@@ -1680,7 +1680,7 @@ def legend_append_factions(legend_image, upp_dict):
     # Bound box b2
     x_offset += b1_width
 
-    b2_percent = 25
+    b2_percent = 28
     b2_width = int(percent_of_number(width, b2_percent))
 
     b2 = BoundBox(x_offset, y_offset, x_offset + b2_width, y_offset + box_height)
@@ -1800,15 +1800,18 @@ def legend_append_factions(legend_image, upp_dict):
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
 
-    x1, y1 = sub_box_b1.get_side('left'), sub_box_b1.get_side('bottom')
-    x2, y2 = sub_box_b3.end
+    x1 = sub_box_b1.get_side('left')
+    x2, y = sub_box_b3.end
 
-    legend_draw.line([(x1, y1), (x2, y2)], line_color, line_width)
+    legend_draw.line([(x1, y), (x2, y)], line_color, line_width)
 
     # TODO: Draw thin lines separating every subbox.
     sub_box_height = sub_box_b1.get_height()
-    for line_offset_multiplier in range(len(faction_names) -1):
-        y1 += line_offset_multiplier * sub_box_height
+    for line_offset_multiplier in range(len(faction_names) - 1):
+        offset = (line_offset_multiplier * sub_box_height)
+
+        legend_draw.line([(x1, y + offset), (x2, y + offset)], line_color, int(line_width / 2))
+
 
     return legend_image
 
