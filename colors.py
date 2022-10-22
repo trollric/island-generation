@@ -363,6 +363,7 @@ def get_hex_color(color, alpha_percent = None):
     if not color.islower():
         color = color.lower()
 
+    # Ensure that the key exist.
     if not color in hex_dictionary:
         raise KeyError(f'''Tried to fetch the color: {color}. The color
          does not exist. Please consult the hex dictionary.''')
