@@ -1673,26 +1673,24 @@ def legend_append_factions(legend_image, upp_dict):
 
 
     # Bound box b1
-    b1_width_percent = int(60)
-    b1_width = box_width * b1_width_percent
-
-    b1_width = percent_of_number(width, b1_width_percent)
+    b1_percent = 55
+    b1_width = int(percent_of_number(width, b1_percent))
 
     b1 = BoundBox(x_offset, y_offset, x_offset + b1_width, y_offset + box_height)
 
     # Bound box b2
     x_offset += b1_width
 
-    b2_width_percent = int(20)
-    b2_width = box_width * b2_width_percent
+    b2_percent = 25
+    b2_width = int(percent_of_number(width, b2_percent))
 
     b2 = BoundBox(x_offset, y_offset, x_offset + b2_width, y_offset + box_height)
 
     # Bound box b3
     x_offset += b2_width
 
-    b3_width_percent = int(100 - (b1_width_percent + b2_width_percent))
-    b3_width = box_width * b3_width_percent
+    b3_percent = int(100 - (b1_percent + b2_percent))
+    b3_width = int(percent_of_number(width, b3_percent))
 
     b3 = BoundBox(x_offset, y_offset, x_offset + b3_width, y_offset + box_height)
 
