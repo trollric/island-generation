@@ -1632,6 +1632,7 @@ def legend_append_factions(legend_image, upp_dict):
     # b2 : all faction support levels
     # b3 : all faction cultures
 
+    # TODO: Needs work on text size for readability.
     # Calculate box sizes
     im_width, _ = legend_image.size
     width = int(2 * im_width / 3)
