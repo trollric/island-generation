@@ -602,7 +602,7 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     # Check padding is int and not a negative number.
     if not isinstance(padding, int):
         raise TypeError(f'padding was not an int. Type provided: {type(padding)}')
-    elif not padding > 0:
+    elif not padding >= 0:
         raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
 
     # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
@@ -1677,8 +1677,29 @@ def legend_append_factions(legend_image, upp_dict):
 
 
     # TODO: Find largest font allowed.
+    # Create sub box for faction names.
+    x1, y1 = b1.start
+    x2, _ = b1.end
+    y2 = int((b1.get_height() / len(faction_names)) + y1)
+
+    sub_box_b1 = BoundBox(x1, y1, x2, y2)
+
+    # Find max font size
+    font_size = get_max_font_size_from_list(faction_names,
+                                            font_path,
+                                            sub_box_b1.get_dimensions()
+                                            )
+
+    # Create the font.
+    font = ImageFont.truetype(font_path, font_size)
 
     # TODO: Write names as list.
+    draw_lines_in_list(legend_draw,
+                        font,
+                        font_color,
+                        sub_box_b1.get_dimensions(),
+                        faction_names,
+                        padding)
 
     # TODO: Write support as list.
 
