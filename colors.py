@@ -313,7 +313,7 @@ def get_rgb_color(color, alpha = None):
     if not isinstance(color, str):
         raise TypeError('color needs to be of type string')
 
-    # Check that the key excist
+    # Check that the key exist
     if not color in rgb_dictionary:
         raise KeyError(f'''Tried to fetch the color: {color}. The color
          does not exist. Please consult the rgb spreadsheet.''')
