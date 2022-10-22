@@ -1538,6 +1538,7 @@ def generate_faction_name():
         f'{adjective} {noun}',
         f'{adverb} {verb} of the {adjective} {noun}',
         f'The {verb} {noun}',
+        f'The {verb} {noun}s',
         f'{verb} {noun} of {adjective} {noun2}s'
     ]
 
