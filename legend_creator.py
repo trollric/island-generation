@@ -1641,7 +1641,7 @@ def legend_append_factions(legend_image, upp_dict):
     box_width = int(width / 6)
 
     x_offset = 0
-    y_offset = 3 * box_width
+    y_offset = int(width / 2)
 
 
     # Bound box b1
@@ -1760,6 +1760,12 @@ def legend_append_factions(legend_image, upp_dict):
 
     # TODO: Draw a separating line from headers and data.
     line_color = tuple(colors.get_rgb_color('orange_red'))
+    line_width = 4
+
+    x1, y1 = sub_box_b1.get_side('left'), sub_box_b1.get_side('bottom')
+    x2, y2 = sub_box_b3.end
+
+    legend_draw.line([(x1, y1), (x2, y2)], line_color, line_width)
 
     return legend_image
 
