@@ -5,6 +5,7 @@ from asyncio.format_helpers import _format_callback_source
 from email.quoprimime import body_check
 import json
 import os
+from typing import Type
 import colors
 import io
 import math
@@ -1638,22 +1639,35 @@ def legend_append_factions(legend_image, upp_dict):
     im_width, _ = legend_image.size
     width = int(2 * im_width / 3)
     box_height = int(im_width/4)
-    box_width = int(width / 6)
+    box_width = int(width / 100)
 
     x_offset = 0
     y_offset = int(width / 2)
 
 
     # Bound box b1
-    b1 = BoundBox(x_offset, y_offset, x_offset + (4 * box_width), y_offset + box_height)
+    b1_width_percent = int(60)
+    b1_width = box_width * b1_width_percent
+
+    b1_width = percent_of_num(width, b1_width_percent)
+
+    b1 = BoundBox(x_offset, y_offset, x_offset + b1_width, y_offset + box_height)
 
     # Bound box b2
-    x_offset += 4 * box_width
-    b2 = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
+    x_offset += b1_width
+
+    b2_width_percent = int(20)
+    b2_width = box_width * b2_width_percent
+
+    b2 = BoundBox(x_offset, y_offset, x_offset + b2_width, y_offset + box_height)
 
     # Bound box b3
-    x_offset += box_width
-    b3 = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
+    x_offset += b2_width
+
+    b3_width_percent = int(100 - (b1_width_percent + b2_width_percent))
+    b3_width = box_width * b3_width_percent
+
+    b3 = BoundBox(x_offset, y_offset, x_offset + b3_width, y_offset + box_height)
 
 
     # Create the draw class.
@@ -1768,6 +1782,31 @@ def legend_append_factions(legend_image, upp_dict):
     legend_draw.line([(x1, y1), (x2, y2)], line_color, line_width)
 
     return legend_image
+
+def percent_of_num(num, percentage) -> float:
+    """Takes a number and percentage and returns the percentage part of that
+    number.
+
+    Args:
+        num (float, int): a float or integer value
+        percentage (float, int): float or integer representing a percentage between
+        0.0 - 100.0. If the value is out of bounds it will be mapped to 0 or 100.
+
+    Returns:
+        float: part of the number
+    """
+    if not isinstance(num, (float, int)):
+        raise TypeError('num must be of float or integer type.')
+
+    if not isinstance(percentage, (float, int)):
+        raise TypeError('percentage must be of int or float value')
+
+    if percentage < 0.0:
+        percentage = 0
+    elif percentage > 100:
+        percentage = 100
+        
+    return int(num * (percentage / 100))
 
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
