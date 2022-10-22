@@ -1,6 +1,7 @@
 # Takes an UPP dictionary (Universal planetary profile) and cretes a map legend
 # This include descriptive name of the different colors, goverment type, temperature range,
 # Atmosphearic demands, Startport quality and trade codes.
+from asyncio.format_helpers import _format_callback_source
 from email.quoprimime import body_check
 import json
 import os
@@ -1635,17 +1636,17 @@ def legend_append_factions(legend_image, upp_dict):
     im_width, _ = legend_image.size
     width = int(2 * im_width / 3)
     box_height = int(im_width/4)
-    box_width = int(width / 4)
+    box_width = int(width / 6)
 
     x_offset = 0
-    y_offset = 2 * box_width
+    y_offset = 3 * box_width
 
 
     # Bound box b1
-    b1 = BoundBox(x_offset, y_offset, x_offset + (2 * box_width), y_offset + box_height)
+    b1 = BoundBox(x_offset, y_offset, x_offset + (4 * box_width), y_offset + box_height)
 
     # Bound box b2
-    x_offset += 2 * box_width
+    x_offset += 4 * box_width
     b2 = BoundBox(x_offset, y_offset, x_offset + box_width, y_offset + box_height)
 
     # Bound box b3
@@ -1676,34 +1677,82 @@ def legend_append_factions(legend_image, upp_dict):
         faction_cultures.append(faction_data.get('culture'))
 
 
-    # TODO: Find largest font allowed.
-    # Create sub box for faction names.
+    # Create sub boxes for each field.
+    # Sub box for faction names.
     x1, y1 = b1.start
     x2, _ = b1.end
     y2 = int((b1.get_height() / len(faction_names)) + y1)
 
     sub_box_b1 = BoundBox(x1, y1, x2, y2)
 
-    # Find max font size
+    # Sub box for faction support.
+    x1, y1 = b2.start
+    x2, _ = b2.end
+    y2 = int((b2.get_height() / len(faction_support_levels)) + y1)
+
+    sub_box_b2 = BoundBox(x1, y1, x2, y2)
+
+    # Sub box for faction names.
+    x1, y1 = b3.start
+    x2, _ = b3.end
+    y2 = int((b3.get_height() / len(faction_cultures)) + y1)
+
+    sub_box_b3 = BoundBox(x1, y1, x2, y2)
+
+
+    # Find maximum font size for faction names
     font_size = get_max_font_size_from_list(faction_names,
                                             font_path,
                                             sub_box_b1.get_dimensions()
                                             )
 
+    # Compare to the maximum font size of support levels.
+    font_size_temp = get_max_font_size_from_list(faction_support_levels,
+                                            font_path,
+                                            sub_box_b2.get_dimensions()
+                                            )
+
+    # Use the smallest font size.
+    if font_size_temp < font_size:
+        font_size = font_size_temp
+
+    # Compare to the maximum font size of support levels
+    font_size_temp = get_max_font_size_from_list(faction_cultures,
+                                            font_path,
+                                            sub_box_b3.get_dimensions()
+                                            )
+
+    # Use the smallest font size.
+    if font_size_temp < font_size:
+        font_size = font_size_temp
+
     # Create the font.
     font = ImageFont.truetype(font_path, font_size)
 
     # Write names as list.
-    draw_lines_in_list(legend_draw,
+    draw_lines_in_list( legend_draw,
                         font,
                         font_color,
                         sub_box_b1.get_dimensions(),
                         faction_names,
                         padding)
 
-    # TODO: Write support as list.
+    # Write support as list.
+    draw_lines_in_list( legend_draw,
+                        font,
+                        font_color,
+                        sub_box_b2.get_dimensions(),
+                        faction_support_levels,
+                        padding)
 
-    # TODO: Write culture as list.
+    # Write culture as list.
+    draw_lines_in_list( legend_draw,
+                        font,
+                        font_color,
+                        sub_box_b3.get_dimensions(),
+                        faction_cultures,
+                        padding)
+
 
     return legend_image
 
