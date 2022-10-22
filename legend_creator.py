@@ -643,7 +643,7 @@ def get_max_font_size_from_list(list, font_path, box_dimensions, padding = 0):
     return font_size
 
 
-def draw_lines_in_list(legend_draw, font, font_color, box_dimensions, list, padding = 0):
+def draw_text_in_list(legend_draw, font, font_color, box_dimensions, list, padding = 0):
     """Renders every text line in the list on separate lines.
 
     Args:
@@ -1023,7 +1023,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     font = ImageFont.truetype(font_path, font_size)
     
     # Draw size and population data.
-    draw_lines_in_list( legend_draw, font, font_color, sub_box_b1.get_dimensions(),
+    draw_text_in_list( legend_draw, font, font_color, sub_box_b1.get_dimensions(),
                         size_and_population_metrics, padding)
 
     # TODO: This data could be added as JSON database with int keys. Reducing the amount of lines
@@ -1132,7 +1132,7 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     font = ImageFont.truetype(font_path, font_size)
 
     # Render the data
-    draw_lines_in_list( legend_draw,
+    draw_text_in_list( legend_draw,
                         font,
                         font_color,
                         sub_box_b2.get_dimensions(),
@@ -1374,7 +1374,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     font_size = get_max_font_size_from_list(b1_data, font_path, sub_box_b1.get_dimensions(), padding)
     font = ImageFont.truetype(font_path, font_size)
 
-    draw_lines_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
+    draw_text_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
 
     # Get goverment type.
     # Import the json-data
@@ -1396,7 +1396,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     font_size = get_max_font_size_from_list(text, font_path, sub_box_b2.get_dimensions(), padding)
     font = ImageFont.truetype(font_path, font_size)
 
-    draw_lines_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
+    draw_text_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
 
 
     # Append symbol in b3.
@@ -1734,7 +1734,7 @@ def legend_append_factions(legend_image, upp_dict):
     font = ImageFont.truetype(font_path, font_size)
 
     # Write names as list.
-    draw_lines_in_list( legend_draw,
+    draw_text_in_list( legend_draw,
                         name_font,
                         font_color,
                         sub_box_b1.get_dimensions(),
@@ -1742,7 +1742,7 @@ def legend_append_factions(legend_image, upp_dict):
                         padding)
 
     # Write support as list.
-    draw_lines_in_list( legend_draw,
+    draw_text_in_list( legend_draw,
                         font,
                         font_color,
                         sub_box_b2.get_dimensions(),
@@ -1750,7 +1750,7 @@ def legend_append_factions(legend_image, upp_dict):
                         padding)
 
     # Write culture as list.
-    draw_lines_in_list( legend_draw,
+    draw_text_in_list( legend_draw,
                         font,
                         font_color,
                         sub_box_b3.get_dimensions(),
@@ -1758,6 +1758,7 @@ def legend_append_factions(legend_image, upp_dict):
                         padding)
 
     # TODO: Draw a separating line from headers and data.
+    line_color = 
 
     return legend_image
 
