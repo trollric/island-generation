@@ -1538,7 +1538,7 @@ def generate_faction_name():
         f'{adjective} {noun}',
         f'{adverb} {verb} of the {adjective} {noun}',
         f'The {verb} {noun}',
-        f'{verb} {noun} of {adjective} {noun2}'
+        f'{verb} {noun} of {adjective} {noun2}s'
     ]
 
     return random_choice(generated_name_list)
