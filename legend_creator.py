@@ -1816,6 +1816,27 @@ def legend_append_factions(legend_image, upp_dict):
 
 
 def legend_append_contraband_lists(legend_image, upp_dict):
+    # TODO: Add docstring when ready.
+
+    # TODO: Draw ascii art depicting the subboxes and what goes where.
+
+    # TODO: create data JSON for different contraband at different levels.
+
+    # TODO: Remove the line generation from legend dock and add lines generationally
+    # here instead.
+
+    # TODO: generate lists and subboxes for the different types.
+
+    # TODO: Create ImageDraw.Draw class for appendinglines and text.
+
+    # Font data.
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    font_color = tuple(colors.get_rgb_color('gold'))
+    padding = 20
+
+    # Add line data for color and width for separating the different subboxes.
+    line_color = tuple(colors.get_rgb_color('orange_red'))
+    line_width = 4
 
     return legend_image
 
