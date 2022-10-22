@@ -316,7 +316,7 @@ def get_rgb_color(color, alpha = None):
     # Ensure color is lowercase
     if not color.islower():
         color = color.lower()
-        
+
     # Check that the key exist
     if not color in rgb_dictionary:
         raise KeyError(f'''Tried to fetch the color: {color}. The color
@@ -358,6 +358,10 @@ def get_hex_color(color, alpha_percent = None):
     # Check variable type
     if not isinstance(color, str):
         raise TypeError('The color needs to be a string')
+
+    # Ensure color is lowercase
+    if not color.islower():
+        color = color.lower()
 
     if not color in hex_dictionary:
         raise KeyError(f'''Tried to fetch the color: {color}. The color
