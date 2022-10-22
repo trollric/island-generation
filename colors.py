@@ -1,7 +1,5 @@
 """A dictionary containing a number of rgb and hex coded color values
 """
-from typing import Type
-
 
 rgb_dictionary = { 'maroon':               [128,0,0],
         'dark_red':             [139,0,0],
