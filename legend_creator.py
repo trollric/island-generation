@@ -1666,7 +1666,6 @@ def legend_append_factions(legend_image, upp_dict):
     im_width, _ = legend_image.size
     width = int(2 * im_width / 3)
     box_height = int(im_width/4)
-    box_width = int(width / 100)
 
     x_offset = 0
     y_offset = int(width / 2)
@@ -1805,6 +1804,11 @@ def legend_append_factions(legend_image, upp_dict):
     x2, y2 = sub_box_b3.end
 
     legend_draw.line([(x1, y1), (x2, y2)], line_color, line_width)
+
+    # TODO: Draw thin lines separating every subbox.
+    sub_box_height = sub_box_b1.get_height()
+    for line_offset_multiplier in range(len(faction_names) -1):
+        y1 += line_offset_multiplier * sub_box_height
 
     return legend_image
 
