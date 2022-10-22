@@ -1661,7 +1661,7 @@ def legend_append_factions(legend_image, upp_dict):
     # Font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
-    padding = 10
+    padding = 20
 
 
     # Get a dictionary of factions
@@ -1704,14 +1704,17 @@ def legend_append_factions(legend_image, upp_dict):
     # Find maximum font size for faction names
     font_size = get_max_font_size_from_list(faction_names,
                                             font_path,
-                                            sub_box_b1.get_dimensions()
-                                            )
+                                            sub_box_b1.get_dimensions(),
+                                            padding)
+
+    # Make a separate font for faction names.
+    name_font = ImageFont.truetype(font_path, font_size)
 
     # Compare to the maximum font size of support levels.
     font_size_temp = get_max_font_size_from_list(faction_support_levels,
                                             font_path,
-                                            sub_box_b2.get_dimensions()
-                                            )
+                                            sub_box_b2.get_dimensions(),
+                                            padding)
 
     # Use the smallest font size.
     if font_size_temp < font_size:
@@ -1720,8 +1723,8 @@ def legend_append_factions(legend_image, upp_dict):
     # Compare to the maximum font size of support levels
     font_size_temp = get_max_font_size_from_list(faction_cultures,
                                             font_path,
-                                            sub_box_b3.get_dimensions()
-                                            )
+                                            sub_box_b3.get_dimensions(),
+                                            padding)
 
     # Use the smallest font size.
     if font_size_temp < font_size:
@@ -1732,7 +1735,7 @@ def legend_append_factions(legend_image, upp_dict):
 
     # Write names as list.
     draw_lines_in_list( legend_draw,
-                        font,
+                        name_font,
                         font_color,
                         sub_box_b1.get_dimensions(),
                         faction_names,
@@ -1754,6 +1757,7 @@ def legend_append_factions(legend_image, upp_dict):
                         faction_cultures,
                         padding)
 
+    # TODO: Draw a separating line from headers and data.
 
     return legend_image
 
