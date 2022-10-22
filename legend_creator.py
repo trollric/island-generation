@@ -1797,7 +1797,7 @@ def legend_append_factions(legend_image, upp_dict):
                         faction_cultures,
                         padding)
 
-    # TODO: Draw a separating line from headers and data.
+    # Draw a separating line from headers and data.
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
 
