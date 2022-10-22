@@ -123,6 +123,32 @@ def value_in_range(value, min, max):
     return evaluation
 
 
+def percent_of_num(num, percentage) -> float:
+    """Takes a number and percentage and returns the percentage part of that
+    number.
+
+    Args:
+        num (float, int): a float or integer value
+        percentage (float, int): float or integer representing a percentage between
+        0.0 - 100.0. If the value is out of bounds it will be mapped to 0 or 100.
+
+    Returns:
+        float: part of the number
+    """
+    if not isinstance(num, (float, int)):
+        raise TypeError('num must be of float or integer type.')
+
+    if not isinstance(percentage, (float, int)):
+        raise TypeError('percentage must be of int or float value')
+
+    if percentage < 0.0:
+        percentage = 0
+    elif percentage > 100:
+        percentage = 100
+        
+    return int(num * (percentage / 100))
+
+
 def determine_trade_codes(upp_dict):
     """Takes a universal planetary profile dictionary and checks wich trade codes apply to the
     planet.
@@ -279,6 +305,7 @@ def validate_trade_codes(trade_codes):
         if not code in valid_trade_codes:
             result = False
             break
+
     return result
 
 
@@ -1782,31 +1809,6 @@ def legend_append_factions(legend_image, upp_dict):
     legend_draw.line([(x1, y1), (x2, y2)], line_color, line_width)
 
     return legend_image
-
-def percent_of_num(num, percentage) -> float:
-    """Takes a number and percentage and returns the percentage part of that
-    number.
-
-    Args:
-        num (float, int): a float or integer value
-        percentage (float, int): float or integer representing a percentage between
-        0.0 - 100.0. If the value is out of bounds it will be mapped to 0 or 100.
-
-    Returns:
-        float: part of the number
-    """
-    if not isinstance(num, (float, int)):
-        raise TypeError('num must be of float or integer type.')
-
-    if not isinstance(percentage, (float, int)):
-        raise TypeError('percentage must be of int or float value')
-
-    if percentage < 0.0:
-        percentage = 0
-    elif percentage > 100:
-        percentage = 100
-        
-    return int(num * (percentage / 100))
 
 
 def generate_legend(upp_dict, color_palette, path, planet_name):
