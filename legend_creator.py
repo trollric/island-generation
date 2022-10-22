@@ -1815,6 +1815,11 @@ def legend_append_factions(legend_image, upp_dict):
     return legend_image
 
 
+def legend_append_contraband_lists(legend_image, upp_dict):
+
+    return legend_image
+
+
 def generate_legend(upp_dict, color_palette, path, planet_name):
     """Generates a planetary legend to give better overview for players.
 
@@ -1853,10 +1858,12 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # Append planet name, UPP-Serial and government type to the top left of the legend document.
     legend_doc = legend_append_name_government_data(legend_doc, planet_name, upp_dict)
 
-    # TODO: Generate factions and add cultures.
+    # Generate factions and add cultures.
     legend_doc = legend_append_factions(legend_doc, upp_dict)
 
     # TODO: Determine contraband and append them to the bottom left under separate categories.
+    legend_doc = legend_append_contraband_lists(legend_doc, upp_dict)
+
 
     legend_doc.show()
     # Create path to save location
