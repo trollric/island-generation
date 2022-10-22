@@ -1647,7 +1647,15 @@ def generate_factions(upp_dict : dict) -> dict:
 
 
 def legend_append_factions(legend_image, upp_dict):
+    """Appends faction information to an image using data from a upp_dict.
 
+    Args:
+        legend_image (PIL.Image): Image to append the data to.
+        upp_dict (dict): dictionary containing UPP-Serial data.
+
+    Returns:
+        PIL.Image: Image with the appended faction text.
+    """
     # ------------------------------------------------------------------------
     # |b1                                |b2                |b3              |
     # |                                  |                  |                |
