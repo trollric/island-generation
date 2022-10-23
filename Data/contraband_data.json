@@ -1,5 +1,13 @@
 {
-    "Armour" : {},
+    "Armour" : {
+        "1" : [ "Battle dress"],
+        "2" : ["Combat armour"],
+        "3" : ["Flak"],
+        "4" : ["Cloth"],
+        "5" : ["Mesh"],
+        "8" : ["All visible armour"],
+        "9" : ["All armour"]
+    },
 
     "Drugs" : {},
 
