@@ -256,8 +256,12 @@ def generate_legend_document():
     # Height half of the box above 3/24 part of width
     x = int(legend_width/2)
     y = int(legend_width/24)
+
     # Divider 7/12 + 3/24 => 14/24 + 3/24 = 17/24
-    lines.append([(0, y*17), (legend_width, y*17)])
+
+    # Draw a line from the middle of the paper to the right
+    lines.append([(x, y*17), (legend_width, y*17)])
+
     # Separator all the way down.
     lines.append([(x, y*14), (x, legend_height)])
 
@@ -267,16 +271,6 @@ def generate_legend_document():
     # Add separator for Buy/Sell tabs.
     lines.append([(int(x*3/2), y*14 + half_box_y), (int(x*3/2), legend_height)])
 
-    # Calculated remaining space for the contraband section and draw lines
-    # evenly distributed. (Weapons, Armour, Information, Technology, Travelers, Psionics)
-    # numbers 6 categories.
-
-    y_dist = (legend_height - y*17) / 6
-    y_zero = y*17
-
-    for y in range(6):
-        y_coord = y_zero + y*y_dist
-        lines.append([(0, y_coord), (x, y_coord)])
 
     # Draw all lines 
     for line in lines:
@@ -1828,10 +1822,8 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # TODO: create data JSON for different contraband at different levels.
 
-    # TODO: Remove the line generation from legend dock and add lines generationally
-    # here instead.
-
-    # TODO: generate lists and subboxes for the different types.
+    # TODO: Calculate BoundBoxes.
+    # Weapons, Armour, Information, Technology, Travelers, Psionics
 
     # TODO: Create ImageDraw.Draw class for appendinglines and text.
 
