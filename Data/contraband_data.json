@@ -14,11 +14,9 @@
         "2" : ["Combat Drugs"],
         "3" : ["Stims"],
         "4" : ["Slow Drug"],
-        "5" : [],
         "6" : ["Anagathics"],
         "7" : ["Fast Drug"],
-        "8" : ["Medicinal drugs"],
-        "9" : []
+        "8" : ["Medicinal drugs"]
     },
 
     "Information" : {
