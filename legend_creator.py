@@ -5,7 +5,6 @@ from asyncio.format_helpers import _format_callback_source
 from email.quoprimime import body_check
 import json
 import os
-from typing import Type
 import colors
 import io
 import math
