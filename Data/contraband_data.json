@@ -21,6 +21,14 @@
         "4" : ["Light assault weapons",
                 "and submachine guns"],
         "5" : ["Personal concealable",
-                "weapons"]
+                "weapons"],
+        "6" : ["All firearms except",
+                "shotguns & stunners.",
+                "Carrying weapons is",
+                "discouraged."],
+        "7" : ["Shotguns"],
+        "8" : ["All bladed weapons",
+                "and stunners"],
+        "9" : ["All weapons"]
     }
 }
