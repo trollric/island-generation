@@ -1,0 +1,26 @@
+{
+    "Armour" : {},
+
+    "Drugs" : {},
+
+    "Information" : {},
+
+    "Psionics" : {},
+
+    "Technology" : {},
+
+    "Travellers" : {},
+
+    "Weapons" : {
+        "1" : [ "Poison gas, explosives,",
+                "undetectable weapons, WMD"],
+
+        "2" : ["Portable energy and",
+                "laser weapons"],
+        "3" : ["Military weapons"],
+        "4" : ["Light assault weapons",
+                "and submachine guns"],
+        "5" : ["Personal concealable",
+                "weapons"]
+    }
+}
