@@ -1617,7 +1617,7 @@ def generate_factions(upp_dict : dict) -> dict:
                 dice_1 = roll_d66()
 
             # Reroll dice2 until its not uniqe case 25, 26 or the same as dice1
-            while dice_1 in [25, 26, dice_1]:
+            while dice_2 in [25, 26, dice_1]:
                 dice_2 = roll_d66()
 
             # Save the two dictionaries from culture_dict
