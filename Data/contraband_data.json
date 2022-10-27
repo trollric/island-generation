@@ -81,15 +81,27 @@
     },
 
     "Travellers" : {
-        "1" : [],
+        "1" : ["Travelers are technically",
+                "allowed to travel freely",
+                "but are meet with glares",
+                "and suspicion."],
         "2" : [],
-        "3" : [],
-        "4" : [],
-        "5" : [],
+        "3" : ["Special sites of",
+                "cultural importance",
+                "are off limits"],
+        "4" : ["Travellers leaving",
+                "major cities are",
+                "expected to have",
+                "a chaperone."],
+        "5" : ["Travellers may visit",
+                "special guest zones."],
         "6" : [],
-        "7" : [],
-        "8" : [],
-        "9" : []
+        "7" : ["Travellers are confined",
+                "to the station."],
+        "8" : ["Travellers are confined",
+                "to the ship if docked."],
+        "9" : ["Travellers are not",
+                "allowed to dock."]
     },
 
     "Weapons" : {
