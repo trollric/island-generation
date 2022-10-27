@@ -62,15 +62,22 @@
     },
 
     "Technology" : {
-        "1" : [],
+        "1" : ["Any computer running",
+                "intelligence."],
         "2" : [],
-        "3" : [],
-        "4" : [],
-        "5" : [],
+        "3" : ["Any computer running",
+                "intrusion or",
+                "intelligent interface"],
+        "4" : ["All augmentations"],
+        "5" : ["Trancievers with a range",
+                "longer than 500km"],
         "6" : [],
-        "7" : [],
-        "8" : [],
-        "9" : []
+        "7" : ["Any computers"],
+        "8" : ["Gravity belts"],
+        "9" : ["Electronics",
+                "Engineering",
+                "or Scientific",
+                "toolkits"]
     },
 
     "Travellers" : {
