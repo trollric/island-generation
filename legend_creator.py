@@ -1872,8 +1872,17 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # TODO: Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
+    im_width, im_height = legend_image.size
+    x1, y1 = 0 , int((7 * im_width) / 12)
+    x2, y2 = int(im_width / 2), im_height
 
-    # TODO: Create ImageDraw.Draw class for appendinglines and text.
+    main_box = BoundBox(x1, y1, x2, y2)
+    l_box_percentage = 10
+    law_box_width = percent_of_number(main_box.get_width(), l_box_percentage)
+
+
+    # Create ImageDraw.Draw class for appendinglines and text.
+    legend_draw = ImageDraw.Draw(legend_image)
 
     # Font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
