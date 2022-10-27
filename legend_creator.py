@@ -161,7 +161,7 @@ def determine_trade_codes(upp_dict):
         List: Returns a list of tradecodes.
     """
     # Load the trade code determinants from JSON.
-    with open("trade_code_classification.json",) as trade_requirement_data:
+    with open("Data/trade_code_classification.json",) as trade_requirement_data:
         trade_requirements = json.load(trade_requirement_data)
 
     categorization = []
@@ -324,7 +324,7 @@ def get_trade_goods(trade_codes):
         raise TypeError(f'One or more trade codes are not valid.\nCodes: {trade_codes}')
 
     # Import the json-data
-    with open("trade_goods_table.json",) as trade_goods_data:
+    with open("Data/trade_goods_table.json",) as trade_goods_data:
         trade_requirements = json.load(trade_goods_data)
     
 
@@ -1398,7 +1398,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
     # Get goverment type.
     # Import the json-data
-    with open("government_data.json",) as government_data:
+    with open("Data/government_data.json",) as government_data:
         government_information = json.load(government_data)
 
     government_number = str(upp_dict.get('government_type'))
@@ -1505,16 +1505,16 @@ def generate_faction_name():
         string: A text string representing a faction name
     """
     # Import the json-data
-    with open("nouns.json",) as nouns_json:
+    with open("Data/nouns.json",) as nouns_json:
         nouns_list = json.load(nouns_json)
 
-    with open("verbs.json",) as verbs_json:
+    with open("Data/verbs.json",) as verbs_json:
         verbs_list = json.load(verbs_json)
 
-    with open("adverbs.json",) as adverbs_json:
+    with open("Data/adverbs.json",) as adverbs_json:
         adverbs_list = json.load(adverbs_json)
     
-    with open("adjectives.json",) as adjectives_json:
+    with open("Data/adjectives.json",) as adjectives_json:
         adjectives_list = json.load(adjectives_json)
 
     # Generate random adjective, adverbs, nouns and verbs
@@ -1558,7 +1558,7 @@ def generate_factions(upp_dict : dict) -> dict:
         number_of_factions += 1
 
     # Load in the cultural differences.
-    with open("cultural_differences_data.json",) as cultures_json:
+    with open("Data/cultural_differences_data.json",) as cultures_json:
         culture_dict = json.load(cultures_json)
 
     # Iterate and create each faction.
