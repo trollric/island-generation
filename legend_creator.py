@@ -1844,7 +1844,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # The contraband boxes share the remaining space equally.
     
 
-    # Create data JSON for different contraband at different levels.
+    # Fetch contraband dictionary with contraband for each law level.
     with open("Data/contraband_data.json",) as contraband_json:
         contraband_dictionary = json.load(contraband_json)
 
