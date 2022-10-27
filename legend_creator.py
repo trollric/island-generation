@@ -1822,7 +1822,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # Create data JSON for different contraband at different levels.
     with open("Data/contraband_data.json",) as contraband_json:
-        contraband_dictionary = contraband_json
+        contraband_dictionary = json.load(contraband_json)
 
     # TODO: Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
