@@ -1818,7 +1818,32 @@ def legend_append_factions(legend_image, upp_dict):
 def legend_append_contraband_lists(legend_image, upp_dict):
     # TODO: Add docstring when ready.
 
-    # TODO: Draw ascii art depicting the subboxes and what goes where.
+    # Draw ascii art depicting the subboxes and what goes where.
+    #------------------------------------------------------------
+    #| Law level |      b1      |      b2       |      bn       |
+    #------------------------------------------------------------
+    #|    1      |              |               |               |
+    #|           |              |               |               |
+    #------------------------------------------------------------
+    #|    2      |              |               |               |
+    #|           |              |               |               |
+    #------------------------------------------------------------
+    #|    3      |              |               |               |
+    #|           |              |               |               |
+    #------------------------------------------------------------
+    #|    ...    |              |               |               |
+    #|           |              |               |               |
+    #------------------------------------------------------------
+    #|     9     |              |               |               |
+    #|           |              |               |               |
+    #------------------------------------------------------------
+    # Make a law level number for each law level the planet.
+    # has contraband for. (Set the width of this column to a percent)
+    #
+    # Make a row b1-b2 for every contraband type on the planet.
+    # The contraband boxes share the remaining space equally.
+    
+
 
     # Create data JSON for different contraband at different levels.
     with open("Data/contraband_data.json",) as contraband_json:
