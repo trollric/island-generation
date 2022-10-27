@@ -1860,7 +1860,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     
 
     # Determine what levels has entires.
-    law_levels_with_entires = []
+    law_levels_with_entires = ['Law']
     law_level = upp_dict.get('law_level')
 
     for level in range(1, law_level):
@@ -1877,8 +1877,17 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     x2, y2 = int(im_width / 2), im_height
 
     main_box = BoundBox(x1, y1, x2, y2)
+
     l_box_percentage = 10
     law_box_width = percent_of_number(main_box.get_width(), l_box_percentage)
+    bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
+
+    #TODO: Loop throught the remaining width and create the other bound boxes.
+    box_width = int((main_box.get_width() - bound_boxes[0].get_width()) / len(contraband))
+    x_offset = bound_boxes[0].get_side('right')
+    for _ in range(len(contraband)):
+        bound_boxes.append(BoundBox(x_offset, y1, x_offset + box_width, y2))
+        x_offset += box_width
 
 
     # Create ImageDraw.Draw class for appendinglines and text.
@@ -1892,6 +1901,10 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Add line data for color and width for separating the different subboxes.
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
+
+    #TODO: Step through each law level and append contraband to sub box.
+    y_offset = main_box.get_side('top')
+
 
     return legend_image
 
