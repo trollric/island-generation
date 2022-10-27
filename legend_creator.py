@@ -1844,11 +1844,22 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # The contraband boxes share the remaining space equally.
     
 
-
     # Create data JSON for different contraband at different levels.
     with open("Data/contraband_data.json",) as contraband_json:
         contraband_dictionary = json.load(contraband_json)
 
+    
+    # Determine what the planet considers contraband.
+    government_type = str(upp_dict.get('government_type'))
+    with open("Data/government_data.json",) as government_data_json:
+        contraband = json.load(government_data_json).get(government_type).get('contraband')
+
+    # If Weapon is considered contraband. Also add Armour
+    if "Weapons" in contraband:
+        contraband.append("Armour")
+    
+
+    # TODO: Determine what levels has entires.
     # TODO: Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
 
