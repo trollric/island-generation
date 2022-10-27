@@ -1908,7 +1908,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
 
-    #TODO: Write the titles.
+    # Write the titles.
     x_offset = main_box.get_side('left')
     y_offset = main_box.get_side('top')
 
@@ -1939,7 +1939,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
             max_font_size = font_size
 
 
-    #TODO: Write every title in their respective subbox.
+    # Write every title in their respective subbox.
     for entry in range(len(titles)):
         # Create a subbox
         box = bound_boxes[entry]
