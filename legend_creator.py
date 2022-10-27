@@ -1862,7 +1862,10 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # TODO: Determine what levels has entires.
     law_levels_with_entires = []
     law_level = upp_dict.get('law_level')
-    
+
+    for level in range(1, law_level):
+        
+
     # TODO: Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
 
