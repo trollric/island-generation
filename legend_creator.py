@@ -1870,7 +1870,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                 law_levels_with_entires.append(level)
                 break
 
-    # TODO: Calculate BoundBoxes.
+    # Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
     im_width, im_height = legend_image.size
     x1, y1 = 0 , int((7 * im_width) / 12)
@@ -1882,7 +1882,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     law_box_width = percent_of_number(main_box.get_width(), l_box_percentage)
     bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
 
-    #TODO: Loop throught the remaining width and create the other bound boxes.
+    # Loop throught the remaining width and create the other bound boxes.
     box_width = int((main_box.get_width() - bound_boxes[0].get_width()) / len(contraband))
     x_offset = bound_boxes[0].get_side('right')
     for _ in range(len(contraband)):
