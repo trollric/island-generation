@@ -40,15 +40,25 @@
 
     "Psionics" : {
         "1" : ["All use of psionics",
-                "are banned"],
-        "2" : [],
+                "are technically banned"],
+        "2" : ["Telekinesis",
+                "Teleportation",
+                "Openly visible psi"],
         "3" : [],
-        "4" : [],
+        "4" : ["Anybody discoved",
+                "using psionics"],
         "5" : [],
-        "6" : [],
-        "7" : [],
-        "8" : [],
-        "9" : []
+        "6" : ["Routine scans",
+                "are performed"],
+        "7" : ["Some police wear",
+                "NAS to detect",
+                "psions."],
+        "8" : ["Special task force",
+                "wearing psi shields",
+                "deal with psions"],
+        "9" : ["Every visitor is",
+                "subjected to NAS",
+                "scan at customs."]
     },
 
     "Technology" : {
