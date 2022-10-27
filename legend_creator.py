@@ -1476,7 +1476,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
         font_size = int(im_height / 4)
         font = ImageFont.truetype(font_path, font_size)
 
-        # Get law level to write
+        # Get tech level to write
         law_level = str(upp_dict.get('tech_level'))
 
         # Check font width, height.
@@ -1860,6 +1860,9 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     
 
     # TODO: Determine what levels has entires.
+    law_levels_with_entires = []
+    law_level = upp_dict.get('law_level')
+    
     # TODO: Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
 
