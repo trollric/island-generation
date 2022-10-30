@@ -648,8 +648,9 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
     can be taken into consideration.
 
     Args:
-        box_dimensions (tuple/list): list of tuples or integers spanning a bounding box.
-        Optionally a tuple containing width/heigh can be given.
+        box_dimensions (tuple/list/BoundBox): list of tuples or integers spanning a bounding box.
+        a tuple containing width/height or a BoundBox. The input gets converted to an xy (0, 0)
+        (width, height) BoundBox.
         text (str): The text that font size will be tested with.
         font_path (str): A string containing the path to a truefont.
         padding (int, optional): Padding in the bounded box. Defaults to 0.
@@ -665,8 +666,24 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
         int: Returns the largest font size that can be used for a bounded box with padding optional
         as an integer.
     """
-    # Check if box_dimensions are valid
-    validate_box_dimensions(box_dimensions)
+
+    # If a BoundBox is not given. Convert the dimensions to a boundbox.
+    if not isinstance(box_dimensions, BoundBox):
+        # Check if box_dimensions are valid
+        validate_box_dimensions(box_dimensions)
+
+        # Create a bound box from the box_dimensions.
+        if isinstance(box_dimensions, tuple):
+            width, height = box_dimensions
+        elif len(box_dimensions) == 2:
+            width = box_dimensions[1][0] - box_dimensions[0][0]
+            height = box_dimensions[1][1] - box_dimensions[0][1]
+        elif len(box_dimensions) == 4:
+            width = box_dimensions[0] - box_dimensions[2]
+            height = box_dimensions[1] - box_dimensions[3]
+        box_dimensions = BoundBox(0, 0, width, height)
+    else:
+        box_dimensions = BoundBox(0, 0, box_dimensions.get_width(), box_dimensions.get_height())
 
     # validate text
     if not isinstance(text, str):
@@ -684,6 +701,11 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
     elif not padding >= 0:
         raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
 
+    # Check if the text is a multiline string. Delegate to get_max_font_size() if it is.
+    if not('\n' in text or '\r' in text):
+        return get_max_font_size(box_dimensions, text, font_path, padding)
+
+    
     # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
     font_size = 1
     width, height = get_box_dimension_size(box_dimensions)
