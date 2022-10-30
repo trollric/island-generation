@@ -3,8 +3,6 @@
 # Atmosphearic demands, Startport quality and trade codes.
 import json
 import os
-from turtle import color
-from typing import is_typeddict
 import colors
 import io
 import math
@@ -732,6 +730,8 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
 
 def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw : ImageDraw.ImageDraw,
                         font_color : tuple, padding = 0, spacing = 4.0):
+    #TODO: Add docstring after debuging of method.
+
     # Validate paramters.
     if not isinstance(bound_box, BoundBox):
         raise TypeError(f'bound_box was not a BoundBox. Type provided: {type(bound_box)}')
@@ -782,7 +782,7 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     y1 = bound_box.get_side('top') + padding
 
     # Draw the text.
-    draw.multiline_text((padding, padding), text, font_color, spacing=spacing)
+    draw.multiline_text((x1, y1), text, font_color, spacing=spacing)
 
     
 
@@ -2168,18 +2168,26 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
 def main():
     # If called directly. Make planetary data up.
-    upp_dict = upp_to_dict('A344556-10')
-    color_palette = create_color_palette(upp_dict)
-    path = os.path.join(os.getcwd(), 'Saved')
-    planet_name = 'Debug'
+    # upp_dict = upp_to_dict('A344556-10')
+    # color_palette = create_color_palette(upp_dict)
+    # path = os.path.join(os.getcwd(), 'Saved')
+    # planet_name = 'Debug'
 
-    generate_legend(upp_dict, color_palette, path, planet_name)
+    # generate_legend(upp_dict, color_palette, path, planet_name)
+
 
     # Debug max_multiline_font
-    #box = BoundBox(100, 100, 500, 500)
-    #font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    #text = f'a new hope is\ngrowing for the\nflying foxes huzzah.'
+    im = Image.new('RGBA', (600, 600), (128, 128, 0, 255))
+    draw = ImageDraw.Draw(im)
+
+    box = BoundBox(100, 100, 500, 500)
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    text = f'a new hope is\ngrowing for the\nflying foxes huzzah.'
     #size = get_multiline_max_font_size(box, text, font_path)
+
+    draw_text_bound_box(box, text, font_path, draw, tuple(colors.get_rgb_color('red')))
+
+    im.show()
 
 
 if __name__ == '__main__':
