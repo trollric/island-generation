@@ -585,8 +585,66 @@ def get_font_align_offsets(box_dimensions, text, font, horizontal = 'left',
 
 
 def get_max_font_size(box_dimensions, text, font_path, padding = 0):
-    """Takes a bouning box and returns the largest possible font size. If you wish to 
+    """Takes a bounding box and returns the largest possible font size. If you wish to 
     write out text in the font from the provided font_path. Optionally space for padding
+    can be taken into consideration.
+
+    Args:
+        box_dimensions (tuple/list): list of tuples or integers spanning a bounding box.
+        Optionally a tuple containing width/heigh can be given.
+        text (str): The text that font size will be tested with.
+        font_path (str): A string containing the path to a truefont.
+        padding (int, optional): Padding in the bounded box. Defaults to 0.
+
+    Raises:
+        TypeError: text needs to be a string.
+        TypeError: the path must be provided as a string.
+        FileNotFoundError: if the font can not be found at given path.
+        TypeError: padding must be an integer.
+        ValueError: padding must be a positive integer.
+
+    Returns:
+        int: Returns the largest font size that can be used for a bounded box with padding optional
+        as an integer.
+    """
+    # Check if box_dimensions are valid
+    validate_box_dimensions(box_dimensions)
+
+    # validate text
+    if not isinstance(text, str):
+        raise TypeError(f'text needs to be of type string. Provided type was: {type(text)}')
+
+    # Validate font
+    if not isinstance(font_path, str):
+        raise TypeError(f'font needs ot be a string. Provided type was: {type(font_path)}')
+    elif not os.path.exists(font_path):
+        raise FileNotFoundError(f'Could not find the font at the given path. path given: {font_path}')
+
+    # Check padding is int and not a negative number.
+    if not isinstance(padding, int):
+        raise TypeError(f'padding was not an int. Type provided: {type(padding)}')
+    elif not padding >= 0:
+        raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
+
+    # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
+    font_size = 1
+    width, height = get_box_dimension_size(box_dimensions)
+    for size in range(1, 401):
+        font = ImageFont.truetype(font_path, size)
+        text_width, text_height = font.getsize(text)
+
+        # Break if we have reached the largest font size possible.
+        if text_width > width - 2 * padding or text_height > height - 2 * padding:
+            break
+
+        font_size = size
+
+    return font_size
+
+
+def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
+    """Takes a bounding box and a multiline string and returns the largest possible
+    font size if the font at font_path shiuld fit inside. Optionally space for padding
     can be taken into consideration.
 
     Args:
