@@ -643,7 +643,7 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     return font_size
 
 
-def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, spacing = 0.0):
+def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, spacing = 4.0):
     """Takes a bounding box and a multiline string and returns the largest possible
     font size if the font at font_path shiuld fit inside. Optionally space for padding
     can be taken into consideration.
@@ -656,7 +656,7 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
         font_path (str): A string containing the path to a truefont.
         padding (int, optional): Padding in the bounded box. Defaults to 0.
         spacing (float, optional): Distance between lines of text
-        must be greater than 0. Defaults to 0.
+        must be greater than 0. Defaults to 4.0.
 
     Raises:
         TypeError: text needs to be a string.
@@ -722,7 +722,7 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
         text_width, text_height = font.getsize(text)
-        text_width, text_height = font.getsize_multiline(text, 'ltr', spacing, )
+        text_width, text_height = font.getsize_multiline(text, 'ltr', spacing)
 
         # Break if we have reached the largest font size possible.
         if text_width > width - 2 * padding or text_height > height - 2 * padding:
