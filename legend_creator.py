@@ -644,32 +644,30 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
 
 
 def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, spacing = 4.0):
-    """Takes a bounding box and a multiline string and returns the largest possible
-    font size if the font at font_path shiuld fit inside. Optionally space for padding
-    can be taken into consideration.
+    """Returns the largest font size for given font and multiline text to fit inside
+    BoundBox or a box_dimension. Padding and spacing are optional.
 
     Args:
-        box_dimensions (tuple/list/BoundBox): list of tuples or integers spanning a bounding box.
-        a tuple containing width/height or a BoundBox. The input gets converted to an xy (0, 0)
-        (width, height) BoundBox.
-        text (str): The text that font size will be tested with.
-        font_path (str): A string containing the path to a truefont.
-        padding (int, optional): Padding in the bounded box. Defaults to 0.
-        spacing (float, optional): Distance between lines of text
-        must be greater than 0. Defaults to 4.0.
+        box_dimensions (BoundBox/list[int, int, int, int], tuple(width, height),
+        list[tuple(int, int), (int, int)]): Box dimension or BoundBox
+        text (str): Multiline string. If a non multiline string is given it gets passed on to
+        get_max_font_size
+        font_path (str): path to the desired font.
+        padding (int, optional): Ensurs the value fits inside padding. Defaults to 0.
+        spacing (float, optional): Distance between lines. Defaults to 4.0.
 
     Raises:
-        TypeError: text needs to be a string.
-        TypeError: the path must be provided as a string.
-        FileNotFoundError: if the font can not be found at given path.
-        TypeError: padding must be an integer.
-        ValueError: padding must be a positive integer.
+        TypeError: text needs to be of type string
+        TypeError: font_path needs to be of type string.
+        FileNotFoundError: Font path needs to point to an existing file.
+        TypeError: padding needs to be of type in.
+        ValueError: padding can not be negative.
+        TypeError: spacing must be of type float.
+        ValueError: spacing must be a positive number.
 
     Returns:
-        int: Returns the largest font size that can be used for a bounded box with padding optional
-        as an integer.
+        int: maximum font size that fits inside given dimensions.
     """
-
     # If a BoundBox is not given. Convert the dimensions to a boundbox.
     if not isinstance(box_dimensions, BoundBox):
         # Check if box_dimensions are valid
