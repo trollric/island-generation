@@ -707,7 +707,6 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     # Validate spacing type.
     if not isinstance(spacing, float):
         raise TypeError(f'spacing was not of type float. Type provided: {type(spacing)}')
-    # Validate spacing greatar than 0.
     elif spacing < 0.0:
         raise ValueError(f'spacing must be greater than 0. spacing value: {spacing}')
     
@@ -718,7 +717,7 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     
     # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
     font_size = 1
-    width, height = get_box_dimension_size(box_dimensions)
+    width, height = box_dimensions.get_width_height()
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
         text_width, text_height = font.getsize(text)
@@ -2056,8 +2055,6 @@ def legend_append_contraband_lists(legend_image, upp_dict):
             sub_box = bound_boxes[box_number]
 
 
-
-
     return legend_image
 
 
@@ -2116,12 +2113,18 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 
 def main():
     # If called directly. Make planetary data up.
-    upp_dict = upp_to_dict('A344556-10')
-    color_palette = create_color_palette(upp_dict)
-    path = os.path.join(os.getcwd(), 'Saved')
-    planet_name = 'Debug'
+    # upp_dict = upp_to_dict('A344556-10')
+    # color_palette = create_color_palette(upp_dict)
+    # path = os.path.join(os.getcwd(), 'Saved')
+    # planet_name = 'Debug'
 
-    generate_legend(upp_dict, color_palette, path, planet_name)
+    # generate_legend(upp_dict, color_palette, path, planet_name)
+
+    box = BoundBox(100, 100, 500, 500)
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    text = f'a new hope is\ngrowing for the\nflying foxes huzzah.'
+    size = get_multiline_max_font_size(box, text, font_path)
+    print(size)
 
 
 if __name__ == '__main__':
