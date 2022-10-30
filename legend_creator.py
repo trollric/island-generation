@@ -1,7 +1,6 @@
 # Takes an UPP dictionary (Universal planetary profile) and cretes a map legend
 # This include descriptive name of the different colors, goverment type, temperature range,
 # Atmosphearic demands, Startport quality and trade codes.
-from argparse import _MutuallyExclusiveGroup
 import json
 import os
 import colors
