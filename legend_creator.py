@@ -3,6 +3,7 @@
 # Atmosphearic demands, Startport quality and trade codes.
 import json
 import os
+from typing import is_typeddict
 import colors
 import io
 import math
@@ -642,7 +643,7 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     return font_size
 
 
-def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
+def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, spacing = 0.0):
     """Takes a bounding box and a multiline string and returns the largest possible
     font size if the font at font_path shiuld fit inside. Optionally space for padding
     can be taken into consideration.
@@ -654,6 +655,8 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
         text (str): The text that font size will be tested with.
         font_path (str): A string containing the path to a truefont.
         padding (int, optional): Padding in the bounded box. Defaults to 0.
+        spacing (float, optional): Distance between lines of text
+        must be greater than 0. Defaults to 0.
 
     Raises:
         TypeError: text needs to be a string.
@@ -701,6 +704,13 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
     elif not padding >= 0:
         raise ValueError(f'padding must be a positive integer. Provided value: {padding}')
 
+    # Validate spacing type.
+    if not isinstance(spacing, float):
+        raise TypeError(f'spacing was not of type float. Type provided: {type(spacing)}')
+    # Validate spacing greatar than 0.
+    elif spacing < 0.0:
+        raise ValueError(f'spacing must be greater than 0. spacing value: {spacing}')
+    
     # Check if the text is a multiline string. Delegate to get_max_font_size() if it is.
     if not('\n' in text or '\r' in text):
         return get_max_font_size(box_dimensions, text, font_path, padding)
@@ -712,6 +722,7 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0):
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
         text_width, text_height = font.getsize(text)
+        text_width, text_height = font.getsize_multiline(text, 'ltr', spacing, )
 
         # Break if we have reached the largest font size possible.
         if text_width > width - 2 * padding or text_height > height - 2 * padding:
