@@ -729,8 +729,34 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
 
 
 def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw : ImageDraw.ImageDraw,
-                        font_color : tuple, padding = 0, spacing = 4.0):
-    #TODO: Add docstring after debuging of method.
+                        font_color : tuple, padding = 0, spacing = 4.0, font_size = None):
+    """Writed a multiline string inside a BoundBox. If no font_size is given it fills the BoundBox
+    as much as possible taking padding and spacing into consideration.
+
+    Args:
+        bound_box (BoundBox): The box where the text will be written.
+        text (str): Multiline text to write.
+        font_path (str): path to the font type to be used.
+        draw (ImageDraw.ImageDraw): draw context.
+        font_color (tuple): RGB or RGBA color.
+        padding (int, optional): padding from the top and left side.. Defaults to 0.
+        spacing (float, optional): space between lines. Defaults to 4.0.
+        font_size (int, optional): Set font size. If no value is given maximum font size is
+        calculated automatically.
+
+    Raises:
+        TypeError: Bound box needs to be of type BoundBox
+        TypeError: text and font_path needs to be of type string.
+        FileNotFoundError: If the font at font_path is not found.
+        TypeError: draw context needs to be of ImageDraw class.
+        TypeError: font_color needs to be of type tuple.
+        ValueError: font_color tuple needs to be of length 3 or 4.
+        TypeError: values provided in font_color tuple needs to be 8bit integers.
+        TypeError: padding must be of type int.
+        ValueError: padding can not be negative.
+        TypeError: spacing needs to be of type float.
+        ValueError: spacing can not be negative.
+    """
 
     # Validate paramters.
     if not isinstance(bound_box, BoundBox):
@@ -771,8 +797,14 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     elif not spacing >= 0.0:
         raise ValueError(f'spacing can not be negative number. spacing provided: {spacing}')
 
-    # Get max font size.
-    font_size = get_multiline_max_font_size(bound_box, text, font_path, padding, spacing)
+    if not isinstance(font_size,(int, None)):
+        raise TypeError(f'font_size needs to be of type integer. Type provided: {type(font_size)}')
+    elif not font_size >= 0:
+        raise ValueError(f'padding can not be a negative number. padding provided: {font_size}')
+
+    # If font size is not provided. Get the maximum font size that will fit in the box.
+    if font_size == None:
+        font_size = get_multiline_max_font_size(bound_box, text, font_path, padding, spacing)
 
     # Create font.
     font = ImageFont.truetype(font_path, font_size)
@@ -782,7 +814,7 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     y1 = bound_box.get_side('top') + padding
 
     # Draw the text.
-    draw.multiline_text((x1, y1), text, font_color, spacing=spacing)
+    draw.multiline_text((x1, y1), text, font_color, font, spacing=spacing)
 
     
 
