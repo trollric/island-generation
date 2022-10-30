@@ -446,7 +446,7 @@ def validate_box_dimensions(box_dimensions):
 
 
 def get_box_dimension_size(box_dimensions):
-    """ LEGACY: Use BoundBoxes and their get_dimension() function instead.
+    """ LEGACY: Use BoundBox get_dimension() function instead.
     Takes a box_dimension and returns width, height as a tuple.
 
     Args:
