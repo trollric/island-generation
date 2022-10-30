@@ -729,6 +729,11 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     return font_size
 
 
+def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, padding = 0,
+                        spacing = 4.0):
+    pass
+
+
 def get_max_font_size_from_list(list, font_path, box_dimensions, padding = 0):
     """Takes a list of lines and checks what their maxiumum shared font_size can be.
     If they are to fit in boxes of the same size.
