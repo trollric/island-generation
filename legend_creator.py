@@ -3,6 +3,7 @@
 # Atmosphearic demands, Startport quality and trade codes.
 import json
 import os
+from turtle import color
 from typing import is_typeddict
 import colors
 import io
@@ -729,9 +730,61 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     return font_size
 
 
-def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, padding = 0,
-                        spacing = 4.0):
-    pass
+def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw : ImageDraw.ImageDraw,
+                        font_color : tuple, padding = 0, spacing = 4.0):
+    # Validate paramters.
+    if not isinstance(bound_box, BoundBox):
+        raise TypeError(f'bound_box was not a BoundBox. Type provided: {type(bound_box)}')
+
+    # Check that text and font path are of type string.
+    if not all(isinstance(parameter, str) for parameter in [text, font_path]):
+        raise TypeError(f'''text or font_path must be string. text: {type(text)}, 
+        font_path {type(font_path)}''')
+
+    # Verify that the file at font_path exist.
+    if not os.path.exists(font_path):
+        raise FileNotFoundError(f'''font_path does not provide a path to an existing file.\n
+        path provided: {font_path}''')
+
+    # Verify draw.
+    if not isinstance(draw, ImageDraw.ImageDraw):
+        raise TypeError(f'draw needs to be of type ImageDraw. draw type: {type(draw)}')
+
+    # Verify font_color
+    if not isinstance(font_color, tuple):
+        raise TypeError(f'font_color needs a tuple. font_color type: {type(font_color)}')
+    elif not(3 <= len(font_color) <= 4):
+        raise ValueError(f'''Tuple needs to be three or four 8-bit integers long.\n
+        tuple length: {len(font_color)}''')
+    elif not all(isinstance(value, int) for value in font_color):
+        raise TypeError(f'Not all values in font_colors were of type int. font_color: {font_color}')
+    
+    # Verify padding.
+    if not isinstance(padding, int):
+        raise TypeError(f'padding not of type int. Type provided {type(padding)}')
+    elif not padding >= 0:
+        raise ValueError(f'padding can not be a negative number. padding provided: {padding}')
+
+    # Verify spacing
+    if not isinstance(spacing, float):
+        raise TypeError(f'spacing is not of type float. Provided type {type(spacing)}')
+    elif not spacing >= 0.0:
+        raise ValueError(f'spacing can not be negative number. spacing provided: {spacing}')
+
+    # Get max font size.
+    font_size = get_multiline_max_font_size(bound_box, text, font_path, padding, spacing)
+
+    # Create font.
+    font = ImageFont.truetype(font_path, font_size)
+
+    # Get anchor position.
+    x1 = bound_box.get_side('left') + padding
+    y1 = bound_box.get_side('top') + padding
+
+    # Draw the text.
+    draw.multiline_text((padding, padding), text, font_color, spacing=spacing)
+
+    
 
 
 def get_max_font_size_from_list(list, font_path, box_dimensions, padding = 0):
