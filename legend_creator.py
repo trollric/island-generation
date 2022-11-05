@@ -100,6 +100,55 @@ class BoundBox:
         
         return value
 
+    def set_anchor(self, anchor: tuple[int, int]):
+        """Moves the anchor point to the new anchor.
+
+        Args:
+            anchor (tuple[int, int]): tuple containing the new x,y coordinate.
+
+        Raises:
+            TypeError: anchor must be a tuple.
+            TypeError: may only contain two values.
+            ValueError: both values must be of type int.
+            ValueError: both values must be a positive integer
+        """
+        # Check that anchor is of type tuple.
+        if not isinstance(anchor, tuple):
+            raise TypeError('anchor must be be a tuple of type tuple.\n'+
+                            f'type of anchor: {type(anchor)}')
+
+        # Check that the tuple anchor is of the correct lenght.
+        if len(anchor) != 2:
+            raise TypeError('acnhor must be a tuple with two elements.\n'+
+                            f'Length of anchor: {len(anchor)}')
+        
+        # Check that the values in anchor are of type int.
+        if not all(isinstance(value, int) for value in anchor):
+            raise ValueError('anchor must be of type (int, int).\n'+
+                            f'Provided: ({type(anchor[0])}, {type(anchor[1])})')
+
+        # Check that no value is negative.
+        if not all(value >= 0 for value in anchor):
+            raise ValueError('Both the x and y value of anchor must be positive.\n'+
+                            f'Provided: x: {anchor[0]}, y: {anchor[1]}')
+
+
+        # Get the coordinates for the bound box
+        x1, y1 = self.start
+        x2, y2 = self.end
+
+        # New start coordinate.
+        anchor_x, anchor_y = anchor
+
+        # Calculte the move vector to get from the old anchor point.
+        # to the new acnhor point
+        move_x, move_y = anchor_x - x1, anchor_y - y1
+
+        # Move the bound box to start at anchor and span the same
+        # height and width
+        self.start  = (x1 + move_x, y1 + move_y)
+        self.end    = (x2 + move_x, y2 + move_y)
+
 
 def value_in_range(value, min, max):
     """Takes a value and checks if its greater or equal to min and less or equal to max
