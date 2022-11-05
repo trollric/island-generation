@@ -730,7 +730,7 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
 
 def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw : ImageDraw.ImageDraw,
                         font_color : tuple, padding = 0, spacing = 4.0, font_size = None):
-    """Writed a multiline string inside a BoundBox. If no font_size is given it fills the BoundBox
+    """Writes a multiline string inside a BoundBox. If no font_size is given it fills the BoundBox
     as much as possible taking padding and spacing into consideration.
 
     Args:
