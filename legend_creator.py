@@ -149,6 +149,73 @@ class BoundBox:
         self.start  = (x1 + move_x, y1 + move_y)
         self.end    = (x2 + move_x, y2 + move_y)
 
+    def split(self, vertical_splits: int = 1, horizontal_splits: int = 1) -> list:
+        """Splits the box into an 2D-array of BoundBoxes.\n
+        Example:\n
+        b1 = BoundBox(0, 0, 100, 100)\n
+        sub_boxes = b1.split(2, 2)\n
+        sub_boxes[0][0].start => (0, 0)\n
+        sub_boxes[0][0].end => (50, 50)\n
+        sub_boxes[1][1].start => (50, 50)\n
+        sub_boxes[1][1].end => (100, 100)
+
+        Args:
+            vertical_splits (int, optional): Determines how many boxes will be created on the x-axis. Defaults to 1.
+            horizontal_splits (int, optional): Determines how many boxes will be created on the y-axis. Defaults to 1.
+
+        Raises:
+            TypeError: Both parameters must be integers.
+            ValueError: Both parameters must be greater than 0.
+
+        Returns:
+            list: list[list[BoundBox]]
+        """
+        # Check the parameter types.
+        if not all(isinstance(parameter, int) for parameter in [vertical_splits, horizontal_splits]):
+            raise TypeError('Both parameters needs to be of type int.\n'+
+                            f'Types provided: (x: {type(vertical_splits)}, y:{type(horizontal_splits)})')
+
+        # Check that both values are greater than zero
+        if not all(values > 0 for values in [vertical_splits, horizontal_splits]):
+            raise ValueError('Both parameters needs to be greater than 0.\n'+
+                            f'Provided values (x: {vertical_splits}, y: {horizontal_splits})')
+
+
+        # calculate width/height of the subboxes.
+        width, height = self.get_width_height()
+
+        sub_width = int(width / vertical_splits)
+        sub_height = int(height / horizontal_splits)
+
+
+        # populate the 2D-list with subboxes.
+        # Set parameters
+        sub_box_list = []
+        x1, start_y = self.start
+
+        # Loop through every x-position.
+        for _ in range(vertical_splits):
+            # Reset parameters
+            vertical_elements = []
+            y1 = start_y
+
+            # Create the next set of subboxes for the y-positions.
+            for _ in range(horizontal_splits):
+                # Add vertical subbox
+                vertical_elements.append(BoundBox(x1, y1, x1 + sub_width, y1 + sub_height))
+
+                # Adjust anchor for the next subbox.
+                y1 += sub_height
+            
+            # append set of y-positions to the current x.
+            sub_box_list.append(vertical_elements)
+
+            # Adjust the anchor for the next set of subboxes
+            x1 += sub_width
+
+        
+        return sub_box_list
+
 
 def value_in_range(value, min, max):
     """Takes a value and checks if its greater or equal to min and less or equal to max
