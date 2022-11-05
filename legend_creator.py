@@ -17,8 +17,8 @@ from random import choice as random_choice
 from random import randint
 
 class BoundBox:
-    """Contains a start and end point spanning a bound box. With helper functions for
-    keepin track of height/width.
+    """Contains a start and end point spanning a bound box. With various helper functions for
+    getting dimensions, moving the box etc.
     """
     def __init__(self, x1:int, y1:int, x2:int, y2:int):
         """Creates the bound objects start and endpoint.
