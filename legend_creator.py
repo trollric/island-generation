@@ -213,7 +213,6 @@ class BoundBox:
             # Adjust the anchor for the next set of subboxes
             x1 += sub_width
 
-        
         return sub_box_list
 
 
