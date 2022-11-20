@@ -844,7 +844,8 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
 
 
 def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw : ImageDraw.ImageDraw,
-                        font_color : tuple, padding = 0, spacing = 4.0, font_size = 0):
+                        font_color : tuple, padding : int = 0, spacing : float = 4.0,
+                        font_size : int = 0, alignment : str = 'left'):
     """Writes a multiline string inside a BoundBox. If no font_size is given it fills the BoundBox
     as much as possible taking padding and spacing into consideration.
 
@@ -858,6 +859,7 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
         spacing (float, optional): space between lines. Defaults to 4.0.
         font_size (int, optional): Set font size. If no value is given maximum font size is
         calculated automatically.
+        alignment (str, optional): Set font alignment (left, center, right). Defaults to left.
 
     Raises:
         TypeError: Bound box needs to be of type BoundBox
@@ -871,6 +873,8 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
         ValueError: padding can not be negative.
         TypeError: spacing needs to be of type float.
         ValueError: spacing can not be negative.
+        TypeError: alignment needs to be of type string.
+        ValueError: alignment must be (left, center or right).
     """
 
     # Validate paramters.
@@ -917,6 +921,13 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     elif not font_size >= 0:
         raise ValueError(f'padding can not be a negative number. padding provided: {font_size}')
 
+    # Verify alignment.
+    if not isinstance(alignment, str):
+        raise TypeError(f'alignment needs to be of type string.\nProvided type {type(alignment)}')
+    elif not alignment in ['left', 'center', 'right']:
+        raise ValueError(f'''alignment needs to be (left, center or right).\n
+                        Provided value: {alignment}''')
+
     # If font size is not provided. Get the maximum font size that will fit in the box.
     if font_size == 0:
         font_size = get_multiline_max_font_size(bound_box, text, font_path, padding, spacing)
@@ -929,7 +940,7 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     y1 = bound_box.get_side('top') + padding
 
     # Draw the text.
-    draw.multiline_text((x1, y1), text, font_color, font, spacing=spacing)
+    draw.multiline_text((x1, y1), text, font_color, font, spacing=spacing, align=alignment)
 
     
 
@@ -2179,6 +2190,12 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                 break
 
 
+    # Create a list containing the titles.
+    titles = ['Law']
+    for name in contraband:
+        titles.append(name)
+
+    
     # Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
     im_width, im_height = legend_image.size
@@ -2200,22 +2217,33 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Create a law bound box array.
     law_main_box = BoundBox(x1, (y1 + title_box_height), law_box_width, y2)
 
+    # Crate a title bound box array
+    title_main_box = BoundBox(x1, y1, x2, (y1 + title_box_height))
+
     # Split it in subboxes.
     law_sub_boxes = law_main_box.split(horizontal_splits=(len(law_levels_with_entires)))
+    title_sub_boxes = title_main_box.split(vertical_splits=len(titles))
 
 
-    # Write every law level number in the subboxes.
+    # Get maximum font size allowed for title and law level numbers.
     col, row = 0, 0
 
     # TODO: Make sure the same font size is used as for the titles.
     # All subboxes are of the same size. Grabbing the first element to determine font size.
     font_size = get_max_font_size_from_list(law_levels_with_entires, font_path,
-                                            law_sub_boxes[col][row].get_dimensions())
+                                            law_sub_boxes[col][row].get_dimensions(),
+                                            int(padding * 2.5))
 
+
+    # Write every law level number in the subboxes.
     # Sub box array in 2D array format. Grabbing the first (and only column)
     for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entires):
         draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
                             font_color, font_size=font_size)
+
+
+    font_size = get_max_font_size_from_list(titles, font_path,
+                                                title_sub_boxes[col][row].get_dimensions())
 
 
     bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
@@ -2228,8 +2256,6 @@ def legend_append_contraband_lists(legend_image, upp_dict):
         x_offset += box_width
 
 
-    
-
     # Add line data for color and width for separating the different subboxes.
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
@@ -2241,10 +2267,6 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     entries = len(law_levels_with_entires) + 1
     sub_box_height = int(main_box.get_height() / entries)
 
-    # Create a list containing the titles.
-    titles = ['Law']
-    for name in contraband:
-        titles.append(name)
     
     # Get max font size.
     max_font_size = 0
