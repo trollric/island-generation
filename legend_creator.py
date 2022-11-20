@@ -2283,7 +2283,9 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Sub box array in 2D array format. Grabbing the first (and only column)
     for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entires):
         draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
-                            font_color, font_size=font_size, text_alignment='center')
+                            font_color, font_size=font_size,
+                            vertical_alignment='center',
+                            horizontal_alignment='center')
 
 
     font_size = get_max_font_size_from_list(titles, font_path,
