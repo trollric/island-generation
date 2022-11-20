@@ -2257,16 +2257,28 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     title_box_height_percentage = 10
     title_box_height = percent_of_number(main_box.get_height(), title_box_height_percentage)
 
+    # Create special law box case
+    law_box = BoundBox(x1, y1, (x1 + law_box_width), (y1 + title_box_height))
 
     # Create a law bound box array.
     law_main_box = BoundBox(x1, (y1 + title_box_height), law_box_width, y2)
 
-    # Crate a title bound box array
-    title_main_box = BoundBox(x1, y1, x2, (y1 + title_box_height))
+    # Create a title bound box array
+    title_main_box = BoundBox((x1 + law_box_width), y1, x2, (y1 + title_box_height))
 
-    # Split it in subboxes.
+
+    # Split them into subboxes.
     law_sub_boxes = law_main_box.split(horizontal_splits=(len(law_levels_with_entires)))
-    title_sub_boxes = title_main_box.split(vertical_splits=len(titles))
+
+    # Get the remaining title sub boxes minus the one for "law"
+    title_sub_boxes = title_main_box.split(vertical_splits=(len(titles) - 1))
+
+    # Append the titles after the special size law_box (remember the sub box array is a 2D array)
+    title_temp_array = [[law_box]]
+    for array in title_sub_boxes:
+        title_temp_array.append(array)
+
+    title_sub_boxes = title_temp_array
 
 
     # Get maximum font size allowed for title and law level numbers.
@@ -2275,9 +2287,10 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # TODO: Make sure the same font size is used as for the titles.
     # All subboxes are of the same size. Grabbing the first element to determine font size.
     font_size = get_max_font_size_from_list(law_levels_with_entires, font_path,
-                                            law_sub_boxes[col][row].get_dimensions(),
-                                            int(padding * 2.5))
+                                            law_sub_boxes[col][row].get_dimensions())
 
+    # Adjust the font size to only part of the box
+    font_size = int(font_size / 3)
 
     # Write every law level number in the subboxes.
     # Sub box array in 2D array format. Grabbing the first (and only column)
@@ -2289,7 +2302,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # Get max font size for the titles.
     font_size = get_max_font_size_from_list(titles, font_path,
-                                                title_sub_boxes[col][row].get_dimensions())
+                                                title_sub_boxes[col + 1][row].get_dimensions())
 
 
     # Write every title in the subboxes.
