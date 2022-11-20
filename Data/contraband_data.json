@@ -9,6 +9,15 @@
         "9" : ["All armour"]
     },
 
+    "Computers" : {
+        "1" : ["Any computer running",
+                "intelligence."],
+        "3" : ["Any computer running",
+                "intrusion or",
+                "intelligent interface"],
+        "7" : ["Any computers"]
+    },
+
     "Drugs" : {
         "1" : ["Narcotics"],
         "2" : ["Combat Drugs"],
