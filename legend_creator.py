@@ -796,9 +796,9 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
         elif len(box_dimensions) == 4:
             width = box_dimensions[0] - box_dimensions[2]
             height = box_dimensions[1] - box_dimensions[3]
-        box_dimensions = BoundBox(0, 0, width, height)
+        sub_box = BoundBox(0, 0, width, height)
     else:
-        box_dimensions = BoundBox(0, 0, box_dimensions.get_width(), box_dimensions.get_height())
+        sub_box = BoundBox(0, 0, box_dimensions.get_width(), box_dimensions.get_height())
 
     # validate text
     if not isinstance(text, str):
@@ -824,12 +824,12 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     
     # Check if the text is a multiline string. Delegate to get_max_font_size() if it is.
     if not('\n' in text or '\r' in text):
-        return get_max_font_size(box_dimensions, text, font_path, padding)
+        return get_max_font_size(sub_box.get_dimensions(), text, font_path, padding)
 
     
     # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
     font_size = 1
-    width, height = box_dimensions.get_width_height()
+    width, height = sub_box.get_width_height()
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
         text_width, text_height = font.getsize_multiline(text, 'ltr', spacing)
@@ -2358,7 +2358,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
                 # Convert to multiline string.
                 text = '\n'.join(text_array)
-                
+
                 # Draw the text
                 draw_text_bound_box(sub_box, contraband_dictionary.get(law_level), font_path,
                                     legend_draw, font_color, padding, font_size=font_size)
