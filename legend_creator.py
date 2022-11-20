@@ -2284,81 +2284,31 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entires):
         draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
                             font_color, font_size=font_size,
-                            vertical_alignment='center',
-                            horizontal_alignment='center')
+                            vertical_alignment='center', horizontal_alignment='center')
 
 
+    # Get max font size for the titles.
     font_size = get_max_font_size_from_list(titles, font_path,
                                                 title_sub_boxes[col][row].get_dimensions())
 
 
-    bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
-
-    # Loop throught the remaining width and create the other bound boxes.
-    box_width = int((main_box.get_width() - bound_boxes[0].get_width()) / len(contraband))
-    x_offset = bound_boxes[0].get_side('right')
-    for _ in range(len(contraband)):
-        bound_boxes.append(BoundBox(x_offset, y1, x_offset + box_width, y2))
-        x_offset += box_width
+    # Write every title in the subboxes.
+    # Sub box array in 2D array format. Grabbing the first row value in every col.
+    for sub_box, title in zip(title_sub_boxes, titles):
+        draw_text_bound_box(sub_box[row], title, font_path, legend_draw,
+                            font_color, font_size=font_size,
+                            vertical_alignment='center', horizontal_alignment='center')
 
 
     # Add line data for color and width for separating the different subboxes.
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
 
-    # Write the titles.
-    x_offset = main_box.get_side('left')
-    y_offset = main_box.get_side('top')
 
-    entries = len(law_levels_with_entires) + 1
-    sub_box_height = int(main_box.get_height() / entries)
+    # TODO: Create sub_boxes for the contraband elements.
 
-    
-    # Get max font size.
-    max_font_size = 0
-    for entry in range(len(titles)):
-        # Create a subbox
-        box = bound_boxes[entry]
-        x1, y1 = box.get_side('left'), y_offset
-        x2, y2 = box.get_side('right'), (y_offset + sub_box_height)
-        sub_box = BoundBox(x1, y1, x2, y2)
-
-        # get the text
-        text = titles[entry]
-
-        # Calculate maximum font size for the box
-        font_size = get_max_font_size(sub_box.get_dimensions(), text, font_path, padding)
-
-        if font_size < max_font_size or max_font_size == 0:
-            max_font_size = font_size
-
-
-    # Write every title in their respective subbox.
-    for entry in range(len(titles)):
-        # Create a subbox
-        box = bound_boxes[entry]
-        x1, y1 = box.get_side('left'), y_offset
-        x2, y2 = box.get_side('right'), (y_offset + sub_box_height)
-        sub_box = BoundBox(x1, y1, x2, y2)
-
-        # get the text
-        text = titles[entry]
-
-        # Create font
-        font = ImageFont.truetype(font_path, max_font_size)
-        # Draw the title
-        draw_text_in_list(legend_draw, font, font_color, sub_box.get_dimensions(), [text], padding,
-                            horizontal='center')
-    
-    #TODO: Calculate maximum font size for the subboxes.
-
-    #TODO: Step through each law level and append contraband to sub box.
-
-
-    for entry in range(entries):
-        for box_number in range(len(bound_boxes)):
-            sub_box = bound_boxes[box_number]
-
+    # TODO: Draw the contraband text for each contraband category if a contraband exist for the
+    # given law_level.
 
     return legend_image
 
