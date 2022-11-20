@@ -2348,7 +2348,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Write the contraband data in subboxes
     for sub_box_column, category in zip(contraband_sub_boxes, contraband):
         # Get dictionary for the column.
-        contraband_dictionary = contraband_dictionaries(category)
+        contraband_dictionary = contraband_dictionaries.get(category)
 
         # Step through each row.
         for sub_box, law_level in zip(sub_box_column, law_levels_with_entries):
