@@ -2360,7 +2360,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                 text = '\n'.join(text_array)
 
                 # Draw the text
-                draw_text_bound_box(sub_box, contraband_dictionary.get(law_level), font_path,
+                draw_text_bound_box(sub_box, text, font_path,
                                     legend_draw, font_color, padding, font_size=font_size)
 
 
@@ -2438,30 +2438,6 @@ def main():
     planet_name = 'Debug'
 
     generate_legend(upp_dict, color_palette, path, planet_name)
-
-
-    # Debug max_multiline_font
-    # im = Image.new('RGBA', (600, 600), (64, 64, 64, 255))
-    # draw = ImageDraw.Draw(im)
-
-    # box = BoundBox(100, 100, 500, 500)
-    # font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    # text = f'a new hope is\ngrowing for the\nflying foxes huzzah.'
-    # #size = get_multiline_max_font_size(box, text, font_path)
-
-    # #draw_text_bound_box(box, text, font_path, draw, tuple(colors.get_rgb_color('red')))
-
-    # # Debug BoundBox split method.
-    # sub_boxes = box.split(4,2)
-
-    # for col in sub_boxes:
-    #     for sub_box in col:
-    #         draw_text_bound_box(sub_box, text, font_path, draw, tuple(colors.get_rgb_color('blue')))
-    #         list_of_color_names = list(colors.rgb_dictionary.keys())
-    #         rectangle_color = tuple(colors.get_rgb_color(random_choice(list_of_color_names)))
-    #         draw.rectangle(sub_box.get_dimensions(), outline=rectangle_color, width=2)
-            
-    # im.show()
 
 
 if __name__ == '__main__':
