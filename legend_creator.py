@@ -2175,8 +2175,9 @@ def legend_append_contraband_lists(legend_image, upp_dict):
         for category in contraband:
             dictionary = contraband_dictionary.get(category)
             if str(level) in dictionary.keys():
-                law_levels_with_entires.append(level)
+                law_levels_with_entires.append(str(level))
                 break
+
 
     # Calculate BoundBoxes.
     # Weapons, Armour, Information, Technology, Travelers, Psionics
@@ -2193,7 +2194,8 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # Get the title height.
     title_box_height_percentage = 10
-    title_box_height = percent_of_number(main_box.get_height(), title_box_height_percentage())
+    title_box_height = percent_of_number(main_box.get_height(), title_box_height_percentage)
+
 
     # Create a law bound box array.
     law_main_box = BoundBox(x1, (y1 + title_box_height), law_box_width, y2)
@@ -2201,8 +2203,20 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Split it in subboxes.
     law_sub_boxes = law_main_box.split(horizontal_splits=(len(law_levels_with_entires)))
 
+
     # Write every law level number in the subboxes.
-    font_size = get_max_font_size_from_list(law_levels_with_entires, font_path)
+    col, row = 0, 0
+
+    # All subboxes are of the same size. Grabbing the first element to determine font size.
+    font_size = get_max_font_size_from_list(law_levels_with_entires, font_path,
+                                            law_sub_boxes[col][row].get_dimensions())
+
+    # Sub box array in 2D array format. Grabbing the first (and only column)
+    for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entires):
+        draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
+                            font_color, font_size=font_size)
+                            
+
     bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
 
     # Loop throught the remaining width and create the other bound boxes.
