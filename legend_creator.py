@@ -2345,6 +2345,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                     font_size = temp_font_size
 
     
+    # TODO: Check font size for these boxes.
     # Write the contraband data in subboxes
     for sub_box_column, category in zip(contraband_sub_boxes, contraband):
         # Get dictionary for the column.
@@ -2364,15 +2365,11 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                                     legend_draw, font_color, padding, font_size=font_size)
 
 
+    # TODO:
     # Add line data for color and width for separating the different subboxes.
     line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
 
-
-    # TODO: Create sub_boxes for the contraband elements.
-
-    # TODO: Draw the contraband text for each contraband category if a contraband exist for the
-    # given law_level.
 
     return legend_image
 
