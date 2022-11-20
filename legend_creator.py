@@ -2140,7 +2140,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Make a row b1-b2 for every contraband type on the planet.
     # The contraband boxes share the remaining space equally.
     
-    
+
     # Create ImageDraw.Draw class for appendinglines and text.
     legend_draw = ImageDraw.Draw(legend_image)
 
@@ -2149,6 +2149,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
     padding = 15
+
 
     # Fetch contraband dictionary with contraband for each law level.
     with open("Data/contraband_data.json",) as contraband_json:
@@ -2159,6 +2160,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     government_type = str(upp_dict.get('government_type'))
     with open("Data/government_data.json",) as government_data_json:
         contraband = json.load(government_data_json).get(government_type).get('contraband')
+
 
     # If Weapon is considered contraband. Also add Armour
     if "Weapons" in contraband:
