@@ -2140,6 +2140,15 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Make a row b1-b2 for every contraband type on the planet.
     # The contraband boxes share the remaining space equally.
     
+    
+    # Create ImageDraw.Draw class for appendinglines and text.
+    legend_draw = ImageDraw.Draw(legend_image)
+
+    # Set local font properties.
+    # Font data.
+    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
+    font_color = tuple(colors.get_rgb_color('gold'))
+    padding = 15
 
     # Fetch contraband dictionary with contraband for each law level.
     with open("Data/contraband_data.json",) as contraband_json:
@@ -2179,6 +2188,19 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Create a title height and law width.
     law_box_width_percentage = 14
     law_box_width = percent_of_number(main_box.get_width(), law_box_width_percentage)
+
+    # Get the title height.
+    title_box_height_percentage = 10
+    title_box_height = percent_of_number(main_box.get_height(), title_box_height_percentage())
+
+    # Create a law bound box array.
+    law_main_box = BoundBox(x1, (y1 + title_box_height), law_box_width, y2)
+
+    # Split it in subboxes.
+    law_sub_boxes = law_main_box.split(horizontal_splits=(len(law_levels_with_entires)))
+
+    # Write every law level number in the subboxes.
+    font_size = get_max_font_size_from_list(law_levels_with_entires, font_path)
     bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
 
     # Loop throught the remaining width and create the other bound boxes.
@@ -2189,13 +2211,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
         x_offset += box_width
 
 
-    # Create ImageDraw.Draw class for appendinglines and text.
-    legend_draw = ImageDraw.Draw(legend_image)
-
-    # Font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
-    padding = 15
+    
 
     # Add line data for color and width for separating the different subboxes.
     line_color = tuple(colors.get_rgb_color('orange_red'))
