@@ -2173,10 +2173,12 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     x1, y1 = 0 , int((7 * im_width) / 12)
     x2, y2 = int(im_width / 2), im_height
 
+    # Main box.
     main_box = BoundBox(x1, y1, x2, y2)
 
-    l_box_percentage = 14
-    law_box_width = percent_of_number(main_box.get_width(), l_box_percentage)
+    # Create a title height and law width.
+    law_box_width_percentage = 14
+    law_box_width = percent_of_number(main_box.get_width(), law_box_width_percentage)
     bound_boxes = [BoundBox(x1, y1, x1 + law_box_width, y2)]
 
     # Loop throught the remaining width and create the other bound boxes.
