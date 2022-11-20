@@ -2203,12 +2203,12 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Font data.
     font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     font_color = tuple(colors.get_rgb_color('gold'))
-    padding = 15
+    padding = 10
 
 
     # Fetch contraband dictionary with contraband for each law level.
     with open("Data/contraband_data.json",) as contraband_json:
-        contraband_dictionary = json.load(contraband_json)
+        contraband_dictionaries = json.load(contraband_json)
 
     
     # Determine what the planet considers contraband.
@@ -2223,14 +2223,14 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     
 
     # Determine what levels has entires.
-    law_levels_with_entires = []
+    law_levels_with_entries = []
     law_level = upp_dict.get('law_level')
 
     for level in range(1, law_level):
         for category in contraband:
-            dictionary = contraband_dictionary.get(category)
-            if str(level) in dictionary.keys():
-                law_levels_with_entires.append(str(level))
+            contraband_dictionary = contraband_dictionaries.get(category)
+            if str(level) in contraband_dictionary.keys():
+                law_levels_with_entries.append(str(level))
                 break
 
 
@@ -2266,9 +2266,12 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Create a title bound box array
     title_main_box = BoundBox((x1 + law_box_width), y1, x2, (y1 + title_box_height))
 
+    # Contraband elements box
+    contraband_main_box = BoundBox((x1 + law_box_width), (y1 + title_box_height), x2, y2)
+
 
     # Split them into subboxes.
-    law_sub_boxes = law_main_box.split(horizontal_splits=(len(law_levels_with_entires)))
+    law_sub_boxes = law_main_box.split(horizontal_splits=(len(law_levels_with_entries)))
 
     # Get the remaining title sub boxes minus the one for "law"
     title_sub_boxes = title_main_box.split(vertical_splits=(len(titles) - 1))
@@ -2280,13 +2283,17 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     title_sub_boxes = title_temp_array
 
+    # Contraband sub_boxes
+    contraband_sub_boxes = contraband_main_box.split(vertical_splits=len(contraband),
+                                                    horizontal_splits=len(law_levels_with_entries))
+
 
     # Get maximum font size allowed for title and law level numbers.
     col, row = 0, 0
 
     # TODO: Make sure the same font size is used as for the titles.
     # All subboxes are of the same size. Grabbing the first element to determine font size.
-    font_size = get_max_font_size_from_list(law_levels_with_entires, font_path,
+    font_size = get_max_font_size_from_list(law_levels_with_entries, font_path,
                                             law_sub_boxes[col][row].get_dimensions())
 
     # Adjust the font size to only part of the box
@@ -2294,7 +2301,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # Write every law level number in the subboxes.
     # Sub box array in 2D array format. Grabbing the first (and only column)
-    for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entires):
+    for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entries):
         draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
                             font_color, font_size=font_size,
                             vertical_alignment='center', horizontal_alignment='center')
@@ -2311,6 +2318,50 @@ def legend_append_contraband_lists(legend_image, upp_dict):
         draw_text_bound_box(sub_box[row], title, font_path, legend_draw,
                             font_color, font_size=font_size,
                             vertical_alignment='center', horizontal_alignment='center')
+
+
+    # Find max font size for the contraband boxes
+
+    # Set initial font_size and get any sub_box from contraband sub boxes since they are all of the
+    # same size.
+
+    font_size = 0
+    sub_box = contraband_sub_boxes[0][0]
+    for law_level in law_levels_with_entries:
+        for category in contraband:
+            contraband_dictionary = contraband_dictionaries.get(category)
+            if law_level in contraband_dictionary.keys():
+                # Get text from array.
+                text_array = contraband_dictionary.get(law_level)
+
+                # Convert it into a multiline string.
+                text = '\n'.join(text_array)
+
+                # Get font size.
+                temp_font_size = get_multiline_max_font_size(sub_box.get_dimensions(),
+                                text, font_path, padding)
+
+                if font_size == 0 or temp_font_size < font_size:
+                    font_size = temp_font_size
+
+    
+    # Write the contraband data in subboxes
+    for sub_box_column, category in zip(contraband_sub_boxes, contraband):
+        # Get dictionary for the column.
+        contraband_dictionary = contraband_dictionaries(category)
+
+        # Step through each row.
+        for sub_box, law_level in zip(sub_box_column, law_levels_with_entries):
+            if law_level in contraband_dictionary.keys():
+                # Get text array from dictionary.
+                text_array = contraband_dictionary.get(law_level)
+
+                # Convert to multiline string.
+                text = '\n'.join(text_array)
+                
+                # Draw the text
+                draw_text_bound_box(sub_box, contraband_dictionary.get(law_level), font_path,
+                                    legend_draw, font_color, padding, font_size=font_size)
 
 
     # Add line data for color and width for separating the different subboxes.
