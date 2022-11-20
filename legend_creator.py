@@ -845,7 +845,8 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
 
 def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw : ImageDraw.ImageDraw,
                         font_color : tuple, padding : int = 0, spacing : float = 4.0,
-                        font_size : int = 0, alignment : str = 'left'):
+                        font_size : int = 0, text_alignment : str = 'left',
+                        horizontal_alignment : str = 'left', vertical_alignment : str = 'top'):
     """Writes a multiline string inside a BoundBox. If no font_size is given it fills the BoundBox
     as much as possible taking padding and spacing into consideration.
 
@@ -859,7 +860,11 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
         spacing (float, optional): space between lines. Defaults to 4.0.
         font_size (int, optional): Set font size. If no value is given maximum font size is
         calculated automatically.
-        alignment (str, optional): Set font alignment (left, center, right). Defaults to left.
+        text_alignment (str, optional): Set font alignment (left, center, right). Defaults to left.
+        horizontal_alignment (str, optional): (left, center, right). Aligns the text horizontally
+        inside the box.
+        vertical_alignment (str, optional): (top, center, bottom). Aligns the text vertically inside
+        the box.
 
     Raises:
         TypeError: Bound box needs to be of type BoundBox
@@ -873,8 +878,12 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
         ValueError: padding can not be negative.
         TypeError: spacing needs to be of type float.
         ValueError: spacing can not be negative.
-        TypeError: alignment needs to be of type string.
-        ValueError: alignment must be (left, center or right).
+        TypeError: text_alignment needs to be of type string.
+        ValueError: text_alignment must be (left, center or right).
+        TypeError: horizontal_alignment needs to be of type string.
+        ValueError: horizontal_alignment must be (left, center or right).
+        TypeError: vertical_alignment needs to be of type string.
+        ValueError: vertical_alignment must be (top, center or bottom).
     """
 
     # Validate paramters.
@@ -921,12 +930,29 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     elif not font_size >= 0:
         raise ValueError(f'padding can not be a negative number. padding provided: {font_size}')
 
-    # Verify alignment.
-    if not isinstance(alignment, str):
-        raise TypeError(f'alignment needs to be of type string.\nProvided type {type(alignment)}')
-    elif not alignment in ['left', 'center', 'right']:
+    # Verify alignments.
+    # text.
+    if not isinstance(text_alignment, str):
+        raise TypeError(f'alignment needs to be of type string.\nProvided type {type(text_alignment)}')
+    elif not text_alignment in ['left', 'center', 'right']:
         raise ValueError(f'''alignment needs to be (left, center or right).\n
-                        Provided value: {alignment}''')
+                        Provided value: {text_alignment}''')
+
+    # horizontal.
+    if not isinstance(horizontal_alignment, str):
+        raise TypeError(f'''alignment needs to be of type string.\n
+        Provided type: {type(horizontal_alignment)}''')
+    elif not horizontal_alignment in ['left', 'center', 'right']:
+        raise ValueError(f'''alignment needs to be (left, center or right).\n
+                        Provided value: {horizontal_alignment}''')
+
+    # vertical.
+    if not isinstance(vertical_alignment, str):
+        raise TypeError(f'''alignment needs to be of type string.\n
+        Provided type: {type(vertical_alignment)}''')
+    elif not vertical_alignment in ['top', 'center', 'bottom']:
+        raise ValueError(f'''alignment needs to be (left, center or right).\n
+                        Provided value: {vertical_alignment}''')
 
     # If font size is not provided. Get the maximum font size that will fit in the box.
     if font_size == 0:
@@ -936,11 +962,29 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     font = ImageFont.truetype(font_path, font_size)
 
     # Get anchor position.
-    x1 = bound_box.get_side('left') + padding
+    x1 = bound_box.get_side('left')
     y1 = bound_box.get_side('top') + padding
 
+    # Get text box dimensions.
+    text_width, text_height = font.getsize_multiline(text, spacing=spacing)
+
+    if horizontal_alignment == 'left':
+        x1 += padding
+    elif horizontal_alignment == 'center':
+        x1 += int((bound_box.get_width() - text_width) / 2)
+    elif horizontal_alignment == 'right':
+        x1 = bound_box.get_side('right') - (text_width + padding)
+
+    if vertical_alignment == 'top':
+        y1 += padding
+    elif vertical_alignment == 'center':
+        y1 += int((bound_box.get_height() - text_height) / 2)
+    elif vertical_alignment == 'bottom':
+        y1 += bound_box.get_side('bottom') - (text_height + padding)
+
+
     # Draw the text.
-    draw.multiline_text((x1, y1), text, font_color, font, spacing=spacing, align=alignment)
+    draw.multiline_text((x1, y1), text, font_color, font, spacing=spacing, align=text_alignment)
 
     
 
@@ -2239,7 +2283,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Sub box array in 2D array format. Grabbing the first (and only column)
     for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entires):
         draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
-                            font_color, font_size=font_size)
+                            font_color, font_size=font_size, text_alignment='center')
 
 
     font_size = get_max_font_size_from_list(titles, font_path,
