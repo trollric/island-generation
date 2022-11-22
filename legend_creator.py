@@ -832,7 +832,7 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     width, height = sub_box.get_width_height()
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
-        text_width, text_height = font.getsize_multiline(text, 'ltr', spacing)
+        text_width, text_height = font.getsize_multiline(text, spacing=spacing)
 
         # Break if we have reached the largest font size possible.
         if text_width > width - 2 * padding or text_height > height - 2 * padding:
