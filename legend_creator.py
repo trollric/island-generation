@@ -2314,6 +2314,8 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                             vertical_alignment='top', horizontal_alignment='center')
 
 
+    # TODO: Ensure the font sizes works. Right now Law is not determined inside its
+    # own box.
     # Get max font size for the titles.
     font_size = get_max_font_size_from_list(titles, font_path,
                                                 title_sub_boxes[col + 1][row].get_dimensions())
