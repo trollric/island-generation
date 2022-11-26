@@ -2429,21 +2429,26 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     # Generate factions and add cultures.
     legend_doc = legend_append_factions(legend_doc, upp_dict)
 
-    # TODO: Determine contraband and append them to the bottom left under separate categories.
+    # Determine contraband and append them to the bottom left under separate categories.
     legend_doc = legend_append_contraband_lists(legend_doc, upp_dict)
 
 
-    legend_doc.show()
-    # Create path to save location
-    planet_name += '_legend'
-    path = os.path.join(path, planet_name)
+    if debug:
+        legend_doc.show()
+    else:
+        # Create path to save location
+        planet_name += '_legend.png'
+        path = os.path.join(path, planet_name)
 
-    # Save image to path with <name>_legend as PNG.
-    legend_doc.save(path, 'PNG')
+        # Save image to path with <name>_legend as PNG.
+        legend_doc.save(path, 'PNG')
 
 
 def main():
-    # If called directly. Make planetary data up.
+    # If called directly. Make planetary data up
+    # and display the image.
+    global debug
+    debug = True
     upp_dict = upp_to_dict('A344556-10')
     color_palette = create_color_palette(upp_dict)
     path = os.path.join(os.getcwd(), 'Saved')
