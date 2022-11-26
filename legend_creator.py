@@ -2299,7 +2299,6 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Get maximum font size allowed for title and law level numbers.
     col, row = 0, 0
 
-    # TODO: Make sure the same font size is used as for the titles.
     # All subboxes are of the same size. Grabbing the first element to determine font size.
     font_size = get_max_font_size_from_list(law_levels_with_entries, font_path,
                                             law_sub_boxes[col][row].get_dimensions())
