@@ -9,6 +9,7 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 import os
+import legend_creator
 
 
 
@@ -637,9 +638,11 @@ def world_image_creation(world_array, upp_serial=None):
 
 
     # Clean the data and sort into a dictionary 
+    global universal_planet_profile
     universal_planet_profile = upp_to_dict(upp_serial)
 
     # Depending on geology use different sets of colors
+    global geology_palette
     geology_palette = create_color_palette(universal_planet_profile)
 
     # Paint a colored image
@@ -763,8 +766,17 @@ def main(DEBUG_MODE = False):
                     # Make sure the save directory exist. Otherwise create it.
                     if not os.path.exists(path):
                         os.makedirs(path)
+
+
+                    # Generate and save legend
+                    legend_creator.generate_legend( universal_planet_profile,
+                                                    geology_palette,
+                                                    path,
+                                                    planet_name)
+
                     # Append filetype
                     planet_name += '.png'
+                    
                     # Save the file at the saved directory with user provided name as PNG.
                     path = os.path.join(path, planet_name)
                     planet_image.save(path, 'PNG')
