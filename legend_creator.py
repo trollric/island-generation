@@ -2168,7 +2168,15 @@ def legend_append_factions(legend_image, upp_dict):
 
 
 def legend_append_contraband_lists(legend_image, upp_dict):
-    # TODO: Add docstring when ready.
+    """Takes an image to append contraband data to using the UPP
+
+    Args:
+        legend_image (PIL.Image): Image to append the data to.
+        upp_dict (dict): Dictionary containing all the UPP-Data.
+
+    Returns:
+        PIL.Image: Returns the image with appended data.
+    """
 
     # Draw ascii art depicting the subboxes and what goes where.
     #------------------------------------------------------------
