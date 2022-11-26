@@ -2388,7 +2388,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     return legend_image
 
 
-def generate_legend(upp_dict, color_palette, path, planet_name):
+def generate_legend(upp_dict, color_palette, path, planet_name, debug = False):
     """Generates a planetary legend to give better overview for players.
 
     Args:
@@ -2447,14 +2447,13 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
 def main():
     # If called directly. Make planetary data up
     # and display the image.
-    global debug
     debug = True
     upp_dict = upp_to_dict('A344556-10')
     color_palette = create_color_palette(upp_dict)
     path = os.path.join(os.getcwd(), 'Saved')
     planet_name = 'Debug'
 
-    generate_legend(upp_dict, color_palette, path, planet_name)
+    generate_legend(upp_dict, color_palette, path, planet_name, debug)
 
 
 if __name__ == '__main__':
