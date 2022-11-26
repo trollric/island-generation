@@ -780,7 +780,7 @@ def main(DEBUG_MODE = False):
             except ValueError as err:
                 print('An error occured.')
                 print(err)
-                print_help()
+                print("Use command 'h' or 'help' for help.")
                 
 
     # TODO: Create a Legend for the planet.
