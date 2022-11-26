@@ -768,8 +768,8 @@ def main(DEBUG_MODE = False):
                         os.makedirs(path)
 
                     # Save the file at the saved directory with user provided name as PNG.
-                    path = os.path.join(path, planet_name + '.png')
-                    planet_image.save(path, 'PNG')
+                    planet_image_path = os.path.join(path, planet_name + '.png')
+                    planet_image.save(planet_image_path, 'PNG')
 
 
                     # Generate and save legend
