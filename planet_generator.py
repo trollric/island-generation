@@ -282,7 +282,7 @@ def upp_to_dict(upp_string):
         starport_value = upp_dict['starport_quality']
         raise ValueError(f'Starport quality must be of values 0(sybol for X) or between A-E \n Starport value provided: {starport_value}')
 
-    # Size [1-A]
+    # Size [0-A]
     if upp_dict['size'] < 0 or upp_dict['size'] > 10:
         size_value = upp_dict['size']
         raise ValueError(f'Planet size needs to be between 0-A in size. \n Size value provided: {size_value}')
@@ -293,7 +293,7 @@ def upp_to_dict(upp_string):
         raise ValueError(f'Atmosphere types can only range between 0-F \n Atmosphere value entered: {atmo_value}')
 
     # Hydrographic percentage [0-A]
-    if upp_dict['hydrographic_percentage'] < 0 or upp_dict['hydrographic_percentage'] > 15:
+    if upp_dict['hydrographic_percentage'] < 0 or upp_dict['hydrographic_percentage'] > 10:
         hydro_value = upp_dict['hydrographic_percentage']
         raise ValueError(f'Hydrographic percentage must range beetween 0-A. \n Hydrographic value provided: {hydro_value}')
 
@@ -767,19 +767,16 @@ def main(DEBUG_MODE = False):
                     if not os.path.exists(path):
                         os.makedirs(path)
 
+                    # Save the file at the saved directory with user provided name as PNG.
+                    path = os.path.join(path, planet_name + '.png')
+                    planet_image.save(path, 'PNG')
+
 
                     # Generate and save legend
                     legend_creator.generate_legend( universal_planet_profile,
                                                     geology_palette,
                                                     path,
                                                     planet_name)
-
-                    # Append filetype
-                    planet_name += '.png'
-                    
-                    # Save the file at the saved directory with user provided name as PNG.
-                    path = os.path.join(path, planet_name)
-                    planet_image.save(path, 'PNG')
             except ValueError as err:
                 print('An error occured.')
                 print(err)
