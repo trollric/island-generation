@@ -783,8 +783,6 @@ def main(DEBUG_MODE = False):
                 print("Use command 'h' or 'help' for help.")
                 
 
-    # TODO: Create a Legend for the planet.
-
 
 if __name__ == "__main__":
     debug = False
