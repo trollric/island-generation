@@ -2438,7 +2438,8 @@ def generate_legend(upp_dict, color_palette, path, planet_name):
     planet_name += '_legend'
     path = os.path.join(path, planet_name)
 
-    # TODO: Save image to path with <name>_legend.
+    # Save image to path with <name>_legend as PNG.
+    legend_doc.save(path, 'PNG')
 
 
 def main():
