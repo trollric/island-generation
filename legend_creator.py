@@ -1128,8 +1128,6 @@ def legend_append_trade_codes(legend_image, trade_codes):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Set default font values.
-    font_color = tuple(colors.get_rgb_color('gold'))
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     padding = 20
 
     # Create a font for the trade_string
@@ -1137,8 +1135,8 @@ def legend_append_trade_codes(legend_image, trade_codes):
     text = f'Trade codes: {trade_string}'
     
     # Determine maxiumum font size with padding.
-    font_size = get_max_font_size(b1, text, font_path, padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size(b1, text, FONT_PATH, padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     x_alignment, y_alignment = get_font_align_offsets(  b1, text, font,
                                                         vertical='center',
@@ -1146,24 +1144,24 @@ def legend_append_trade_codes(legend_image, trade_codes):
 
     # Write Trade Codes: And add every trade code
     text_coord = (b1[0][0] + x_alignment, b1[0][1] + y_alignment)
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, FONT_COLOR, font=font)
 
     # Add text purchase info and sell info.
     # Get maximum font size for b2 and create font.
     text = 'Trade goods'
-    font_size = get_max_font_size(b2, text, font_path, padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size(b2, text, FONT_PATH, padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     x_alignment, y_alignment = get_font_align_offsets(  b2, text, font,
                                                         vertical='center',
                                                         padding=padding)
 
     text_coord = (b2[0][0] + x_alignment , b2[0][1] + y_alignment)
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, FONT_COLOR, font=font)
 
     text = 'Purchase | Sell DM'
-    font_size = get_max_font_size(b3, text, font_path, padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size(b3, text, FONT_PATH, padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     x_alignment, y_alignment = get_font_align_offsets(  b3, text, font,
                                                         horizontal='center',
@@ -1171,7 +1169,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                         padding=padding)
 
     text_coord = (b3[0][0] + x_alignment, b3[0][1] + y_alignment)
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, FONT_COLOR, font=font)
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
@@ -1191,7 +1189,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
     # Find the largest font size possible that fits all boxes.
     font_size = None
     for text in eligible_trade_goods.keys():
-        sub_font_size = get_max_font_size(sub_box, text, font_path, padding)
+        sub_font_size = get_max_font_size(sub_box, text, FONT_PATH, padding)
         if font_size == None or sub_font_size < font_size:
             font_size = sub_font_size
 
@@ -1201,7 +1199,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                             font_size: {font_size}, padding: {padding}''')
 
     # Create the font with the largest font_size that will fit.
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Assign special padding to the sub boxes of b5.
     b5_width, _ = get_box_dimension_size(b5)
@@ -1216,7 +1214,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                             vertical='center',
                                                             padding=padding)
         text_coord = (x_offset_b4 + x_alignment, y_offset + y_alignment)
-        legend_draw.text(text_coord, key, font_color, font=font)
+        legend_draw.text(text_coord, key, FONT_COLOR, font=font)
 
         # If purchase dm is not 0
         # Get alignment and draw purchase_dm in b5
@@ -1225,7 +1223,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
             x_alignment, _ = get_font_align_offsets(  sub_box, str(purchase_dm), font,
                                                                 padding=b5_padding)
             text_coord = (x_offset_b5 + x_alignment, y_offset + y_alignment)
-            legend_draw.text(text_coord, f'{purchase_dm}', font_color, font=font)
+            legend_draw.text(text_coord, f'{purchase_dm}', FONT_COLOR, font=font)
 
         # If sale is not 0
         # Get alignment and draw sale_dm in b5
@@ -1235,7 +1233,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                                 horizontal='right',
                                                                 padding=b5_padding)
             text_coord = (x_offset_b5 + x_alignment, y_offset + y_alignment)
-            legend_draw.text(text_coord, f'{sale_dm}', font_color, font=font)
+            legend_draw.text(text_coord, f'{sale_dm}', FONT_COLOR, font=font)
             
         # Increment the sub_box_offset.
         y_offset += sub_box_height
