@@ -16,6 +16,13 @@ from PIL import ImageFont
 from random import choice as random_choice
 from random import randint
 
+
+# Constants
+FONT_PATH = "Fonts/Optima-LT-Medium-Italic.ttf"
+FONT_COLOR = tuple(colors.get_rgb_color('gold'))
+LINE_COLOR = tuple(colors.get_rgb_color('orange_red'))
+
+
 class BoundBox:
     """Contains a start and end point spanning a bound box. With various helper functions for
     getting dimensions, moving the box etc.
@@ -985,8 +992,6 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
 
     # Draw the text.
     draw.multiline_text((x1, y1), text, font_color, font, spacing=spacing, align=text_alignment)
-
-    
 
 
 def get_max_font_size_from_list(list, font_path, box_dimensions, padding = 0):
