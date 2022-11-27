@@ -1295,8 +1295,6 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Save font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 15
 
     # Create a subbox for the three lines in b1.
@@ -1386,15 +1384,15 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     ]
 
     font_size = get_max_font_size_from_list(size_and_population_metrics,
-                                                font_path,
+                                                FONT_PATH,
                                                 sub_box_b1.get_dimensions(),
                                                 padding)
 
     # Create font
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
     
     # Draw size and population data.
-    draw_text_in_list( legend_draw, font, font_color, sub_box_b1.get_dimensions(),
+    draw_text_in_list( legend_draw, font, FONT_COLOR, sub_box_b1.get_dimensions(),
                         size_and_population_metrics, padding)
 
     # TODO: This data could be added as JSON database with int keys. Reducing the amount of lines
@@ -1495,17 +1493,17 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
 
     # Find largest font size
     font_size = get_max_font_size_from_list(planetary_metrics,
-                                                font_path,
+                                                FONT_PATH,
                                                 sub_box_b2.get_dimensions(),
                                                 padding=8)
 
     # Create the font
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Render the data
     draw_text_in_list( legend_draw,
                         font,
-                        font_color,
+                        FONT_COLOR,
                         sub_box_b2.get_dimensions(),
                         planetary_metrics,
                         padding)
@@ -1554,13 +1552,12 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     legend_image.paste(plot_image, b3.start)
 
     # Reapply lines around the boundbox.
-    # Select a line color (remember PIL uses tuples)
-    line_fill_color = tuple(colors.get_rgb_color('orange_red'))
+    # Custom line information.
     line_width = 4
     
     # Redraw a box around b2 and b3.
-    legend_draw.rectangle(b2.get_dimensions(), outline=line_fill_color, width=line_width)
-    legend_draw.rectangle(b3.get_dimensions(), outline=line_fill_color, width=line_width)
+    legend_draw.rectangle(b2.get_dimensions(), outline=LINE_COLOR, width=line_width)
+    legend_draw.rectangle(b3.get_dimensions(), outline=LINE_COLOR, width=line_width)
 
     return legend_image
 
