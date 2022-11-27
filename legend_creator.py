@@ -2257,6 +2257,25 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Main box.
     main_box = BoundBox(x1, y1, x2, y2)
 
+
+    # If there is no law (law = 0) write a special message
+    if len(law_levels_with_entries) == 0:
+        warning_message = """
+            The only law you will find on this rock, is\n
+            the law you and your companions make with your\n
+            own firepower, contacts and wits.\n\n
+            It is highly recommended you carry a firearm\n
+            and your finest piece of armor."""
+        
+        font_size = get_multiline_max_font_size(main_box.get_dimensions(),
+                                                warning_message, font_path, padding)
+
+        draw_text_bound_box(main_box, warning_message, font_path,
+                            legend_draw, font_color, padding,
+                            vertical_alignment='center', horizontal_alignment='center')
+        return legend_image
+    
+
     # Create a title height and law width.
     law_box_width_percentage = 14
     law_box_width = percent_of_number(main_box.get_width(), law_box_width_percentage)
