@@ -2199,8 +2199,6 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # Set local font properties.
     # Font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 10
 
 
@@ -2258,10 +2256,10 @@ def legend_append_contraband_lists(legend_image, upp_dict):
             and your finest piece of armor."""
         
         font_size = get_multiline_max_font_size(main_box.get_dimensions(),
-                                                warning_message, font_path, padding)
+                                                warning_message, FONT_PATH, padding)
 
-        draw_text_bound_box(main_box, warning_message, font_path,
-                            legend_draw, font_color, padding,
+        draw_text_bound_box(main_box, warning_message, FONT_PATH,
+                            legend_draw, FONT_COLOR, padding,
                             vertical_alignment='center', horizontal_alignment='center')
         return legend_image
     
@@ -2309,7 +2307,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     col, row = 0, 0
 
     # All subboxes are of the same size. Grabbing the first element to determine font size.
-    font_size = get_max_font_size_from_list(law_levels_with_entries, font_path,
+    font_size = get_max_font_size_from_list(law_levels_with_entries, FONT_PATH,
                                             law_sub_boxes[col][row].get_dimensions())
 
     # Adjust the font size to only part of the box
@@ -2318,23 +2316,23 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Write every law level number in the subboxes.
     # Sub box array in 2D array format. Grabbing the first (and only column)
     for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entries):
-        draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
-                            font_color, font_size=font_size,
+        draw_text_bound_box(sub_box, law_level, FONT_PATH, legend_draw,
+                            FONT_COLOR, font_size=font_size,
                             vertical_alignment='top', horizontal_alignment='center')
 
 
     # TODO: Ensure the font sizes works. Right now Law is not determined inside its
     # own box.
     # Get max font size for the titles.
-    font_size = get_max_font_size_from_list(titles, font_path,
+    font_size = get_max_font_size_from_list(titles, FONT_PATH,
                                                 title_sub_boxes[col + 1][row].get_dimensions())
 
 
     # Write every title in the subboxes.
     # Sub box array in 2D array format. Grabbing the first row value in every col.
     for sub_box, title in zip(title_sub_boxes, titles):
-        draw_text_bound_box(sub_box[row], title, font_path, legend_draw,
-                            font_color, font_size=font_size,
+        draw_text_bound_box(sub_box[row], title, FONT_PATH, legend_draw,
+                            FONT_COLOR, font_size=font_size,
                             vertical_alignment='center', horizontal_alignment='center')
 
 
@@ -2356,7 +2354,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
                 # Get font size.
                 temp_font_size = get_multiline_max_font_size(sub_box.get_dimensions(),
-                                text, font_path, padding)
+                                text, FONT_PATH, padding)
 
                 if font_size == 0 or temp_font_size < font_size:
                     font_size = temp_font_size
@@ -2377,12 +2375,11 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                 text = '\n'.join(text_array)
 
                 # Draw the text
-                draw_text_bound_box(sub_box, text, font_path,
-                                    legend_draw, font_color, padding, font_size=font_size)
+                draw_text_bound_box(sub_box, text, FONT_PATH,
+                                    legend_draw, FONT_COLOR, padding, font_size=font_size)
 
 
-    # Add line data for color and width for separating the different subboxes.
-    line_color = tuple(colors.get_rgb_color('orange_red'))
+    # Local line data for separating the different subboxes.
     line_width = 2
 
     # Get sub box height. (All sub boxes has the same height.)
@@ -2392,7 +2389,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     y_offset = y1 + title_box_height
     for line_num in range(len(contraband_sub_boxes[0])):
         y = y_offset + (line_num * box_height)
-        legend_draw.line((x1, y, x2, y), line_color, line_width)
+        legend_draw.line((x1, y, x2, y), LINE_COLOR, line_width)
 
 
     return legend_image
