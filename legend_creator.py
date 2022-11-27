@@ -348,13 +348,11 @@ def generate_legend_document():
     legend_draw = ImageDraw.Draw(legend_im)
 
 
-    line_width = 12
-
     # Draw the legnd boundary lines.
     legend_draw.rectangle([(0, 0), (legend_width, legend_height)],
                                     outline=LINE_COLOR,
                                     fill=BACKGROUND_COLOR,
-                                    width=line_width)
+                                    width=LINE_WIDTH)
     
     # First three boxes ratio 1-1-1
     x = int(legend_width/3)
@@ -394,7 +392,7 @@ def generate_legend_document():
 
     # Draw all lines 
     for line in lines:
-        legend_draw.line(line, fill=LINE_COLOR, width=line_width)
+        legend_draw.line(line, fill=LINE_COLOR, width=LINE_WIDTH)
 
     return legend_im
 
