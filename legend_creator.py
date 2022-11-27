@@ -22,6 +22,7 @@ FONT_PATH = "Fonts/Optima-LT-Medium-Italic.ttf"
 FONT_COLOR = tuple(colors.get_rgb_color('gold'))
 LINE_COLOR = tuple(colors.get_rgb_color('orange_red'))
 BACKGROUND_COLOR = tuple(colors.get_rgb_color('dim_gray'))
+LINE_WIDTH = 12
 
 
 class BoundBox:
@@ -346,17 +347,13 @@ def generate_legend_document():
     legend_im = Image.new('RGBA', (legend_width, legend_height))
     legend_draw = ImageDraw.Draw(legend_im)
 
-    # Chose a background fill color.
-    background = tuple(colors.get_rgb_color('dim_gray'))
 
-    # Select a line color (remember PIL uses tuples)
-    line_fill_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 12
 
     # Draw the legnd boundary lines.
     legend_draw.rectangle([(0, 0), (legend_width, legend_height)],
-                                    outline=line_fill_color,
-                                    fill=background,
+                                    outline=LINE_COLOR,
+                                    fill=BACKGROUND_COLOR,
                                     width=line_width)
     
     # First three boxes ratio 1-1-1
@@ -397,7 +394,7 @@ def generate_legend_document():
 
     # Draw all lines 
     for line in lines:
-        legend_draw.line(line, fill=line_fill_color, width=line_width)
+        legend_draw.line(line, fill=LINE_COLOR, width=line_width)
 
     return legend_im
 
