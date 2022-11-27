@@ -21,6 +21,7 @@ from random import randint
 FONT_PATH = "Fonts/Optima-LT-Medium-Italic.ttf"
 FONT_COLOR = tuple(colors.get_rgb_color('gold'))
 LINE_COLOR = tuple(colors.get_rgb_color('orange_red'))
+BACKGROUND_COLOR = tuple(colors.get_rgb_color('dim_gray'))
 
 
 class BoundBox:
