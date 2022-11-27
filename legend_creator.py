@@ -1721,8 +1721,6 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 20
 
     # Make the text list.
@@ -1738,10 +1736,10 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     sub_box_b1 = BoundBox(x1, y1, x2, y2)
     
     # Create font
-    font_size = get_max_font_size_from_list(b1_data, font_path, sub_box_b1.get_dimensions(), padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size_from_list(b1_data, FONT_PATH, sub_box_b1.get_dimensions(), padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
-    draw_text_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
+    draw_text_in_list(legend_draw, font, FONT_COLOR, sub_box_b1.get_dimensions(), b1_data, padding)
 
     # Get goverment type.
     # Import the json-data
@@ -1760,10 +1758,10 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     y2 = int((b2.get_height()/len(text)) + y1)
     sub_box_b2 = BoundBox(x1, y1, x2, y2)
 
-    font_size = get_max_font_size_from_list(text, font_path, sub_box_b2.get_dimensions(), padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size_from_list(text, FONT_PATH, sub_box_b2.get_dimensions(), padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
-    draw_text_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
+    draw_text_in_list(legend_draw, font, FONT_COLOR, sub_box_b2.get_dimensions(), text, padding)
 
 
     # Append symbol in b3.
@@ -1791,7 +1789,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Create font
         font_size = int(im_height / 4)
-        font = ImageFont.truetype(font_path, font_size)
+        font = ImageFont.truetype(FONT_PATH, font_size)
 
         # Get law level to write
         law_level = str(upp_dict.get('law_level'))
@@ -1805,7 +1803,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Draw the text at coordinates
         law_draw = ImageDraw.Draw(law_image)
-        law_draw.text((x, y), law_level, font_color, font)
+        law_draw.text((x, y), law_level, FONT_COLOR, font)
         law_image = law_image.resize(b4.get_width_height())
 
         # Append to legend image.
@@ -1821,7 +1819,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Create font
         font_size = int(im_height / 4)
-        font = ImageFont.truetype(font_path, font_size)
+        font = ImageFont.truetype(FONT_PATH, font_size)
 
         # Get tech level to write
         law_level = str(upp_dict.get('tech_level'))
@@ -1835,7 +1833,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Draw the text at coordinates
         law_draw = ImageDraw.Draw(law_image)
-        law_draw.text((x, y), law_level, font_color, font)
+        law_draw.text((x, y), law_level, FONT_COLOR, font)
         law_image = law_image.resize(b5.get_width_height())
 
         # Append to legend image.
