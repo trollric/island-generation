@@ -1622,8 +1622,6 @@ def legend_append_color_legend(legend_image, color_palette):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Save font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 20
 
     # Calculate subbox size.
@@ -1643,16 +1641,17 @@ def legend_append_color_legend(legend_image, color_palette):
         text.append(line.capitalize())
         color_list.append(color_string)
 
-    font_size = get_max_font_size_from_list(text, font_path, sub_box.get_dimensions(), padding)
+    font_size = get_max_font_size_from_list(text, FONT_PATH, sub_box.get_dimensions(), padding)
 
     # Create the font
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Print every element and add a colored box to the end of it.
     x, y = main_box.start
     for line, color in zip(text, color_list):
-        x_align, y_align = get_font_align_offsets(sub_box.get_dimensions(), line, font, vertical='center', padding=padding)
-        legend_draw.text((x_align + x, y_align + y), line, tuple(font_color), font)
+        x_align, y_align = get_font_align_offsets(  sub_box.get_dimensions(), line, font,
+                                                    vertical='center', padding=padding)
+        legend_draw.text((x_align + x, y_align + y), line, tuple(FONT_COLOR), font)
 
         # Draw colored Square
         square_side = int(font_size - 10)
