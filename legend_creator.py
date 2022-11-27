@@ -1128,8 +1128,6 @@ def legend_append_trade_codes(legend_image, trade_codes):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Set default font values.
-    font_color = tuple(colors.get_rgb_color('gold'))
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
     padding = 20
 
     # Create a font for the trade_string
@@ -1137,8 +1135,8 @@ def legend_append_trade_codes(legend_image, trade_codes):
     text = f'Trade codes: {trade_string}'
     
     # Determine maxiumum font size with padding.
-    font_size = get_max_font_size(b1, text, font_path, padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size(b1, text, FONT_PATH, padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     x_alignment, y_alignment = get_font_align_offsets(  b1, text, font,
                                                         vertical='center',
@@ -1146,24 +1144,24 @@ def legend_append_trade_codes(legend_image, trade_codes):
 
     # Write Trade Codes: And add every trade code
     text_coord = (b1[0][0] + x_alignment, b1[0][1] + y_alignment)
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, FONT_COLOR, font=font)
 
     # Add text purchase info and sell info.
     # Get maximum font size for b2 and create font.
     text = 'Trade goods'
-    font_size = get_max_font_size(b2, text, font_path, padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size(b2, text, FONT_PATH, padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     x_alignment, y_alignment = get_font_align_offsets(  b2, text, font,
                                                         vertical='center',
                                                         padding=padding)
 
     text_coord = (b2[0][0] + x_alignment , b2[0][1] + y_alignment)
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, FONT_COLOR, font=font)
 
     text = 'Purchase | Sell DM'
-    font_size = get_max_font_size(b3, text, font_path, padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size(b3, text, FONT_PATH, padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     x_alignment, y_alignment = get_font_align_offsets(  b3, text, font,
                                                         horizontal='center',
@@ -1171,7 +1169,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                         padding=padding)
 
     text_coord = (b3[0][0] + x_alignment, b3[0][1] + y_alignment)
-    legend_draw.text(text_coord, text, font_color, font=font)
+    legend_draw.text(text_coord, text, FONT_COLOR, font=font)
 
     # Get which types of trade goods should be appended.
     eligible_trade_goods = get_trade_goods(trade_codes)
@@ -1191,7 +1189,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
     # Find the largest font size possible that fits all boxes.
     font_size = None
     for text in eligible_trade_goods.keys():
-        sub_font_size = get_max_font_size(sub_box, text, font_path, padding)
+        sub_font_size = get_max_font_size(sub_box, text, FONT_PATH, padding)
         if font_size == None or sub_font_size < font_size:
             font_size = sub_font_size
 
@@ -1201,7 +1199,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                             font_size: {font_size}, padding: {padding}''')
 
     # Create the font with the largest font_size that will fit.
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Assign special padding to the sub boxes of b5.
     b5_width, _ = get_box_dimension_size(b5)
@@ -1216,7 +1214,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                             vertical='center',
                                                             padding=padding)
         text_coord = (x_offset_b4 + x_alignment, y_offset + y_alignment)
-        legend_draw.text(text_coord, key, font_color, font=font)
+        legend_draw.text(text_coord, key, FONT_COLOR, font=font)
 
         # If purchase dm is not 0
         # Get alignment and draw purchase_dm in b5
@@ -1225,7 +1223,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
             x_alignment, _ = get_font_align_offsets(  sub_box, str(purchase_dm), font,
                                                                 padding=b5_padding)
             text_coord = (x_offset_b5 + x_alignment, y_offset + y_alignment)
-            legend_draw.text(text_coord, f'{purchase_dm}', font_color, font=font)
+            legend_draw.text(text_coord, f'{purchase_dm}', FONT_COLOR, font=font)
 
         # If sale is not 0
         # Get alignment and draw sale_dm in b5
@@ -1235,7 +1233,7 @@ def legend_append_trade_codes(legend_image, trade_codes):
                                                                 horizontal='right',
                                                                 padding=b5_padding)
             text_coord = (x_offset_b5 + x_alignment, y_offset + y_alignment)
-            legend_draw.text(text_coord, f'{sale_dm}', font_color, font=font)
+            legend_draw.text(text_coord, f'{sale_dm}', FONT_COLOR, font=font)
             
         # Increment the sub_box_offset.
         y_offset += sub_box_height
@@ -1297,8 +1295,6 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Save font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 15
 
     # Create a subbox for the three lines in b1.
@@ -1388,15 +1384,15 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     ]
 
     font_size = get_max_font_size_from_list(size_and_population_metrics,
-                                                font_path,
+                                                FONT_PATH,
                                                 sub_box_b1.get_dimensions(),
                                                 padding)
 
     # Create font
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
     
     # Draw size and population data.
-    draw_text_in_list( legend_draw, font, font_color, sub_box_b1.get_dimensions(),
+    draw_text_in_list( legend_draw, font, FONT_COLOR, sub_box_b1.get_dimensions(),
                         size_and_population_metrics, padding)
 
     # TODO: This data could be added as JSON database with int keys. Reducing the amount of lines
@@ -1497,17 +1493,17 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
 
     # Find largest font size
     font_size = get_max_font_size_from_list(planetary_metrics,
-                                                font_path,
+                                                FONT_PATH,
                                                 sub_box_b2.get_dimensions(),
                                                 padding=8)
 
     # Create the font
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Render the data
     draw_text_in_list( legend_draw,
                         font,
-                        font_color,
+                        FONT_COLOR,
                         sub_box_b2.get_dimensions(),
                         planetary_metrics,
                         padding)
@@ -1556,13 +1552,12 @@ def legend_append_planetary_metrics(legend_image, upp_dict):
     legend_image.paste(plot_image, b3.start)
 
     # Reapply lines around the boundbox.
-    # Select a line color (remember PIL uses tuples)
-    line_fill_color = tuple(colors.get_rgb_color('orange_red'))
+    # Custom line information.
     line_width = 4
     
     # Redraw a box around b2 and b3.
-    legend_draw.rectangle(b2.get_dimensions(), outline=line_fill_color, width=line_width)
-    legend_draw.rectangle(b3.get_dimensions(), outline=line_fill_color, width=line_width)
+    legend_draw.rectangle(b2.get_dimensions(), outline=LINE_COLOR, width=line_width)
+    legend_draw.rectangle(b3.get_dimensions(), outline=LINE_COLOR, width=line_width)
 
     return legend_image
 
@@ -1627,8 +1622,6 @@ def legend_append_color_legend(legend_image, color_palette):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Save font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 20
 
     # Calculate subbox size.
@@ -1648,16 +1641,17 @@ def legend_append_color_legend(legend_image, color_palette):
         text.append(line.capitalize())
         color_list.append(color_string)
 
-    font_size = get_max_font_size_from_list(text, font_path, sub_box.get_dimensions(), padding)
+    font_size = get_max_font_size_from_list(text, FONT_PATH, sub_box.get_dimensions(), padding)
 
     # Create the font
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Print every element and add a colored box to the end of it.
     x, y = main_box.start
     for line, color in zip(text, color_list):
-        x_align, y_align = get_font_align_offsets(sub_box.get_dimensions(), line, font, vertical='center', padding=padding)
-        legend_draw.text((x_align + x, y_align + y), line, tuple(font_color), font)
+        x_align, y_align = get_font_align_offsets(  sub_box.get_dimensions(), line, font,
+                                                    vertical='center', padding=padding)
+        legend_draw.text((x_align + x, y_align + y), line, tuple(FONT_COLOR), font)
 
         # Draw colored Square
         square_side = int(font_size - 10)
@@ -1727,8 +1721,6 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 20
 
     # Make the text list.
@@ -1744,10 +1736,10 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     sub_box_b1 = BoundBox(x1, y1, x2, y2)
     
     # Create font
-    font_size = get_max_font_size_from_list(b1_data, font_path, sub_box_b1.get_dimensions(), padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size_from_list(b1_data, FONT_PATH, sub_box_b1.get_dimensions(), padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
-    draw_text_in_list(legend_draw, font, font_color, sub_box_b1.get_dimensions(), b1_data, padding)
+    draw_text_in_list(legend_draw, font, FONT_COLOR, sub_box_b1.get_dimensions(), b1_data, padding)
 
     # Get goverment type.
     # Import the json-data
@@ -1766,10 +1758,10 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
     y2 = int((b2.get_height()/len(text)) + y1)
     sub_box_b2 = BoundBox(x1, y1, x2, y2)
 
-    font_size = get_max_font_size_from_list(text, font_path, sub_box_b2.get_dimensions(), padding)
-    font = ImageFont.truetype(font_path, font_size)
+    font_size = get_max_font_size_from_list(text, FONT_PATH, sub_box_b2.get_dimensions(), padding)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
-    draw_text_in_list(legend_draw, font, font_color, sub_box_b2.get_dimensions(), text, padding)
+    draw_text_in_list(legend_draw, font, FONT_COLOR, sub_box_b2.get_dimensions(), text, padding)
 
 
     # Append symbol in b3.
@@ -1797,7 +1789,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Create font
         font_size = int(im_height / 4)
-        font = ImageFont.truetype(font_path, font_size)
+        font = ImageFont.truetype(FONT_PATH, font_size)
 
         # Get law level to write
         law_level = str(upp_dict.get('law_level'))
@@ -1811,7 +1803,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Draw the text at coordinates
         law_draw = ImageDraw.Draw(law_image)
-        law_draw.text((x, y), law_level, font_color, font)
+        law_draw.text((x, y), law_level, FONT_COLOR, font)
         law_image = law_image.resize(b4.get_width_height())
 
         # Append to legend image.
@@ -1827,7 +1819,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Create font
         font_size = int(im_height / 4)
-        font = ImageFont.truetype(font_path, font_size)
+        font = ImageFont.truetype(FONT_PATH, font_size)
 
         # Get tech level to write
         law_level = str(upp_dict.get('tech_level'))
@@ -1841,7 +1833,7 @@ def legend_append_name_government_data(legend_image, planet_name, upp_dict):
 
         # Draw the text at coordinates
         law_draw = ImageDraw.Draw(law_image)
-        law_draw.text((x, y), law_level, font_color, font)
+        law_draw.text((x, y), law_level, FONT_COLOR, font)
         law_image = law_image.resize(b5.get_width_height())
 
         # Append to legend image.
@@ -2050,8 +2042,6 @@ def legend_append_factions(legend_image, upp_dict):
     legend_draw = ImageDraw.Draw(legend_image)
 
     # Font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 20
 
 
@@ -2094,16 +2084,16 @@ def legend_append_factions(legend_image, upp_dict):
 
     # Find maximum font size for faction names
     font_size = get_max_font_size_from_list(faction_names,
-                                            font_path,
+                                            FONT_PATH,
                                             sub_box_b1.get_dimensions(),
                                             padding)
 
     # Make a separate font for faction names.
-    name_font = ImageFont.truetype(font_path, font_size)
+    name_font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Compare to the maximum font size of support levels.
     font_size_temp = get_max_font_size_from_list(faction_support_levels,
-                                            font_path,
+                                            FONT_PATH,
                                             sub_box_b2.get_dimensions(),
                                             padding)
 
@@ -2113,7 +2103,7 @@ def legend_append_factions(legend_image, upp_dict):
 
     # Compare to the maximum font size of support levels
     font_size_temp = get_max_font_size_from_list(faction_cultures,
-                                            font_path,
+                                            FONT_PATH,
                                             sub_box_b3.get_dimensions(),
                                             padding)
 
@@ -2122,12 +2112,12 @@ def legend_append_factions(legend_image, upp_dict):
         font_size = font_size_temp
 
     # Create the font.
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.truetype(FONT_PATH, font_size)
 
     # Write names as list.
     draw_text_in_list( legend_draw,
                         name_font,
-                        font_color,
+                        FONT_COLOR,
                         sub_box_b1.get_dimensions(),
                         faction_names,
                         padding)
@@ -2135,7 +2125,7 @@ def legend_append_factions(legend_image, upp_dict):
     # Write support as list.
     draw_text_in_list( legend_draw,
                         font,
-                        font_color,
+                        FONT_COLOR,
                         sub_box_b2.get_dimensions(),
                         faction_support_levels,
                         padding)
@@ -2143,26 +2133,25 @@ def legend_append_factions(legend_image, upp_dict):
     # Write culture as list.
     draw_text_in_list( legend_draw,
                         font,
-                        font_color,
+                        FONT_COLOR,
                         sub_box_b3.get_dimensions(),
                         faction_cultures,
                         padding)
 
     # Draw a separating line from headers and data.
-    line_color = tuple(colors.get_rgb_color('orange_red'))
     line_width = 4
 
     x1 = sub_box_b1.get_side('left')
     x2, y = sub_box_b3.end
 
-    legend_draw.line([(x1, y), (x2, y)], line_color, line_width)
+    legend_draw.line([(x1, y), (x2, y)], LINE_COLOR, line_width)
 
     # Draw thin lines separating every subbox.
     sub_box_height = sub_box_b1.get_height()
     for line_offset_multiplier in range(len(faction_names) - 1):
         offset = (line_offset_multiplier * sub_box_height)
 
-        legend_draw.line([(x1, y + offset), (x2, y + offset)], line_color, int(line_width / 2))
+        legend_draw.line([(x1, y + offset), (x2, y + offset)], LINE_COLOR, int(line_width / 2))
 
 
     return legend_image
@@ -2210,8 +2199,6 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     # Set local font properties.
     # Font data.
-    font_path = "Fonts/Optima-LT-Medium-Italic.ttf"
-    font_color = tuple(colors.get_rgb_color('gold'))
     padding = 10
 
 
@@ -2269,10 +2256,10 @@ def legend_append_contraband_lists(legend_image, upp_dict):
             and your finest piece of armor."""
         
         font_size = get_multiline_max_font_size(main_box.get_dimensions(),
-                                                warning_message, font_path, padding)
+                                                warning_message, FONT_PATH, padding)
 
-        draw_text_bound_box(main_box, warning_message, font_path,
-                            legend_draw, font_color, padding,
+        draw_text_bound_box(main_box, warning_message, FONT_PATH,
+                            legend_draw, FONT_COLOR, padding,
                             vertical_alignment='center', horizontal_alignment='center')
         return legend_image
     
@@ -2320,7 +2307,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     col, row = 0, 0
 
     # All subboxes are of the same size. Grabbing the first element to determine font size.
-    font_size = get_max_font_size_from_list(law_levels_with_entries, font_path,
+    font_size = get_max_font_size_from_list(law_levels_with_entries, FONT_PATH,
                                             law_sub_boxes[col][row].get_dimensions())
 
     # Adjust the font size to only part of the box
@@ -2329,23 +2316,23 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     # Write every law level number in the subboxes.
     # Sub box array in 2D array format. Grabbing the first (and only column)
     for sub_box, law_level in zip(law_sub_boxes[col], law_levels_with_entries):
-        draw_text_bound_box(sub_box, law_level, font_path, legend_draw,
-                            font_color, font_size=font_size,
+        draw_text_bound_box(sub_box, law_level, FONT_PATH, legend_draw,
+                            FONT_COLOR, font_size=font_size,
                             vertical_alignment='top', horizontal_alignment='center')
 
 
     # TODO: Ensure the font sizes works. Right now Law is not determined inside its
     # own box.
     # Get max font size for the titles.
-    font_size = get_max_font_size_from_list(titles, font_path,
+    font_size = get_max_font_size_from_list(titles, FONT_PATH,
                                                 title_sub_boxes[col + 1][row].get_dimensions())
 
 
     # Write every title in the subboxes.
     # Sub box array in 2D array format. Grabbing the first row value in every col.
     for sub_box, title in zip(title_sub_boxes, titles):
-        draw_text_bound_box(sub_box[row], title, font_path, legend_draw,
-                            font_color, font_size=font_size,
+        draw_text_bound_box(sub_box[row], title, FONT_PATH, legend_draw,
+                            FONT_COLOR, font_size=font_size,
                             vertical_alignment='center', horizontal_alignment='center')
 
 
@@ -2367,7 +2354,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
                 # Get font size.
                 temp_font_size = get_multiline_max_font_size(sub_box.get_dimensions(),
-                                text, font_path, padding)
+                                text, FONT_PATH, padding)
 
                 if font_size == 0 or temp_font_size < font_size:
                     font_size = temp_font_size
@@ -2388,12 +2375,11 @@ def legend_append_contraband_lists(legend_image, upp_dict):
                 text = '\n'.join(text_array)
 
                 # Draw the text
-                draw_text_bound_box(sub_box, text, font_path,
-                                    legend_draw, font_color, padding, font_size=font_size)
+                draw_text_bound_box(sub_box, text, FONT_PATH,
+                                    legend_draw, FONT_COLOR, padding, font_size=font_size)
 
 
-    # Add line data for color and width for separating the different subboxes.
-    line_color = tuple(colors.get_rgb_color('orange_red'))
+    # Local line data for separating the different subboxes.
     line_width = 2
 
     # Get sub box height. (All sub boxes has the same height.)
@@ -2403,7 +2389,7 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     y_offset = y1 + title_box_height
     for line_num in range(len(contraband_sub_boxes[0])):
         y = y_offset + (line_num * box_height)
-        legend_draw.line((x1, y, x2, y), line_color, line_width)
+        legend_draw.line((x1, y, x2, y), LINE_COLOR, line_width)
 
 
     return legend_image
