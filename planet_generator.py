@@ -570,7 +570,9 @@ def add_station(planet_world, upp_dict):
             letter = "E"
 
         # Get width and heigth of the letter.
-        x, y = font.getsize(letter)
+        x1, y1, x2, y2 = font.getbbox(letter)
+        x = x2 - x1
+        y = y2 - y1
 
         # expand station image text height
         exp_image = Image.new('RGBA', (station_width, station_height + y))
