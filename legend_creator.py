@@ -749,7 +749,9 @@ def get_max_font_size(box_dimensions, text, font_path, padding = 0):
     width, height = get_box_dimension_size(box_dimensions)
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
-        text_width, text_height = font.getsize(text)
+        x1, y1, x2, y2 = font.getbbox(text)
+        text_width = x2 - x1
+        text_height = y2 - y1
 
         # Break if we have reached the largest font size possible.
         if text_width > width - 2 * padding or text_height > height - 2 * padding:
@@ -832,10 +834,16 @@ def get_multiline_max_font_size(box_dimensions, text, font_path, padding = 0, sp
     
     # Try every font size from 1-400 until text_width or text_height is larger than the bounding box.
     font_size = 1
+    xy = (0, 0)
     width, height = sub_box.get_width_height()
+    image = Image.new('RGBA', (width, height))
+    imDraw = ImageDraw.ImageDraw(image)
+
     for size in range(1, 401):
         font = ImageFont.truetype(font_path, size)
-        text_width, text_height = font.getsize_multiline(text, spacing=spacing)
+        x1, y1, x2, y2 = imDraw.multiline_textbbox(xy, text, font=font, spacing=spacing)
+        text_width = x2 - x1
+        text_height = y2 - y1
 
         # Break if we have reached the largest font size possible.
         if text_width > width - 2 * padding or text_height > height - 2 * padding:
@@ -969,7 +977,13 @@ def draw_text_bound_box(bound_box : BoundBox, text : str, font_path : str, draw 
     y1 = bound_box.get_side('top') + padding
 
     # Get text box dimensions.
-    text_width, text_height = font.getsize_multiline(text, spacing=spacing)
+    xy = (0,0)
+    image = Image.new('RGBA', bound_box.get_width_height())
+    imDraw = ImageDraw.ImageDraw(image)
+
+    text_x1, text_y1, text_x2, text_y2 = imDraw.multiline_textbbox(xy, text, font, spacing=spacing)
+    text_width = text_x2 - text_x1
+    text_height = text_y2 - text_y1
 
     if horizontal_alignment == 'left':
         x1 += padding
