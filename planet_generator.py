@@ -582,7 +582,7 @@ def add_station(planet_world, upp_dict):
         draw_on_station = ImageDraw.Draw(exp_image)
 
         x = int((station_width-x)/2)-1
-        y = int(station_height-2)
+        y = int(station_height-7)
         
         draw_on_station.text((x, y), letter, tuple(letter_color), font=font)
 
@@ -682,8 +682,10 @@ def validate_universal_planetary_profile(upp_string):
     Returns:
         bool: Returns true if the UPP_String passes all the validation tests.
     """
-    # Check that string length is 9 or 10 long
+    # If spaceport quality = X (Set it to 0)
+    upp_string = upp_string.replace('X', '0')
 
+    # Check that string length is 9 or 10 long
     if not (len(upp_string) >= 9 and len(upp_string) <= 10):
         raise ValueError(f"An UPP string is between 9 or 10 characters long. The string provided was {len(upp_string)} long.") 
     elif not (upp_string[-2] == '-' or upp_string[-3] == '-'):
@@ -699,7 +701,6 @@ def validate_universal_planetary_profile(upp_string):
     
     # Check that every number up until the hyphen is a hexadecimal.
     # Check that technology level is entered as integer
-    
     int(check_hexadecimal, 16)
     int(check_integer)
 
