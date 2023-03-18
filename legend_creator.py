@@ -19,9 +19,9 @@ from random import randint
 
 # Constants
 FONT_PATH = "Fonts/Optima-LT-Medium-Italic.ttf"
-FONT_COLOR = tuple(colors.get_rgb_color('gold'))
-LINE_COLOR = tuple(colors.get_rgb_color('orange_red'))
-BACKGROUND_COLOR = tuple(colors.get_rgb_color('dim_gray'))
+FONT_COLOR = tuple(colors.get_rgb_color('black'))
+LINE_COLOR = tuple(colors.get_rgb_color('black'))
+BACKGROUND_COLOR = tuple(colors.get_rgb_color('dim_gray', 0))
 LINE_WIDTH = 12
 
 
@@ -2238,6 +2238,13 @@ def legend_append_contraband_lists(legend_image, upp_dict):
 
     for level in range(1, law_level):
         for category in contraband:
+            # Handle if contraband is 'Varies'.
+            if category == 'Varies':
+                law_levels_with_entries.append(str(level))
+                break
+            # Handle if contraband is 'None'
+            if category == 'None':
+                break
             contraband_dictionary = contraband_dictionaries.get(category)
             if str(level) in contraband_dictionary.keys():
                 law_levels_with_entries.append(str(level))
@@ -2358,6 +2365,9 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     sub_box = contraband_sub_boxes[0][0]
     for law_level in law_levels_with_entries:
         for category in contraband:
+            # Handle if category is 'Varies'.
+            if category == 'Varies':
+                break
             contraband_dictionary = contraband_dictionaries.get(category)
             if law_level in contraband_dictionary.keys():
                 # Get text from array.
@@ -2376,6 +2386,9 @@ def legend_append_contraband_lists(legend_image, upp_dict):
     
     # Write the contraband data in subboxes
     for sub_box_column, category in zip(contraband_sub_boxes, contraband):
+        # Handle if category is 'Varies'.
+        if category == 'Varies':
+            break
         # Get dictionary for the column.
         contraband_dictionary = contraband_dictionaries.get(category)
 
